@@ -1,0 +1,87 @@
+# Scientific Research RAG Council
+
+Skill de investigación científica/matemática RAG-first con:
+
+- selección dinámica de especialistas;
+- regla absoluta de no inventar;
+- literatura recuperada antes de usar resultados externos;
+- Evidence Cards y matrices de aplicabilidad;
+- demostración + red team;
+- Proof Certificates reutilizables;
+- memoria científica indexada;
+- auditoría de manuscritos;
+- protocolos estrictos de numeración, optimización, ML y caos;
+- Context7 opcional para documentación actual de software;
+- cumplimiento dinámico de políticas de revista;
+- registro de búsquedas RAG reutilizable;
+- presupuesto explícito de contexto.
+
+## Idea central
+
+```text
+Pregunta
+  -> Router
+     -> mínimo panel necesario
+        -> MEMORY_CORE + INDEX
+           -> certificados relevantes
+              -> RAG externo sólo para huecos
+                 -> prueba/auditoría
+                    -> red team
+                       -> certificado + memoria
+```
+
+## Estructura
+
+```text
+SKILL.md
+agents/
+protocols/
+config/
+memory/
+templates/
+```
+
+La skill principal es deliberadamente más corta que todos los protocolos juntos. Los archivos auxiliares deben cargarse sólo cuando la tarea los requiere.
+
+## Context7
+
+Context7 no sustituye la literatura científica. Se integra únicamente como proveedor de documentación actual de librerías/APIs.
+
+Repositorio: https://github.com/upstash/context7
+
+Si el cliente lo soporta, puede instalarse con el procedimiento oficial de Context7. Si no está disponible, usar documentación oficial actual.
+
+## Uso recomendado
+
+### Demostración
+
+1. cargar `SKILL.md`;
+2. cargar `MEMORY_CORE.md`;
+3. resolver tags en `MEMORY_INDEX.md`;
+4. abrir Proof Certificates relevantes;
+5. recuperar literatura faltante;
+6. aplicar `protocols/PROOF.md`.
+
+### Auditoría
+
+Cargar:
+
+- `protocols/AUDIT.md`;
+- protocolos del dominio;
+- sólo las secciones del manuscrito necesarias.
+
+### Programación/numeración
+
+Cargar:
+
+- `protocols/NUMERICS.md`;
+- `config/CONTEXT7.md`;
+- specialist panel necesario.
+
+## Inicialización de un proyecto nuevo
+
+Copiar los archivos de `memory/` a la carpeta del proyecto y rellenar sólo `MEMORY_CORE.md`. Los demás crecen conforme se certifican resultados.
+
+## Seguridad epistemológica
+
+La memoria nunca sustituye la fuente. Un certificado interno nunca se reutiliza si cambió su contexto de validez.
