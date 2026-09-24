@@ -3,7 +3,7 @@ name: scientific-research-rag-council
 description: "Skill RAG-first para investigación científica y matemática rigurosa. Selecciona dinámicamente sólo los especialistas necesarios, recupera literatura y antecedentes certificados bajo demanda, construye/audita demostraciones, intenta refutarlas, valida evidencia numérica y mantiene memoria científica trazable. Regla absoluta: ninguna premisa externa sin evidencia verificable y ninguna conclusión más fuerte que sus hipótesis."
 metadata:
   author: "Jorge Arturo Solano Chávez + ChatGPT"
-  version: "2.3.0"
+  version: "2.4.0"
   language: "es"
 ---
 
@@ -80,7 +80,7 @@ Un resultado previo sólo puede reutilizarse si:
 
 Estados:
 
-`DRAFT | VERIFIED | CERTIFIED | CONDITIONAL | REFUTED | SUPERSEDED | STALE`
+`DRAFT | VERIFIED | CERTIFIED | CONDITIONAL | PARTIAL | REFUTED | SUPERSEDED | STALE | NEEDS_REVALIDATION`
 
 Sólo `CERTIFIED` se reutiliza como antecedente interno sin reabrir por defecto toda la prueba.
 
@@ -291,7 +291,22 @@ Principios:
 - compactar estados cerrados;
 - mantener hipótesis, alcance y excepciones al resumir.
 
-# 16. Cierre de una tarea
+# 16. Certification Gate
+
+Antes de promover un claim central a `CERTIFIED`, aplicar `protocols/CERTIFICATION.md`.
+
+Obligatorio cuando corresponda:
+
+- propagación del estatus de dependencias;
+- descarga explícita de condiciones heredadas o prueba de independencia;
+- segunda revisión independiente;
+- certificado computacional si una computación es esencial;
+- cobertura documentada si se hace un claim de novedad;
+- lenguaje calibrado al nivel real de evidencia.
+
+Un descendiente no puede tener un estatus epistemológico más fuerte que una dependencia esencial no resuelta, salvo que se demuestre que esa dependencia no es realmente necesaria o que sus condiciones han sido incorporadas y verificadas.
+
+# 17. Cierre de una tarea
 
 Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 
@@ -304,8 +319,11 @@ Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 - alcance especificado;
 - excepciones conocidas;
 - procedencia;
-- versión de definiciones/modelo.
+- versión de definiciones/modelo;
+- dependency audit cerrado;
+- second review independiente sin objeción no resuelta;
+- computation certificate cuando la computación sea esencial.
 
 Si falta algo queda `VERIFIED`, `CONDITIONAL`, `DRAFT` o `[U]`.
 
-> **Interpretar primero la intención. Reutilizar conocimiento certificado si basta. Recuperar sólo el subgrafo necesario. Investigar de nuevo sólo cuando haga falta. Revisar la teoría existente, probar la mejor ruta, intentar refutar, aprender del fallo y certificar sólo lo que sobrevivió.**
+> **Interpretar primero la intención. Reutilizar conocimiento certificado si basta. Recuperar sólo el subgrafo necesario. Investigar de nuevo sólo cuando haga falta. Revisar la teoría existente, probar la mejor ruta, intentar refutar, aprender del fallo y certificar sólo después del Certification Gate.**
