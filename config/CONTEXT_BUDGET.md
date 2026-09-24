@@ -60,3 +60,29 @@ Después de cada nivel aplicar Sufficiency Gate:
 Si sí, detener recuperación.
 
 No convocar agentes para una explicación que ya pueda resolverse mediante un certificado vigente.
+
+
+## Memory lifecycle v2.8
+
+Aplicar `protocols/MEMORY_LIFECYCLE.md`.
+
+Budgets operativos:
+- `MEMORY_CORE`: objetivo <= 1200 tokens;
+- HOT working set: 5–12 nodos;
+- HOT routes por objetivo: <= 8;
+- fuentes iniciales: 3–5;
+- Case Packet: idealmente < 2500 tokens;
+- un único canonical active por concepto salvo conflicto explícito.
+
+### Compaction trigger
+
+Antes de añadir más contexto si se excede un budget:
+1. canonicalizar;
+2. compactar rutas cerradas;
+3. mover superseded/historical a ARCHIVE;
+4. conservar certificados WARM;
+5. reintentar retrieval con working set reducido.
+
+### No-deletion rule
+
+El presupuesto limita lo que se carga y mantiene HOT; no autoriza borrar evidencia científica.
