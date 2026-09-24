@@ -22,7 +22,9 @@ Skill de investigación científica/matemática RAG-first con:
 - Certification Gate con propagación de dependencias, second review, cómputo reproducible y coverage de novedad;
 - Manuscript Rendering Gate con tipado de objetos, Claim Signatures, Minimal Patch Policy y Semantic Diff;
 - Objective Closure Gate para comprobar que el resultado final responde realmente al objetivo y no sólo a una subfamilia más fácil;
-- Claim Strength Firewall para genericidad, maximalidad, minimalidad e imposibilidad.
+- Claim Strength Firewall para genericidad, maximalidad, minimalidad e imposibilidad;
+- Exact Witness Gate para separar no-anulación exacta de evidencia float/high-precision;
+- Artifact Consistency Gate para sincronizar certificados, second reviews, ledgers y manuscrito.
 
 ## Idea central
 
@@ -252,3 +254,38 @@ Ejemplos bloqueados:
 Archivos clave:
 - `protocols/OBJECTIVE_CLOSURE.md`
 - `templates/OBJECTIVE_CLOSURE.md`
+
+## Exact Witness & Global State Gate v2.7
+
+```text
+EXACT CLAIM
+   ↓
+NONZERO / WITNESS NEEDED?
+   ↓ yes
+EXACT WITNESS GATE
+   ↓
+EXACT_NONZERO or RIGOROUS_NUMERIC_NONZERO
+   ↓
+CERTIFICATION
+   ↓
+ARTIFACT CONSISTENCY
+   ↓
+SECOND REVIEW PRESENT?
+SCOPE COMPLETE?
+ACTIVE VERSIONS CONSISTENT?
+   ↓
+FINAL STATE
+```
+
+Reglas:
+- float64 != exact witness;
+- exact-looking formula with approximate factors != exact proof;
+- CLOSED_EXACTLY is impossible while original-scope items remain unexplored;
+- CERTIFIED without explicit second review becomes NEEDS_REVALIDATION;
+- active artifacts must agree or be marked historical/superseded.
+
+Archivos:
+- `protocols/EXACT_WITNESS.md`
+- `protocols/ARTIFACT_CONSISTENCY.md`
+- `templates/EXACT_WITNESS.md`
+- `templates/ARTIFACT_CONSISTENCY.md`
