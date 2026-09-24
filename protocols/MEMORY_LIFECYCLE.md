@@ -181,3 +181,12 @@ Usar `templates/MEMORY_GC_REPORT.md` cuando la compactación sea material.
 ## 15. Regla final
 
 > La memoria científica debe crecer en profundidad histórica, no en tamaño del contexto activo.
+
+## 16. Delegated task artifacts
+
+Para tareas multiagente:
+- TASK_PACKET, WORKER_RESULT aceptado y AUDIT_PACKET permanecen WARM mientras sostengan un artefacto activo;
+- revisiones rechazadas y salidas intermedias pasan a ARCHIVE;
+- la memoria canónica conserva el resultado aceptado y punteros suficientes, no todas las iteraciones;
+- los workers no escriben directamente memoria científica canónica como autoridad;
+- al cerrar una tarea delegada, compactar sus revisiones intermedias.
