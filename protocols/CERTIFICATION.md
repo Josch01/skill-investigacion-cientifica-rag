@@ -152,3 +152,15 @@ hasta que se demuestre independencia o se reparen condiciones.
 ## 10. Regla final
 
 > Certificar no significa que una sola revisión quedó satisfecha; significa que el claim sobrevivió dependencias, prueba, ataque adversarial, revisión independiente y todos los gates materiales.
+
+## 11. Separation of scientific status and artifact status
+
+El Certification Gate certifica conocimiento, no prosa.
+
+Después de certificar un claim, cualquier manuscrito/informe que lo represente debe pasar `protocols/MANUSCRIPT_EDIT.md` y `protocols/TYPE_NOTATION_GATE.md`.
+
+Si el render introduce un objeto mal tipado, una hipótesis perdida, scope drift, una dependencia comprimida incorrectamente o un cambio de población/dataset/métrica/unidad/versión, NO degradar automáticamente el claim certificado si el certificado sigue correcto.
+
+Marcar el artefacto `SEMANTIC_MISMATCH | NEEDS_PATCH` y repararlo desde la fuente normativa.
+
+Sólo reabrir la certificación científica si el mismatch revela que el propio certificado era incorrecto.
