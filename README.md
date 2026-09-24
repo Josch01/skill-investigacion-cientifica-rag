@@ -19,7 +19,8 @@ Skill de investigación científica/matemática RAG-first con:
 - Answer Interpreter para responder desde memoria/grafos sin rehacer investigación;
 - recuperación jerárquica con Sufficiency Gate;
 - modos de explicación simple, technical, rigorous y paper;
-- Certification Gate con propagación de dependencias, second review, cómputo reproducible y coverage de novedad.
+- Certification Gate con propagación de dependencias, second review, cómputo reproducible y coverage de novedad;
+- Manuscript Rendering Gate con tipado de objetos, Claim Signatures, Minimal Patch Policy y Semantic Diff.
 
 ## Idea central
 
@@ -180,3 +181,45 @@ Archivos clave:
 - `protocols/CERTIFICATION.md`
 - `templates/COMPUTATION_CERTIFICATE.md`
 - `templates/NOVELTY_COVERAGE.md`
+
+
+## Scientific Rendering Gate v2.5
+
+La skill separa ahora la verdad científica de su representación escrita:
+
+```text
+SCIENTIFIC TRUTH
+      ↓
+CERTIFICATE / EVIDENCE
+      ↓
+CLAIM SIGNATURE + OBJECT REGISTRY
+      ↓
+MINIMAL MANUSCRIPT PATCH
+      ↓
+TYPE / NOTATION / ENTITY GATE
+      ↓
+SEMANTIC DIFF
+      ↓
+COMPILE / VALIDATE
+      ↓
+MANUSCRIPT CONSISTENCY REVIEW
+      ↓
+MANUSCRIPT_READY
+```
+
+Es deliberadamente general:
+- matemática: espacios, mapas, símbolos y cuantificadores;
+- estadística/epidemiología: población, muestra, outcome, estimando y escala;
+- ML: dataset, split, métrica, checkpoint y preprocesamiento;
+- software: API, firma, versión y contrato;
+- física/ingeniería: variables, unidades y condiciones;
+- experimentos: instrumento, calibración, réplicas y condiciones.
+
+Regla central: el editor puede cambiar palabras, pero no la identidad científica del claim.
+
+Archivos clave:
+- `protocols/MANUSCRIPT_EDIT.md`
+- `protocols/TYPE_NOTATION_GATE.md`
+- `memory/SYMBOL_TABLE.md`
+- `templates/CLAIM_SIGNATURE.md`
+- `templates/SEMANTIC_DIFF.md`
