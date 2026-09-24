@@ -24,7 +24,8 @@ Skill de investigación científica/matemática RAG-first con:
 - Objective Closure Gate para comprobar que el resultado final responde realmente al objetivo y no sólo a una subfamilia más fácil;
 - Claim Strength Firewall para genericidad, maximalidad, minimalidad e imposibilidad;
 - Exact Witness Gate para separar no-anulación exacta de evidencia float/high-precision;
-- Artifact Consistency Gate para sincronizar certificados, second reviews, ledgers y manuscrito.
+- Artifact Consistency Gate para sincronizar certificados, second reviews, ledgers y manuscrito;
+- Memory Lifecycle & GC para mantener un working set acotado aunque el proyecto acumule años de investigación.
 
 ## Idea central
 
@@ -289,3 +290,36 @@ Archivos:
 - `protocols/ARTIFACT_CONSISTENCY.md`
 - `templates/EXACT_WITNESS.md`
 - `templates/ARTIFACT_CONSISTENCY.md`
+
+## Memory Lifecycle & GC v2.8
+
+```text
+CURRENT OBJECTIVE
+      ↓
+HOT MEMORY (bounded)
+      ↓
+CERTIFY / CLOSE
+      ↓
+COMPACT
+      ↓
+WARM CERTIFICATES + CANONICAL NODES
+      ↓
+ARCHIVE HISTORICAL DETAIL
+```
+
+El sistema separa crecimiento histórico de crecimiento del contexto activo.
+
+Principios:
+- compact != delete;
+- one canonical active result per concept when possible;
+- superseded results leave the active retrieval path;
+- raw numerical/log detail is archived behind reproducible pointers;
+- archive is not retrieved by default;
+- closed work can be rehydrated on demand;
+- Memory GC triggers after objective closure, budget overflow, supersession or before a new objective.
+
+Archivos:
+- `protocols/MEMORY_LIFECYCLE.md`
+- `templates/MEMORY_GC_REPORT.md`
+- `memory/MEMORY_MANIFEST.md`
+- `memory/ARCHIVE_INDEX.md`
