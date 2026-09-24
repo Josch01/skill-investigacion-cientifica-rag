@@ -1,6 +1,6 @@
 # PROJECT CORE
 
-> Mantener corto. Estado actual, no historial.
+> Mantener corto. Estado actual, no historial. Objetivo <= 1200 tokens. Sólo memoria HOT.
 
 ## Pregunta central
 
@@ -42,3 +42,13 @@
 
 1. ...
 2. ...
+
+
+## Memory tier
+
+```text
+Tier: HOT
+Canonical_only: yes
+Historical_content_allowed: no
+GC_trigger_if_over_budget: yes
+```
