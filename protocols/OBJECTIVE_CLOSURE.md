@@ -135,3 +135,27 @@ Antes de cerrar una investigación orientada a objetivos producir:
 ## 10. Regla final
 
 > Probar algo interesante no equivale a haber respondido exactamente la pregunta original. La investigación termina sólo cuando el scope alcanzado y el scope pedido se comparan explícitamente.
+
+## 11. Scope Completion Invariant
+
+`CLOSED_EXACTLY` exige que TODOS los componentes explícitos del success criterion original estén:
+- resueltos;
+- refutados;
+- o formalmente eliminados mediante reformulación explícita del objetivo por el usuario.
+
+Si `Unexplored_superfamilies` contiene un elemento que formaba parte explícita del objetivo original, entonces:
+`CLOSED_EXACTLY = forbidden`.
+
+Usar `OPEN_SCOPE_GAP` o `PARTIAL_USEFUL` según corresponda.
+
+Ejemplo:
+`objective includes vector/coupled systems` + `unexplored_superfamilies = vector/coupled systems` => no puede ser `CLOSED_EXACTLY`.
+
+## 12. Exact Witness Dependency
+
+Si el cierre depende de `generic/open dense` mediante no-anulación analítica, consultar `protocols/EXACT_WITNESS.md`.
+
+Un witness expresado mediante factores calculados sólo en float no satisface `Exact_nonzero_witness_available: yes`.
+
+Debe registrarse el nivel real:
+`EXACT_NONZERO | RIGOROUS_NUMERIC_NONZERO | HIGH_PRECISION_NUMERIC_NONZERO | ...`.
