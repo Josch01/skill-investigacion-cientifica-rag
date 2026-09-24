@@ -179,3 +179,27 @@ Bloqueos explícitos:
 Si falta el puente analítico, degradar a la categoría informativa apropiada, por ejemplo `CONJECTURAL`, `NUMERICALLY_SUPPORTED`, `METHOD_SPECIFIC_OBSTRUCTION`, `PARTIAL` o `UNRESOLVED`.
 
 Un claim puede superar Certification Gate pero no cerrar el Research Objective; esa decisión pertenece al Objective Closure Gate.
+
+## 13. Exact Witness Gate
+
+Si la prueba de un claim exacto depende de `Q != 0`, un minor/discriminante no idénticamente nulo, o una cota estricta, aplicar `protocols/EXACT_WITNESS.md`.
+
+`float64`, high precision o acuerdo numérico no son suficientes para `EXACT_NONZERO`.
+
+Si la no-anulación sólo está apoyada numéricamente:
+- no certificar el puente exacto;
+- usar `CONDITIONAL`, `PARTIAL` o conjetura numéricamente soportada;
+- o producir validated numerics / bound riguroso / prueba simbólica exacta.
+
+## 14. Mandatory review/state gate
+
+Antes de aceptar un nuevo `CERTIFIED` aplicar `protocols/ARTIFACT_CONSISTENCY.md`.
+
+Un certificado central sin:
+`Independent_second_review` y `Second_review_status`
+
+no es válido como `CERTIFIED`.
+
+Si el second review falta: `NEEDS_REVALIDATION`.
+
+Si los artefactos activos discrepan sobre status/version/scope, bloquear el cierre hasta reconciliar.
