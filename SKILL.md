@@ -3,7 +3,7 @@ name: scientific-research-rag-council
 description: "Skill RAG-first para investigación científica y matemática rigurosa. Selecciona dinámicamente sólo los especialistas necesarios, recupera literatura y antecedentes certificados bajo demanda, construye/audita demostraciones, intenta refutarlas, valida evidencia numérica y mantiene memoria científica trazable. Regla absoluta: ninguna premisa externa sin evidencia verificable y ninguna conclusión más fuerte que sus hipótesis."
 metadata:
   author: "Jorge Arturo Solano Chávez + ChatGPT"
-  version: "2.6.0"
+  version: "2.7.0"
   language: "es"
 ---
 
@@ -342,7 +342,20 @@ Un claim puede estar `CERTIFIED` y el objetivo seguir `PARTIAL_USEFUL` o `OPEN_S
 
 Comparar siempre objetivo original vs resultado alcanzado con `templates/OBJECTIVE_CLOSURE.md`.
 
-# 19. Cierre de una tarea
+# 19. Exact Witness & Artifact Consistency Gates
+
+Si un claim exacto depende de una no-anulación, witness, minor, discriminante, cambio de signo o cota estricta, aplicar `protocols/EXACT_WITNESS.md`.
+
+Si una corrida produce o modifica múltiples ledgers/certificados/manuscritos, aplicar `protocols/ARTIFACT_CONSISTENCY.md` antes de cerrar.
+
+Reglas duras:
+- float64/high precision no equivale a exactitud;
+- una fórmula exacta con factores sólo evaluados numéricamente no es un testigo exacto;
+- `CERTIFIED` requiere registro explícito de independent second review;
+- `CLOSED_EXACTLY` queda bloqueado si existe un componente del scope original todavía no explorado;
+- artefactos activos deben tener metadata/estatus compatibles o quedar etiquetados como históricos.
+
+# 20. Cierre de una tarea
 
 Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 
@@ -359,8 +372,10 @@ Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 - dependency audit cerrado;
 - second review independiente sin objeción no resuelta;
 - computation certificate cuando la computación sea esencial;
-- objective closure audit cuando la tarea era orientada a objetivos.
+- objective closure audit cuando la tarea era orientada a objetivos;
+- exact witness record cuando una no-anulación exacta sea esencial;
+- artifact consistency report cuando haya múltiples artefactos activos.
 
 Si falta algo queda `VERIFIED`, `CONDITIONAL`, `DRAFT` o `[U]`.
 
-> **Interpretar primero. Investigar, certificar y comprobar que el resultado realmente cierre el objetivo con el scope solicitado. Después renderizarlo sin cambiar su identidad.**
+> **Interpretar primero. Investigar, certificar, comprobar exactitud de witnesses, verificar cierre real del scope y sincronizar el estado global. Después renderizar sin cambiar la identidad científica del resultado.**
