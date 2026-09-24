@@ -28,3 +28,18 @@ Si se usa un resultado interno certificado:
 ## Bibliografía
 
 Una entrada bibliográfica entra al `.bib` sólo si fue verificada.
+
+
+## Integración con edición científica v2.5
+
+Antes de editar LaTeX que contenga claims ya verificados/certificados aplicar `protocols/MANUSCRIPT_EDIT.md`.
+
+Para claims centrales:
+- usar `memory/SYMBOL_TABLE.md`;
+- fijar `templates/CLAIM_SIGNATURE.md`;
+- aplicar `protocols/TYPE_NOTATION_GATE.md`;
+- comparar contra la fuente normativa mediante `templates/SEMANTIC_DIFF.md`.
+
+La compilación LaTeX es un gate sintáctico/editorial, no una prueba científica.
+
+Un claim `CERTIFIED` puede estar mal renderizado. En ese caso conservar el certificado y marcar el artefacto `SEMANTIC_MISMATCH` hasta reparar el texto.
