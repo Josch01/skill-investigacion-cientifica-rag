@@ -20,7 +20,9 @@ Skill de investigación científica/matemática RAG-first con:
 - recuperación jerárquica con Sufficiency Gate;
 - modos de explicación simple, technical, rigorous y paper;
 - Certification Gate con propagación de dependencias, second review, cómputo reproducible y coverage de novedad;
-- Manuscript Rendering Gate con tipado de objetos, Claim Signatures, Minimal Patch Policy y Semantic Diff.
+- Manuscript Rendering Gate con tipado de objetos, Claim Signatures, Minimal Patch Policy y Semantic Diff;
+- Objective Closure Gate para comprobar que el resultado final responde realmente al objetivo y no sólo a una subfamilia más fácil;
+- Claim Strength Firewall para genericidad, maximalidad, minimalidad e imposibilidad.
 
 ## Idea central
 
@@ -223,3 +225,30 @@ Archivos clave:
 - `memory/SYMBOL_TABLE.md`
 - `templates/CLAIM_SIGNATURE.md`
 - `templates/SEMANTIC_DIFF.md`
+
+## Objective Closure Gate v2.6
+
+Un teorema correcto no implica que el objetivo original esté cerrado.
+
+```text
+RESEARCH OBJECTIVE
+      ↓
+ACHIEVED CLAIM
+      ↓
+OBJECTIVE ↔ CLAIM ALIGNMENT
+      ↓
+FIRST-SUCCESS CHECK
+      ↓
+GENERIC / MAXIMAL / MINIMAL STRENGTH GATES
+      ↓
+CLOSED_EXACTLY | CLOSED_STRONGER | PARTIAL_USEFUL | OPEN_SCOPE_GAP | REFUTED | UNRESOLVED
+```
+
+Ejemplos bloqueados:
+- buscar la familia más amplia y certificar una subfamilia obtenida eliminando un parámetro;
+- declarar `open dense` porque cientos de casos numéricos dieron rango completo;
+- declarar una clase `maximal` porque una familia competidora no funciona con una integración por partes concreta.
+
+Archivos clave:
+- `protocols/OBJECTIVE_CLOSURE.md`
+- `templates/OBJECTIVE_CLOSURE.md`
