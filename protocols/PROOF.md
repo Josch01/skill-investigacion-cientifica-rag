@@ -113,3 +113,16 @@ Si esa compatibilidad requiere un lema, ese lema se audita por separado.
 Un claim no puede quedar incondicionalmente `CERTIFIED` si depende esencialmente de un antecedente `CONDITIONAL` cuyas condiciones no se han incorporado o verificado.
 
 Si el claim usa sólo una dirección o una consecuencia independiente del antecedente, demostrarlo explícitamente y eliminar/corregir la arista del grafo.
+
+
+## Fase L — Fuerza del claim
+
+Antes de aceptar `generic`, `open dense`, `maximal`, `minimal`, `only if`, `universal` o `impossible`, identificar la obligación lógica adicional asociada.
+
+- `generic/open dense`: definir espacio + demostrar no-identidad del discriminante/minor mediante testigo exacto o argumento equivalente.
+- `maximal`: definir universo + suficiencia + necesidad fuera de la clase.
+- `sharp minimal`: lower bound + construcción alcanzable.
+- `impossible`: obstrucción para una clase de métodos definida.
+- `universal`: cuantificadores sobre toda la familia sin usar evidencia muestral como sustituto.
+
+Una prueba de que una estrategia concreta falla sólo certifica esa obstrucción concreta.
