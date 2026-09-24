@@ -4,6 +4,15 @@
 
 Minimizar tokens y latencia sin degradar rigor ni procedencia. La recuperación debe ser escalonada, detenible y guiada por suficiencia.
 
+## Memory tier prefilter
+
+Antes de LEVEL-0:
+`HOT -> WARM canonical -> ARCHIVE only if explicitly needed`.
+
+No recuperar por defecto nodos `SUPERSEDED`, `HISTORICAL` o material raw archivado.
+
+Si varias entradas representan el mismo concepto, preferir `CANONICAL_ACTIVE`.
+
 ## LEVEL-0 — Orientation
 
 Cargar MEMORY_CORE y tags pertinentes de MEMORY_INDEX. Sirve para localizar conocimiento, no para reemplazar evidencia exacta.
@@ -55,3 +64,21 @@ Si hacen falta agentes: recuperar una vez, construir Case Packet, compartir IDs/
 ## Regla final
 
 Orientation -> Certificate -> Subgraph -> Original -> External -> New Research. Cada escalón debe justificarse por insuficiencia del anterior.
+
+## Archive retrieval
+
+ARCHIVE sólo se abre cuando:
+- el usuario pide historia/evolución;
+- hay conflicto entre versiones;
+- una dependencia activa apunta a antecedente histórico;
+- se audita provenance;
+- se reproduce una ruta anterior.
+
+Si un nodo archivado vuelve a ser necesario, rehidratar únicamente ese nodo/subgrafo a WARM/HOT durante la tarea.
+
+## Retrieval anti-duplication
+
+Si el INDEX devuelve múltiples versiones semánticamente equivalentes:
+1. seleccionar canonical active;
+2. recuperar superseded sólo si su historia importa;
+3. no cargar simultáneamente versiones antiguas por defecto.
