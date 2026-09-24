@@ -18,7 +18,8 @@ Skill de investigación científica/matemática RAG-first con:
 - Research Loop orientado a objetivos con rutas sucesivas de prueba/refutación;
 - Answer Interpreter para responder desde memoria/grafos sin rehacer investigación;
 - recuperación jerárquica con Sufficiency Gate;
-- modos de explicación simple, technical, rigorous y paper.
+- modos de explicación simple, technical, rigorous y paper;
+- Certification Gate con propagación de dependencias, second review, cómputo reproducible y coverage de novedad.
 
 ## Idea central
 
@@ -150,3 +151,32 @@ Archivos clave:
 - `protocols/INTERPRETER.md`
 - `config/RETRIEVAL_POLICY.md`
 - `templates/ANSWER_REQUEST.md`
+
+
+## Certification Gate v2.4
+
+Un resultado central ya no llega a `CERTIFIED` sólo porque una primera auditoría no encuentre errores.
+
+```text
+PROOF
+ -> RED TEAM
+ -> DEPENDENCY STATUS PROPAGATION
+ -> INDEPENDENT SECOND REVIEW
+ -> COMPUTATION GATE (si aplica)
+ -> NOVELTY COVERAGE GATE (si se afirma novedad)
+ -> CERTIFIED / CONDITIONAL / PARTIAL / NEEDS_REVALIDATION
+```
+
+La regla clave es:
+
+```text
+effective_status(child) <= weakest_required_dependency
+```
+
+salvo que se pruebe explícitamente que el hijo no necesita esa dependencia o que sus condiciones fueron descargadas.
+
+Archivos clave:
+
+- `protocols/CERTIFICATION.md`
+- `templates/COMPUTATION_CERTIFICATE.md`
+- `templates/NOVELTY_COVERAGE.md`
