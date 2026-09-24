@@ -61,6 +61,7 @@ OBJECTIVE_CLOSURE_GATE: yes|no
 CLAIM_STRENGTH_GATE: yes|no
 EXACT_WITNESS_GATE: yes|no
 ARTIFACT_CONSISTENCY_GATE: yes|no
+MEMORY_GC_GATE: yes|no
 ```
 
 No mostrar esta mecánica al usuario salvo que sea útil.
