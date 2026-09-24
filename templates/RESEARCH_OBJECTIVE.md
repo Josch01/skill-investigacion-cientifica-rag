@@ -52,6 +52,13 @@ Final_status:
 
 Strongest_sustainable_result:
 
+Objective_closure:
+  achieved_claims:
+  alignment: EQUIVALENT|STRICTLY_STRONGER|STRICTLY_WEAKER|DIFFERENT_OBJECT|DIFFERENT_SCOPE|INCOMPARABLE
+  unexplored_superfamilies:
+  requested_strength_words:
+  closure_status: CLOSED_EXACTLY|CLOSED_STRONGER|PARTIAL_USEFUL|TARGET_MISALIGNED|OPEN_SCOPE_GAP|REFUTED|UNRESOLVED
+
 Unresolved_gap:
 
 Next_highest_value_step:
