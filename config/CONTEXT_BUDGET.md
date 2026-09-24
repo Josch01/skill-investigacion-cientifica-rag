@@ -40,3 +40,23 @@ CORE
 ## Stop rule
 
 Si la evidencia recuperada basta para decidir que un paso no aplica, detener esa rama. No gastar tokens intentando probar una afirmación ya refutada bajo las hipótesis actuales.
+
+
+## Recuperación jerárquica v2.3
+
+Antes de usar agentes o RAG externo aplicar:
+
+1. MEMORY_CORE + MEMORY_INDEX.
+2. Proof Certificate / nodo exacto.
+3. Subgrafo de dependencias.
+4. Fuente interna original.
+5. Literatura/documentación externa.
+6. Research Loop.
+
+Después de cada nivel aplicar Sufficiency Gate:
+
+¿puedo responder exactamente la pregunta sin añadir un claim no respaldado?
+
+Si sí, detener recuperación.
+
+No convocar agentes para una explicación que ya pueda resolverse mediante un certificado vigente.
