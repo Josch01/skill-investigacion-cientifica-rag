@@ -33,6 +33,7 @@ Elegir el conjunto mínimo de perspectivas expertas que reduzca el riesgo de err
 | Novedad/estado del arte | Literature | Domain lead | Scientific Auditor |
 | Certificación de claim central | Domain lead | Independent second reviewer | Numerical/Literature gate según dependencia |
 | LaTeX final | Scientific Editor | Domain lead | Auditor |
+| Render/edición de claim certificado | Scientific Editor | Manuscript Consistency Reviewer | Domain lead si aparece mismatch |
 
 ## Selección adversarial
 
@@ -54,6 +55,8 @@ RESEARCH_LOOP: yes|no
 ROUTE_LEDGER_TO_LOAD:
 CERTIFICATION_GATE: yes|no
 INDEPENDENT_SECOND_REVIEW: yes|no
+MANUSCRIPT_EDIT_GATE: yes|no
+TYPE_NOTATION_GATE: yes|no
 ```
 
 No mostrar esta mecánica al usuario salvo que sea útil.
