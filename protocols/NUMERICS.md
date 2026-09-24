@@ -85,3 +85,18 @@ Para elevar `minimal`, exigir lower bound teórico y construcción que lo alcanc
 Para elevar `maximal/impossible`, exigir caracterización del universo de métodos/modelos considerado y prueba de necesidad.
 
 Los sweeps con 100% de éxito se reportan como `[N] no counterexample found in sampled region`, nunca como prueba de genericidad.
+
+## 13. Exactness firewall
+
+Si un resultado numérico se usa para afirmar `Q != 0` en una prueba exacta, aplicar `protocols/EXACT_WITNESS.md`.
+
+`Q = 0.003688` en float64 no es un witness exacto, aunque la fórmula que lo contiene sea simbólica.
+
+Opciones válidas para elevarlo:
+- interval arithmetic con intervalo que excluya 0;
+- validated ODE/shooting bounds;
+- prueba analítica de signos/no-anulación;
+- aritmética exacta;
+- computer-assisted proof riguroso.
+
+Sin eso, etiquetar como `[N] high-confidence candidate witness`.
