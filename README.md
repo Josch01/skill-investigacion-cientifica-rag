@@ -14,7 +14,8 @@ Skill de investigación científica/matemática RAG-first con:
 - Context7 opcional para documentación actual de software;
 - cumplimiento dinámico de políticas de revista;
 - registro de búsquedas RAG reutilizable;
-- presupuesto explícito de contexto.
+- presupuesto explícito de contexto;
+- Research Loop orientado a objetivos con rutas sucesivas de prueba/refutación.
 
 ## Idea central
 
@@ -25,9 +26,11 @@ Pregunta
         -> MEMORY_CORE + INDEX
            -> certificados relevantes
               -> RAG externo sólo para huecos
-                 -> prueba/auditoría
-                    -> red team
-                       -> certificado + memoria
+                 -> RESEARCH LOOP
+                    -> mejor ruta
+                       -> RAG + prueba + red team
+                          -> éxito / siguiente ruta
+                             -> certificado + memoria
 ```
 
 ## Estructura
@@ -85,3 +88,27 @@ Copiar los archivos de `memory/` a la carpeta del proyecto y rellenar sólo `MEM
 ## Seguridad epistemológica
 
 La memoria nunca sustituye la fuente. Un certificado interno nunca se reutiliza si cambió su contexto de validez.
+
+
+## Research Loop v2.2
+
+Cuando el usuario plantea un objetivo científico, la skill no se limita a intentar una sola demostración.
+
+```text
+OBJECTIVE
+  -> THEORY SCAN
+  -> ROUTE GENERATION
+  -> BEST ROUTE
+  -> RAG + APPLICABILITY + PROOF + RED TEAM
+  -> if fail: diagnose + learn + next route
+  -> falsification track
+  -> PROVED | REFUTED | CONDITIONAL | PARTIAL | UNRESOLVED
+```
+
+Una ruta fallida no se interpreta como refutación. Sólo se refuta mediante contraejemplo, contradicción o teoría plenamente aplicable.
+
+Los archivos clave son:
+
+- `protocols/RESEARCH_LOOP.md`
+- `memory/ROUTE_LEDGER.md`
+- `templates/RESEARCH_OBJECTIVE.md`
