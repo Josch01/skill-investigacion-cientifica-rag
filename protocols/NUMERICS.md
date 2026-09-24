@@ -4,15 +4,23 @@
 
 Un resultado computacional es científico sólo si se relaciona con un claim, algoritmo, configuración, datos, versión de software, salida, análisis de error/robustez y límites explícitos.
 
-## 2. Reproducibilidad mínima
+## 2. Computation Certificate
+
+Si una computación es esencial para un claim, crear `templates/COMPUTATION_CERTIFICATE.md`.
+
+Una afirmación como "verificado con SymPy" o "confirmado numéricamente" no basta sin script/hash, versiones, parámetros, precisión/tolerancias, comando, salida y rerun o segundo método cuando sea material.
+
+Si la computación sólo es corroborativa de una prueba analítica completa, marcarla como `corroborative`, no como dependencia esencial.
+
+## 3. Reproducibilidad mínima
 
 Registrar commit/script exacto, hash/versión de datos, entorno, dependencias, sistema operativo si importa, hardware si importa, semillas, precisión, solver/método, tolerancias, discretización, criterios de parada, parámetros/cotas, comando, métricas y archivos de salida.
 
-## 3. Integración ODE/PDE
+## 4. Integración ODE/PDE
 
 Revisar unidades, condiciones iniciales/frontera, rigidez, método/orden, tolerancias absolutas/relativas, eventos, conservación/invariantes, positividad, sensibilidad a paso/tolerancia, benchmark/solución exacta cuando exista, segundo solver cuando sea sensible y convergencia al refinar.
 
-## 4. Sistemas caóticos
+## 5. Sistemas caóticos
 
 Exigir:
 
@@ -27,31 +35,31 @@ Exigir:
 - no usar coincidencia de trayectorias largas como criterio de validez;
 - distinguir evidencia de caos de prueba matemática de caos.
 
-## 5. Optimización
+## 6. Optimización
 
 Registrar función objetivo, restricciones, tratamiento de infeasibilidad, dominio/bounds, presupuesto de evaluaciones, población/partículas, semillas, criterio de parada, inicialización, baselines, varias ejecuciones, distribución de métricas, sensibilidad a hiperparámetros y validación fuera de muestra cuando haya datos.
 
 Nunca escribir "óptimo global" salvo prueba/certificación.
 
-## 6. Redes neuronales / PINNs
+## 7. Redes neuronales / PINNs
 
 Comprobar train/validation/test, leakage, normalización, arquitectura, función de pérdida, pesos físicos, optimizador/schedule, seeds, early stopping, número de ejecuciones, baseline, ablation, incertidumbre, error físico y de datos por separado, generalización y extrapolación.
 
-## 7. Identificabilidad
+## 8. Identificabilidad
 
 Distinguir identificabilidad estructural/práctica, observabilidad, sensibilidad, correlación y rango numérico.
 
 Un rango numérico no sustituye una prueba estructural.
 
-## 8. Cálculo simbólico
+## 9. Cálculo simbólico
 
 Registrar software/versión, supuestos, simplificaciones, divisiones, factores descartados, denominadores, ramas, conjuntos excepcionales, dominio R/C y verificación por sustitución cuando sea posible.
 
-## 9. Prueba asistida por computadora
+## 10. Prueba asistida por computadora
 
 Para elevar cálculo a parte de una demostración exigir marco teórico, aritmética rigurosa/certificados, control de redondeo, código reproducible, versión exacta y límites del certificado.
 
-## 10. Documentación actual
+## 11. Documentación actual
 
 Antes de usar una API o comportamiento cambiante: Context7 si está disponible; de lo contrario documentación oficial actual.
 
