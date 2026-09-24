@@ -3,7 +3,7 @@ name: scientific-research-rag-council
 description: "Skill RAG-first para investigación científica y matemática rigurosa. Selecciona dinámicamente sólo los especialistas necesarios, recupera literatura y antecedentes certificados bajo demanda, construye/audita demostraciones, intenta refutarlas, valida evidencia numérica y mantiene memoria científica trazable. Regla absoluta: ninguna premisa externa sin evidencia verificable y ninguna conclusión más fuerte que sus hipótesis."
 metadata:
   author: "Jorge Arturo Solano Chávez + ChatGPT"
-  version: "2.4.0"
+  version: "2.5.0"
   language: "es"
 ---
 
@@ -244,7 +244,26 @@ No sustituye literatura matemática/científica.
 
 Si Context7 no está disponible, usar documentación oficial y fuentes primarias actuales.
 
-# 13. LaTeX y redacción
+# 13. Scientific writing / manuscript rendering
+
+Cuando el usuario pida modificar un manuscrito, informe, LaTeX, documentación técnica o texto científico que represente resultados ya verificados, aplicar primero `protocols/MANUSCRIPT_EDIT.md`.
+
+Antes de renderizar claims centrales:
+- cargar su certificado/Evidence Card/Experiment Record;
+- cargar o crear sus objetos en `memory/SYMBOL_TABLE.md`;
+- fijar `templates/CLAIM_SIGNATURE.md`;
+- construir el argumento antes de la prosa;
+- aplicar Minimal Patch Policy.
+
+Después de editar:
+- aplicar `protocols/TYPE_NOTATION_GATE.md`;
+- producir `templates/SEMANTIC_DIFF.md` cuando el cambio sea material;
+- validar compilación/sintaxis cuando corresponda;
+- ejecutar manuscript consistency review.
+
+El estado del claim y el estado del artefacto son distintos: un claim puede seguir `CERTIFIED` mientras una versión del manuscrito queda `SEMANTIC_MISMATCH`.
+
+# 14. LaTeX
 
 Generar LaTeX sólo si el usuario lo pide.
 
@@ -252,7 +271,7 @@ Aplicar `protocols/LATEX.md`.
 
 La redacción nunca puede fortalecer el estatus epistemológico de una afirmación.
 
-# 14. Memoria científica
+# 15. Memoria científica
 
 La memoria es índice y caché, no autoridad.
 
@@ -271,11 +290,12 @@ Mantener:
 - `NUMERICAL_LEDGER.md`: experimentos reproducibles;
 - `SOFTWARE_LEDGER.md`: librerías/versiones/documentación;
 - `SEARCH_LEDGER.md`: búsquedas RAG realizadas y cobertura, nunca prueba de inexistencia;
-- `ROUTE_LEDGER.md`: rutas científicas intentadas, fallos y resultados parciales reutilizables.
+- `ROUTE_LEDGER.md`: rutas científicas intentadas, fallos y resultados parciales reutilizables;
+- `SYMBOL_TABLE.md`: registro tipado de símbolos, variables, datasets, poblaciones, métricas, modelos, APIs y otros objetos científicos.
 
 No guardar conversación; guardar conocimiento durable con procedencia.
 
-# 15. Presupuesto de contexto
+# 16. Presupuesto de contexto
 
 Consultar `config/CONTEXT_BUDGET.md`.
 
@@ -291,7 +311,7 @@ Principios:
 - compactar estados cerrados;
 - mantener hipótesis, alcance y excepciones al resumir.
 
-# 16. Certification Gate
+# 17. Certification Gate
 
 Antes de promover un claim central a `CERTIFIED`, aplicar `protocols/CERTIFICATION.md`.
 
@@ -306,7 +326,7 @@ Obligatorio cuando corresponda:
 
 Un descendiente no puede tener un estatus epistemológico más fuerte que una dependencia esencial no resuelta, salvo que se demuestre que esa dependencia no es realmente necesaria o que sus condiciones han sido incorporadas y verificadas.
 
-# 17. Cierre de una tarea
+# 18. Cierre de una tarea
 
 Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 
@@ -326,4 +346,4 @@ Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 
 Si falta algo queda `VERIFIED`, `CONDITIONAL`, `DRAFT` o `[U]`.
 
-> **Interpretar primero la intención. Reutilizar conocimiento certificado si basta. Recuperar sólo el subgrafo necesario. Investigar de nuevo sólo cuando haga falta. Revisar la teoría existente, probar la mejor ruta, intentar refutar, aprender del fallo y certificar sólo después del Certification Gate.**
+> **Interpretar primero. Investigar y certificar la ciencia. Después renderizarla sin cambiar su identidad: registro de objetos, claim signature, patch mínimo, semantic diff y consistency gate.**
