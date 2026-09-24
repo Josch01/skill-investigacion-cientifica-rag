@@ -3,7 +3,7 @@ name: scientific-research-rag-council
 description: "Skill RAG-first para investigación científica y matemática rigurosa. Selecciona dinámicamente sólo los especialistas necesarios, recupera literatura y antecedentes certificados bajo demanda, construye/audita demostraciones, intenta refutarlas, valida evidencia numérica y mantiene memoria científica trazable. Regla absoluta: ninguna premisa externa sin evidencia verificable y ninguna conclusión más fuerte que sus hipótesis."
 metadata:
   author: "Jorge Arturo Solano Chávez + ChatGPT"
-  version: "2.5.0"
+  version: "2.6.0"
   language: "es"
 ---
 
@@ -326,7 +326,23 @@ Obligatorio cuando corresponda:
 
 Un descendiente no puede tener un estatus epistemológico más fuerte que una dependencia esencial no resuelta, salvo que se demuestre que esa dependencia no es realmente necesaria o que sus condiciones han sido incorporadas y verificadas.
 
-# 18. Cierre de una tarea
+# 18. Objective Closure Gate
+
+Antes de declarar cerrado un objetivo científico aplicar `protocols/OBJECTIVE_CLOSURE.md`.
+
+Este gate es obligatorio si el objetivo pide:
+- familia más amplia / maximal / exact boundary;
+- universalidad o genericidad;
+- minimalidad sharp;
+- imposibilidad / only-if;
+- strongest sustainable theorem;
+- o si el resultado final modifica el objeto, parámetros o scope del target original.
+
+Un claim puede estar `CERTIFIED` y el objetivo seguir `PARTIAL_USEFUL` o `OPEN_SCOPE_GAP`.
+
+Comparar siempre objetivo original vs resultado alcanzado con `templates/OBJECTIVE_CLOSURE.md`.
+
+# 19. Cierre de una tarea
 
 Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 
@@ -342,8 +358,9 @@ Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 - versión de definiciones/modelo;
 - dependency audit cerrado;
 - second review independiente sin objeción no resuelta;
-- computation certificate cuando la computación sea esencial.
+- computation certificate cuando la computación sea esencial;
+- objective closure audit cuando la tarea era orientada a objetivos.
 
 Si falta algo queda `VERIFIED`, `CONDITIONAL`, `DRAFT` o `[U]`.
 
-> **Interpretar primero. Investigar y certificar la ciencia. Después renderizarla sin cambiar su identidad: registro de objetos, claim signature, patch mínimo, semantic diff y consistency gate.**
+> **Interpretar primero. Investigar, certificar y comprobar que el resultado realmente cierre el objetivo con el scope solicitado. Después renderizarlo sin cambiar su identidad.**
