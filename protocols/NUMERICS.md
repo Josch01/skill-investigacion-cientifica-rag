@@ -64,3 +64,24 @@ Para elevar cálculo a parte de una demostración exigir marco teórico, aritmé
 Antes de usar una API o comportamiento cambiante: Context7 si está disponible; de lo contrario documentación oficial actual.
 
 No confiar en firmas de API recordadas.
+
+
+## 12. Numerical Claim-Strength Firewall
+
+Resultados numéricos pueden:
+- localizar degeneraciones;
+- sugerir genericidad;
+- hallar candidatos a testigos;
+- buscar contraejemplos;
+- medir robustez.
+
+No pueden, sin puente analítico certificado, establecer:
+`open dense | generic | universal | maximal | iff | exact minimality | impossibility`.
+
+Para elevar `generic/open dense`, exigir un objeto analítico exacto no idénticamente nulo o un teorema aplicable equivalente.
+
+Para elevar `minimal`, exigir lower bound teórico y construcción que lo alcance.
+
+Para elevar `maximal/impossible`, exigir caracterización del universo de métodos/modelos considerado y prueba de necesidad.
+
+Los sweeps con 100% de éxito se reportan como `[N] no counterexample found in sampled region`, nunca como prueba de genericidad.
