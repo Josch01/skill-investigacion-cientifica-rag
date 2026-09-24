@@ -17,6 +17,7 @@ Elegir el conjunto mínimo de perspectivas expertas que reduzca el riesgo de err
 
 | Tipo de tarea | Lead recomendado | Revisor | Añadir si aplica |
 |---|---|---|---|
+| Objetivo científico abierto | Research Architect + domain lead | Adversarial reviewer | Literature / Numerical según ruta |
 | Demostración en álgebra diferencial | Differential Algebra | Proof Red Team | Identifiability / Symbolic |
 | Identificabilidad estructural | Identifiability | Differential Algebra | Control / Symbolic |
 | Sistemas dinámicos | Dynamical Systems | Analysis/Geometry | Numerical |
@@ -43,6 +44,8 @@ OPTIONAL:
 WHY:
 RETRIEVAL_TAGS:
 CERTIFICATES_TO_LOAD:
+RESEARCH_LOOP: yes|no
+ROUTE_LEDGER_TO_LOAD:
 ```
 
 No mostrar esta mecánica al usuario salvo que sea útil.
