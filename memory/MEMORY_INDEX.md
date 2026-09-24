@@ -16,3 +16,12 @@ CMA-ES -> N-020, SW-004
 ```
 
 No almacenar contenido largo aquí.
+
+
+Objetos/editorial:
+
+```text
+SYMBOLS -> memory/SYMBOL_TABLE.md
+CLAIM-SIGNATURES -> templates/CLAIM_SIGNATURE.md
+MANUSCRIPT-SEMANTIC-DIFF -> templates/SEMANTIC_DIFF.md
+```
