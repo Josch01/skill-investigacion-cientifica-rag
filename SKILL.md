@@ -3,7 +3,7 @@ name: scientific-research-rag-council
 description: "Skill RAG-first para investigación científica y matemática rigurosa. Selecciona dinámicamente sólo los especialistas necesarios, recupera literatura y antecedentes certificados bajo demanda, construye/audita demostraciones, intenta refutarlas, valida evidencia numérica y mantiene memoria científica trazable. Regla absoluta: ninguna premisa externa sin evidencia verificable y ninguna conclusión más fuerte que sus hipótesis."
 metadata:
   author: "Jorge Arturo Solano Chávez + ChatGPT"
-  version: "2.8.0"
+  version: "2.9.0"
   language: "es"
 ---
 
@@ -374,7 +374,28 @@ Reglas:
 
 Usar `memory/MEMORY_MANIFEST.md`, `memory/ARCHIVE_INDEX.md` y `templates/MEMORY_GC_REPORT.md` cuando la compactación sea material.
 
-# 21. Cierre de una tarea
+# 21. Multi-Agent Scientific Handoff Gate
+
+Cuando una tarea se delegue a otro agente/modelo aplicar:
+- `config/AGENT_AUTHORITY.md`;
+- `protocols/MULTI_AGENT_HANDOFF.md`;
+- `templates/TASK_PACKET.md`;
+- `templates/WORKER_RESULT.md`;
+- `templates/AUDIT_PACKET.md`.
+
+Reglas duras:
+- la autoridad pertenece al rol, no al provider;
+- el worker ejecuta una especificación, no redefine la ciencia;
+- `WORKER_OUTPUT != SCIENTIFIC_ACCEPTANCE`;
+- `DETERMINISTIC_PASS != SCIENTIFIC_PASS`;
+- workers no modifican silenciosamente claims, hipótesis, scope, status o memoria canónica;
+- tareas R3 de nuevo razonamiento científico permanecen bajo Scientific Lead;
+- resultados delegados deben auditarse antes de integración canónica.
+
+Risk classes:
+`R0 DETERMINISTIC | R1 SPEC_IMPLEMENTATION | R2 SCIENTIFIC_COMPUTATION | R3 SCIENTIFIC_REASONING`.
+
+# 22. Cierre de una tarea
 
 Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 
@@ -394,8 +415,9 @@ Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 - objective closure audit cuando la tarea era orientada a objetivos;
 - exact witness record cuando una no-anulación exacta sea esencial;
 - artifact consistency report cuando haya múltiples artefactos activos;
-- memory compaction/GC cuando se active alguno de sus triggers.
+- memory compaction/GC cuando se active alguno de sus triggers;
+- handoff/audit records cuando una parte material fue delegada.
 
 Si falta algo queda `VERIFIED`, `CONDITIONAL`, `DRAFT` o `[U]`.
 
-> **Interpretar primero. Investigar y certificar con rigor; después compactar el conocimiento en memoria canónica, manteniendo acotado el contexto activo y archivando el detalle recuperable.**
+> **Interpretar primero. El Scientific Lead conserva la autoridad científica; delega ejecución mediante contratos mínimos, audita los resultados, certifica sólo tras los gates y compacta el conocimiento canónico.**
