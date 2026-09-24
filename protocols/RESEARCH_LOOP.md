@@ -401,3 +401,25 @@ Si se detecta un caso donde un claim hijo aparece más fuerte que una dependenci
 8. finalizar con `CERTIFIED | CONDITIONAL | PARTIAL | REFUTED | UNRESOLVED`.
 
 Esto permite mejorar o refutar una afirmación que no supera el certificado sin forzar un resultado.
+
+
+# 17. Objective Closure Gate
+
+Antes del status final del Research Loop aplicar `protocols/OBJECTIVE_CLOSURE.md`.
+
+Especialmente cuando se solicita `broadest`, `maximal`, `strongest`, `generic`, `universal`, `sharp`, `minimal`, `only if` o `exact boundary`.
+
+Procedimiento:
+1. recuperar el Research Objective original;
+2. comparar target vs strongest sustainable result;
+3. detectar parámetros/términos eliminados durante las rutas;
+4. listar superfamilias naturales no exploradas;
+5. comprobar que un éxito particular no haya activado la first-success fallacy;
+6. separar status del claim y status de cierre del objetivo;
+7. crear `templates/OBJECTIVE_CLOSURE.md`.
+
+Si se pidió la familia más amplia y sólo se probó una subfamilia, la salida correcta es `PARTIAL_USEFUL` o `OPEN_SCOPE_GAP`, incluso si el teorema de esa subfamilia está `CERTIFIED`.
+
+Si un claim de genericidad depende de numeración sin testigo analítico exacto, mantenerlo como conjetura/evidencia numérica y continuar una ruta analítica o cerrar como `PARTIAL`.
+
+Si se reclama maximalidad pero sólo se mostró una obstrucción para una estrategia concreta, reclasificarla como `METHOD_SPECIFIC_BOUNDARY` y mantener abierto el objetivo de maximalidad.
