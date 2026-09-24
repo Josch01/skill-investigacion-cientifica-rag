@@ -127,3 +127,13 @@ Estados sugeridos:
 ## 12. Regla final
 
 > El editor puede cambiar palabras, nunca la identidad científica del claim sin reabrir investigación.
+
+## 13. Exactness and state consistency before MANUSCRIPT_READY
+
+Antes de `MANUSCRIPT_READY`:
+- cualquier `exact/nonzero/generic` dependiente de witness debe pasar `protocols/EXACT_WITNESS.md`;
+- ejecutar `protocols/ARTIFACT_CONSISTENCY.md` si se actualizaron certificados/ledgers;
+- un manuscrito no puede renderizar `CERTIFIED` si falta el second-review record;
+- no renderizar `CLOSED_EXACTLY` si Objective Closure conserva scope explícitamente no explorado.
+
+El Semantic Diff debe comparar no sólo texto vs certificado, sino también certificado vs estado global activo.
