@@ -3,7 +3,7 @@ name: scientific-research-rag-council
 description: "Skill RAG-first para investigación científica y matemática rigurosa. Selecciona dinámicamente sólo los especialistas necesarios, recupera literatura y antecedentes certificados bajo demanda, construye/audita demostraciones, intenta refutarlas, valida evidencia numérica y mantiene memoria científica trazable. Regla absoluta: ninguna premisa externa sin evidencia verificable y ninguna conclusión más fuerte que sus hipótesis."
 metadata:
   author: "Jorge Arturo Solano Chávez + ChatGPT"
-  version: "2.7.0"
+  version: "2.8.0"
   language: "es"
 ---
 
@@ -355,7 +355,26 @@ Reglas duras:
 - `CLOSED_EXACTLY` queda bloqueado si existe un componente del scope original todavía no explorado;
 - artefactos activos deben tener metadata/estatus compatibles o quedar etiquetados como históricos.
 
-# 20. Cierre de una tarea
+# 20. Memory Lifecycle & Compaction Gate
+
+Aplicar `protocols/MEMORY_LIFECYCLE.md` para mantener acotado el contexto activo.
+
+Modelo:
+`HOT -> WARM -> ARCHIVE`.
+
+Reglas:
+- `MEMORY_CORE` contiene estado actual, no historial;
+- HOT working set objetivo: 5–12 nodos;
+- claims superseded salen de HOT y el índice activo apunta al sucesor canónico;
+- rutas cerradas se compactan;
+- sweeps/logs/raw outputs se conservan por puntero, no en contexto activo;
+- ARCHIVE no se recupera por defecto;
+- compactar nunca significa borrar evidencia;
+- ejecutar Memory GC al cerrar un objetivo, superar presupuesto, crear una supersession o antes de iniciar un objetivo nuevo con residuos HOT.
+
+Usar `memory/MEMORY_MANIFEST.md`, `memory/ARCHIVE_INDEX.md` y `templates/MEMORY_GC_REPORT.md` cuando la compactación sea material.
+
+# 21. Cierre de una tarea
 
 Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 
@@ -374,8 +393,9 @@ Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 - computation certificate cuando la computación sea esencial;
 - objective closure audit cuando la tarea era orientada a objetivos;
 - exact witness record cuando una no-anulación exacta sea esencial;
-- artifact consistency report cuando haya múltiples artefactos activos.
+- artifact consistency report cuando haya múltiples artefactos activos;
+- memory compaction/GC cuando se active alguno de sus triggers.
 
 Si falta algo queda `VERIFIED`, `CONDITIONAL`, `DRAFT` o `[U]`.
 
-> **Interpretar primero. Investigar, certificar, comprobar exactitud de witnesses, verificar cierre real del scope y sincronizar el estado global. Después renderizar sin cambiar la identidad científica del resultado.**
+> **Interpretar primero. Investigar y certificar con rigor; después compactar el conocimiento en memoria canónica, manteniendo acotado el contexto activo y archivando el detalle recuperable.**
