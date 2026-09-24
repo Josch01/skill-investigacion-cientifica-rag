@@ -62,6 +62,23 @@ CLAIM_STRENGTH_GATE: yes|no
 EXACT_WITNESS_GATE: yes|no
 ARTIFACT_CONSISTENCY_GATE: yes|no
 MEMORY_GC_GATE: yes|no
+MULTI_AGENT_HANDOFF: yes|no
+RISK_CLASS: R0|R1|R2|R3
+DELEGATED_ROLE:
+SCIENTIFIC_AUTHORITY_ROLE:
 ```
 
 No mostrar esta mecánica al usuario salvo que sea útil.
+
+
+## Delegation routing v2.9
+
+Si `MULTI_AGENT_HANDOFF=yes`, cargar `config/AGENT_AUTHORITY.md` y `protocols/MULTI_AGENT_HANDOFF.md`.
+
+Routing mínimo:
+- R0: deterministic checker; model optional.
+- R1: worker + deterministic check; auditor si representa claims.
+- R2: worker + deterministic check + scientific auditor.
+- R3: Scientific Lead; workers sólo para subtareas acotadas; independent review para certification.
+
+El router selecciona roles científicos. El runtime externo decide qué provider implementa cada rol.
