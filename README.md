@@ -25,7 +25,8 @@ Skill de investigación científica/matemática RAG-first con:
 - Claim Strength Firewall para genericidad, maximalidad, minimalidad e imposibilidad;
 - Exact Witness Gate para separar no-anulación exacta de evidencia float/high-precision;
 - Artifact Consistency Gate para sincronizar certificados, second reviews, ledgers y manuscrito;
-- Memory Lifecycle & GC para mantener un working set acotado aunque el proyecto acumule años de investigación.
+- Memory Lifecycle & GC para mantener un working set acotado aunque el proyecto acumule años de investigación;
+- Multi-Agent Scientific Handoff para delegar escritura, código y numerics sin transferir autoridad epistemológica.
 
 ## Idea central
 
@@ -323,3 +324,42 @@ Archivos:
 - `templates/MEMORY_GC_REPORT.md`
 - `memory/MEMORY_MANIFEST.md`
 - `memory/ARCHIVE_INDEX.md`
+
+## Multi-Agent Scientific Handoff v2.9
+
+```text
+SCIENTIFIC LEAD
+      ↓
+  TASK_PACKET
+      ↓
+    WORKER
+      ↓
+ WORKER_RESULT
+      ↓
+DETERMINISTIC GATE
+      ↓
+  AUDIT_PACKET
+      ↓
+SCIENTIFIC AUDITOR
+   /          \
+REVISION     ACCEPT
+               ↓
+           INTEGRATE
+               ↓
+            MEMORY GC
+```
+
+Principios:
+- roles are provider-agnostic;
+- Scientific Lead owns claims, hypotheses, scope and canonical scientific state;
+- workers own task-local candidate artifacts;
+- deterministic success is not scientific acceptance;
+- a worker reports `SCIENTIFIC_OBJECTION` instead of silently repairing a scientific inconsistency;
+- delegated outputs are integrated only after the appropriate audit/gates.
+
+Archivos:
+- `config/AGENT_AUTHORITY.md`
+- `protocols/MULTI_AGENT_HANDOFF.md`
+- `templates/TASK_PACKET.md`
+- `templates/WORKER_RESULT.md`
+- `templates/AUDIT_PACKET.md`
