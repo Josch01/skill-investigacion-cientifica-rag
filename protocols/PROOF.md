@@ -66,7 +66,25 @@ Si falla el target:
 - debilitar local/global o universal/genérico;
 - o declarar refutación.
 
-## Fase I — Certificación
+## Fase I — Auditoría de dependencias
+
+Antes de certificar:
+
+1. identificar dependencias esenciales y auxiliares;
+2. comprobar su estatus;
+3. heredar condiciones de cualquier dependencia `CONDITIONAL`;
+4. si una dependencia parece innecesaria, demostrar independencia y corregir el grafo;
+5. si una dependencia está `REFUTED|SUPERSEDED|STALE`, marcar el target `NEEDS_REVALIDATION` hasta cerrar la reparación.
+
+Aplicar `protocols/CERTIFICATION.md`.
+
+## Fase J — Segunda revisión independiente
+
+Todo claim matemático central debe pasar una segunda revisión que reconstruya el argumento sin recibir el veredicto de la primera revisión.
+
+Una objeción no resuelta impide `CERTIFIED`.
+
+## Fase K — Certificación
 
 Sólo certificar si:
 
@@ -77,7 +95,7 @@ Sólo certificar si:
 - no quedan `?` esenciales;
 - alcance delimitado.
 
-Crear Proof Certificate.
+Crear Proof Certificate sólo después de superar el Certification Gate.
 
 ## Regla de herencia
 
@@ -88,3 +106,10 @@ Si `T2` depende de `T1`, y `T1` ya está certificado:
 - sólo demostrar compatibilidad de hipótesis de `T1` con el contexto de `T2`.
 
 Si esa compatibilidad requiere un lema, ese lema se audita por separado.
+
+
+## Regla de propagación
+
+Un claim no puede quedar incondicionalmente `CERTIFIED` si depende esencialmente de un antecedente `CONDITIONAL` cuyas condiciones no se han incorporado o verificado.
+
+Si el claim usa sólo una dirección o una consecuencia independiente del antecedente, demostrarlo explícitamente y eliminar/corregir la arista del grafo.
