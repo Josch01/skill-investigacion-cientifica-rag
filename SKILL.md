@@ -3,7 +3,7 @@ name: scientific-research-rag-council
 description: "Skill RAG-first para investigación científica y matemática rigurosa. Selecciona dinámicamente sólo los especialistas necesarios, recupera literatura y antecedentes certificados bajo demanda, construye/audita demostraciones, intenta refutarlas, valida evidencia numérica y mantiene memoria científica trazable. Regla absoluta: ninguna premisa externa sin evidencia verificable y ninguna conclusión más fuerte que sus hipótesis."
 metadata:
   author: "Jorge Arturo Solano Chávez + ChatGPT"
-  version: "2.1.0"
+  version: "2.2.0"
   language: "es"
 ---
 
@@ -88,7 +88,7 @@ Sólo `CERTIFIED` se reutiliza como antecedente interno sin reabrir por defecto 
 
 Clasificar la petición:
 
-`PROVE | REFUTE | AUDIT | LITERATURE | NOVELTY | NUMERICAL | CODE | ML | OPTIMIZATION | IDENTIFIABILITY | DYNAMICS | CHAOS | LATEX | EXPLAIN`
+`RESEARCH_OBJECTIVE | PROVE | REFUTE | AUDIT | LITERATURE | NOVELTY | NUMERICAL | CODE | ML | OPTIMIZATION | IDENTIFIABILITY | DYNAMICS | CHAOS | LATEX | EXPLAIN`
 
 Consultar `agents/ROUTER.md` y `agents/PANEL.md`.
 
@@ -102,7 +102,27 @@ Política de eficiencia:
 
 Los agentes reciben un Case Packet común, no copias completas del proyecto.
 
-# 4. Case Packet
+# 4. Investigación orientada a objetivos
+
+Cuando el usuario formule un objetivo científico del tipo "determina si...", "demuestra usando...", "establece o refuta...", "decide si el sistema cumple...", activar `protocols/RESEARCH_LOOP.md`.
+
+El Research Loop debe:
+
+1. formalizar el claim y su criterio de refutación;
+2. revisar primero la teoría existente y certificados internos;
+3. generar pocas rutas candidatas;
+4. priorizar la de mayor valor científico/costo;
+5. ejecutar RAG + aplicabilidad + prueba + red team;
+6. si falla, diagnosticar, extraer información reusable y cambiar de ruta;
+7. activar falsificación y contraejemplos cuando corresponda;
+8. detenerse sólo bajo:
+   `PROVED | REFUTED | CONDITIONAL | PARTIAL | UNRESOLVED`.
+
+Una ruta fallida **no equivale** a refutar el claim.
+
+Registrar las rutas en `memory/ROUTE_LEDGER.md` y el objetivo con `templates/RESEARCH_OBJECTIVE.md`.
+
+# 5. Case Packet
 
 Debe incluir sólo:
 
@@ -116,7 +136,7 @@ Debe incluir sólo:
 
 No incluir historia narrativa salvo necesidad.
 
-# 5. Recuperación científica RAG
+# 6. Recuperación científica RAG
 
 Aplicar `protocols/RAG.md`.
 
@@ -134,7 +154,7 @@ No usar snippets como sustituto del texto necesario.
 
 Para novedad/estado del arte, hacer búsqueda actual aunque exista memoria previa.
 
-# 6. Herencia de resultados demostrados: Proof Cache
+# 7. Herencia de resultados demostrados: Proof Cache
 
 Los resultados internos pasan por:
 
@@ -144,7 +164,7 @@ Cuando un resultado queda `CERTIFIED`, crear un certificado con `templates/PROOF
 
 Puede reutilizarse sin cargar la prueba completa sólo si coinciden enunciado, scope, definiciones e hipótesis, y no hay obsolescencia.
 
-# 7. Protocolo de demostración/refutación
+# 8. Protocolo de demostración/refutación
 
 Aplicar `protocols/PROOF.md`.
 
@@ -162,7 +182,7 @@ Aplicar `protocols/PROOF.md`.
 
 Nunca saltar de local/infinitesimal a global sin un puente demostrado.
 
-# 8. Auditoría científica
+# 9. Auditoría científica
 
 Aplicar `protocols/AUDIT.md`.
 
@@ -174,7 +194,7 @@ Severidad:
 
 `FATAL | MAJOR | MODERATE | MINOR`
 
-# 9. Métodos numéricos, optimización y ML
+# 10. Métodos numéricos, optimización y ML
 
 Aplicar `protocols/NUMERICS.md`.
 
@@ -192,7 +212,7 @@ Nunca confundir:
 
 `métrica de test alta != validez causal/física`
 
-# 10. Documentación de software y Context7
+# 11. Documentación de software y Context7
 
 Aplicar `config/CONTEXT7.md`.
 
@@ -202,7 +222,7 @@ No sustituye literatura matemática/científica.
 
 Si Context7 no está disponible, usar documentación oficial y fuentes primarias actuales.
 
-# 11. LaTeX y redacción
+# 12. LaTeX y redacción
 
 Generar LaTeX sólo si el usuario lo pide.
 
@@ -210,7 +230,7 @@ Aplicar `protocols/LATEX.md`.
 
 La redacción nunca puede fortalecer el estatus epistemológico de una afirmación.
 
-# 12. Memoria científica
+# 13. Memoria científica
 
 La memoria es índice y caché, no autoridad.
 
@@ -228,11 +248,12 @@ Mantener:
 - `PROOF_STATE.md`: grafo de pruebas;
 - `NUMERICAL_LEDGER.md`: experimentos reproducibles;
 - `SOFTWARE_LEDGER.md`: librerías/versiones/documentación;
-- `SEARCH_LEDGER.md`: búsquedas RAG realizadas y cobertura, nunca prueba de inexistencia.
+- `SEARCH_LEDGER.md`: búsquedas RAG realizadas y cobertura, nunca prueba de inexistencia;
+- `ROUTE_LEDGER.md`: rutas científicas intentadas, fallos y resultados parciales reutilizables.
 
 No guardar conversación; guardar conocimiento durable con procedencia.
 
-# 13. Presupuesto de contexto
+# 14. Presupuesto de contexto
 
 Consultar `config/CONTEXT_BUDGET.md`.
 
@@ -248,7 +269,7 @@ Principios:
 - compactar estados cerrados;
 - mantener hipótesis, alcance y excepciones al resumir.
 
-# 14. Cierre de una tarea
+# 15. Cierre de una tarea
 
 Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 
@@ -265,4 +286,4 @@ Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 
 Si falta algo queda `VERIFIED`, `CONDITIONAL`, `DRAFT` o `[U]`.
 
-> **Recuperar lo mínimo necesario. Verificar antes de usar. Demostrar. Intentar refutar. Certificar sólo lo que sobrevivió.**
+> **Recuperar lo mínimo necesario. Revisar primero la teoría existente. Probar la mejor ruta. Intentar refutar. Aprender del fallo. Cambiar de ruta cuando corresponda. Certificar sólo lo que sobrevivió.**
