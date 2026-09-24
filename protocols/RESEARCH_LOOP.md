@@ -266,7 +266,7 @@ El objetivo es no repetir caminos muertos y aprovechar resultados parciales.
 
 ## STOP-1 — PROVED / CERTIFIED
 
-P queda demostrado y certificado con todas las dependencias cerradas.
+P queda demostrado y sólo se certifica después de superar `protocols/CERTIFICATION.md`: dependency propagation, second review, computation gate si aplica y alcance cerrado.
 
 ## STOP-2 — REFUTED
 
@@ -371,7 +371,7 @@ ROUTE GENERATION
         ↓
 BEST ROUTE
         ↓
-RAG → APPLICABILITY → PROOF → RED TEAM
+RAG → APPLICABILITY → PROOF → RED TEAM → CERTIFICATION GATE
         ↓
 SUCCEED? ── yes ──> CERTIFY
    │
@@ -385,3 +385,19 @@ repeat
    ↓
 PROVED | REFUTED | CONDITIONAL | PARTIAL | UNRESOLVED
 ```
+
+
+# 16. Revalidación de inconsistencias del grafo
+
+Si se detecta un caso donde un claim hijo aparece más fuerte que una dependencia:
+
+1. NO degradar ni confirmar automáticamente;
+2. reconstruir la dependencia exacta;
+3. preguntar si el hijo necesita realmente toda la proposición padre o sólo una dirección más débil;
+4. intentar una prueba independiente de esa dirección;
+5. si existe, corregir el grafo y certificar el hijo por la ruta independiente;
+6. si no existe, heredar las condiciones del padre;
+7. si tampoco pueden satisfacerse, abrir rutas de reparación o falsificación;
+8. finalizar con `CERTIFIED | CONDITIONAL | PARTIAL | REFUTED | UNRESOLVED`.
+
+Esto permite mejorar o refutar una afirmación que no supera el certificado sin forzar un resultado.
