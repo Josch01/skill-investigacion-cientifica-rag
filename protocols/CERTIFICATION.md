@@ -164,3 +164,18 @@ Si el render introduce un objeto mal tipado, una hipótesis perdida, scope drift
 Marcar el artefacto `SEMANTIC_MISMATCH | NEEDS_PATCH` y repararlo desde la fuente normativa.
 
 Sólo reabrir la certificación científica si el mismatch revela que el propio certificado era incorrecto.
+
+## 12. Claim Strength Gate
+
+Antes de certificar palabras de fuerza elevada comprobar `protocols/OBJECTIVE_CLOSURE.md`.
+
+Bloqueos explícitos:
+- `generic/open dense` no puede derivarse de un sweep numérico o ausencia de contraejemplos;
+- `maximal/only class/iff boundary` no puede derivarse de mostrar que una sola familia rival o una sola técnica falla;
+- `sharp minimum` requiere lower bound + matching construction;
+- `impossible` requiere obstrucción para una clase de métodos definida, no fracaso de una implementación;
+- `universal` requiere cuantificadores cerrados sobre toda la clase declarada.
+
+Si falta el puente analítico, degradar a la categoría informativa apropiada, por ejemplo `CONJECTURAL`, `NUMERICALLY_SUPPORTED`, `METHOD_SPECIFIC_OBSTRUCTION`, `PARTIAL` o `UNRESOLVED`.
+
+Un claim puede superar Certification Gate pero no cerrar el Research Objective; esa decisión pertenece al Objective Closure Gate.
