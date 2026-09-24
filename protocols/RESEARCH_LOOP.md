@@ -423,3 +423,14 @@ Si se pidió la familia más amplia y sólo se probó una subfamilia, la salida 
 Si un claim de genericidad depende de numeración sin testigo analítico exacto, mantenerlo como conjetura/evidencia numérica y continuar una ruta analítica o cerrar como `PARTIAL`.
 
 Si se reclama maximalidad pero sólo se mostró una obstrucción para una estrategia concreta, reclasificarla como `METHOD_SPECIFIC_BOUNDARY` y mantener abierto el objetivo de maximalidad.
+
+# 18. Exact witness and global state closure
+
+Antes de STOP final:
+1. si un puente exacto usa no-anulación, ejecutar Exact Witness Gate;
+2. si hay múltiples artefactos modificados, ejecutar Artifact Consistency Gate;
+3. comprobar que ningún item explícito del success criterion siga simultáneamente listado como `unexplored`;
+4. comprobar second review explícito de cada claim central nuevo;
+5. sólo entonces emitir el Objective Closure Status.
+
+`CLOSED_EXACTLY` requiere scope completion, no sólo que los claims actualmente elegidos sean correctos.
