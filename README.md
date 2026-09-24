@@ -15,13 +15,19 @@ Skill de investigación científica/matemática RAG-first con:
 - cumplimiento dinámico de políticas de revista;
 - registro de búsquedas RAG reutilizable;
 - presupuesto explícito de contexto;
-- Research Loop orientado a objetivos con rutas sucesivas de prueba/refutación.
+- Research Loop orientado a objetivos con rutas sucesivas de prueba/refutación;
+- Answer Interpreter para responder desde memoria/grafos sin rehacer investigación;
+- recuperación jerárquica con Sufficiency Gate;
+- modos de explicación simple, technical, rigorous y paper.
 
 ## Idea central
 
 ```text
 Pregunta
-  -> Router
+  -> Interpreter
+     -> ¿ya está resuelta?
+        -> sí: memoria/certificado/subgrafo -> respuesta adaptada
+        -> no: Router
      -> mínimo panel necesario
         -> MEMORY_CORE + INDEX
            -> certificados relevantes
@@ -112,3 +118,35 @@ Los archivos clave son:
 - `protocols/RESEARCH_LOOP.md`
 - `memory/ROUTE_LEDGER.md`
 - `templates/RESEARCH_OBJECTIVE.md`
+
+
+## Answer Interpreter v2.3
+
+Antes del router científico, la skill decide si la pregunta realmente necesita nueva investigación.
+
+Ruta de recuperación:
+
+```text
+MEMORY_CORE
+  -> MEMORY_INDEX
+  -> CERTIFICATE
+  -> DEPENDENCY SUBGRAPH
+  -> INTERNAL ORIGINAL
+  -> EXTERNAL RAG
+  -> RESEARCH LOOP
+```
+
+La recuperación se detiene tan pronto como exista evidencia suficiente para responder fielmente.
+
+La misma conclusión puede explicarse como:
+
+- `simple`: conceptual y accesible;
+- `technical`: científica compacta;
+- `rigorous`: hipótesis, cuantificadores, dependencias y fuentes;
+- `paper`: redacción para manuscrito.
+
+Archivos clave:
+
+- `protocols/INTERPRETER.md`
+- `config/RETRIEVAL_POLICY.md`
+- `templates/ANSWER_REQUEST.md`
