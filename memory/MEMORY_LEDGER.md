@@ -5,12 +5,14 @@
 ```text
 [ID]
 Type: L|D|C|H|X|U|DEC
-Status: DRAFT|VERIFIED|CERTIFIED|CONDITIONAL|REFUTED|SUPERSEDED|STALE
+Status: DRAFT|VERIFIED|CERTIFIED|CONDITIONAL|PARTIAL|REFUTED|SUPERSEDED|STALE|NEEDS_REVALIDATION
 Tags:
 Statement:
 Hypotheses:
 Scope:
 Depends_on:
+Inherited_conditions:
+Dependency_status:
 Evidence:
 Internal_source:
 Supersedes:
