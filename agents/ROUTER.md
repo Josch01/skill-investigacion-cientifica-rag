@@ -1,5 +1,7 @@
 # Router dinámico de especialistas
 
+> Este router se ejecuta **después** de `protocols/INTERPRETER.md`. Si el Interpreter determina que la pregunta ya está resuelta por memoria/certificados, no convocar especialistas de investigación.
+
 ## Objetivo
 
 Elegir el conjunto mínimo de perspectivas expertas que reduzca el riesgo de error sin duplicar contexto.
@@ -17,6 +19,7 @@ Elegir el conjunto mínimo de perspectivas expertas que reduzca el riesgo de err
 
 | Tipo de tarea | Lead recomendado | Revisor | Añadir si aplica |
 |---|---|---|---|
+| Explicación desde memoria certificada | none by default | none | domain expert sólo si la explicación requiere reinterpretación técnica |
 | Objetivo científico abierto | Research Architect + domain lead | Adversarial reviewer | Literature / Numerical según ruta |
 | Demostración en álgebra diferencial | Differential Algebra | Proof Red Team | Identifiability / Symbolic |
 | Identificabilidad estructural | Identifiability | Differential Algebra | Control / Symbolic |
@@ -37,6 +40,8 @@ El revisor debe ser suficientemente cercano para detectar errores, pero no idén
 ## Salida del router
 
 ```text
+INTERPRETER_DECISION:
+ANSWER_DEPTH:
 TASK_CLASS:
 LEAD:
 REVIEWER:
