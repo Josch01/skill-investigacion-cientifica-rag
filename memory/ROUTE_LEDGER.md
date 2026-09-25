@@ -1,6 +1,6 @@
 # ROUTE LEDGER
 
-Registra rutas de investigación intentadas para no repetir caminos muertos y para reutilizar resultados parciales.
+Registra rutas intentadas, fallos y resultados parciales reutilizables.
 
 ```text
 [ROUTE-###]
@@ -17,7 +17,15 @@ Critical_assumptions:
 Dependencies:
 Evidence_cards:
 Applicability_records:
+Proof_obligations:
+  - Obligation_ID:
+    Active_tactic:
+    Closure_standard:
+    Computation_semantics_if_any:
+    Closure_class: OPEN|EVIDENCE_ONLY|CONDITIONAL|RIGOROUSLY_CLOSED|REFUTED
+    Artifact_or_certificate:
 Numerical_support:
+Computation_certificates:
 Outcome:
 Failure_reason:
 Reusable_results:
@@ -33,15 +41,8 @@ Notes:
 ## Reglas
 
 - Una ruta fallida no refuta el objetivo por sí sola.
-- Registrar la causa exacta del fallo.
+- Una táctica fallida puede activar un fallback sin refutar automáticamente la ruta.
+- Una ruta exacta no es `SUCCEEDED` si una obligación esencial sigue `OPEN` o `EVIDENCE_ONLY`.
 - Extraer resultados parciales antes de cerrar.
-- No repetir una ruta `FAILED` salvo que cambie una hipótesis, fuente o herramienta material.
-
-
-## Compaction v2.8
-
-- HOT sólo para rutas ACTIVE/PROMISING y bloqueos inmediatos.
-- SUCCEEDED se compacta una vez emitido el certificado.
-- FAILED se compacta a razón de fallo + resultado reusable y pasa a ARCHIVE salvo dependencia activa.
-- SUPERSEDED pasa a ARCHIVE.
-- Máximo operativo recomendado: 8 rutas HOT por objetivo.
+- No repetir una ruta `FAILED` salvo cambio material de hipótesis, fuente o herramienta.
+- HOT sólo para ACTIVE/PROMISING; SUCCEEDED se compacta tras certificado; FAILED/SUPERSEDED pasa a ARCHIVE salvo dependencia activa.

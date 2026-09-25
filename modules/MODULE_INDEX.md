@@ -30,10 +30,10 @@ Principio:
 | `CORE_RESEARCH` | investigación científica sustantiva | Research Loop, RAG, notación, cierre |
 | `LITERATURE_REVIEW` | teoría existente, estado del arte, fuentes | RAG, Search/Literature ledgers |
 | `NOVELTY_ASSESSMENT` | novedad, contribución, prior art | RAG, Novelty, Novelty Coverage |
-| `THEOREM_RESEARCH` | demostrar/refutar/teorema/lema | Proof, Certification, Red Team |
+| `THEOREM_RESEARCH` | demostrar/refutar/teorema/lema | Proof, Proof Tactics, Certification, Red Team |
 | `NUMERICAL_STUDY` | ODE/PDE, simulación, optimización, ML, cómputo | Numerics, Computation Certificate |
 | `IDENTIFIABILITY_STUDY` | identificabilidad/observabilidad/simetrías | Proof + Numerics + falsificación |
-| `DYNAMICAL_SYSTEMS_STUDY` | estabilidad, bifurcaciones, caos | Proof/Numerics según claim |
+| `DYNAMICAL_SYSTEMS_STUDY` | estabilidad, bifurcaciones, caos | Proof/Proof Tactics/Numerics según claim |
 | `OBJECTIVE_EXPANSION` | broadest/maximal/strongest/generic/universal | Objective Closure, Exact Witness |
 | `CODE_VERIFICATION` | producir/revisar código científico | Numerics, reproducibilidad, deterministic gate |
 | `MANUSCRIPT_AUDIT` | auditar manuscrito científico | Audit, RAG, notation/type gates |
@@ -47,9 +47,11 @@ Ejemplo de novedad:
 
 `CORE_RESEARCH + LITERATURE_REVIEW + NOVELTY_ASSESSMENT + WORKER_COMPLETION`
 
-Ejemplo de teorema con soporte numérico:
+Ejemplo de teorema con soporte o cierre computacional:
 
 `CORE_RESEARCH + THEOREM_RESEARCH + NUMERICAL_STUDY + WORKER_COMPLETION`
+
+En ese caso `THEOREM_RESEARCH` enruta cada subclaim mediante `protocols/PROOF_TACTICS.md`, y `NUMERICAL_STUDY` sólo adquiere fuerza de cierre cuando satisface el estándar matemático de la obligación correspondiente.
 
 Ejemplo de maximalidad en identificabilidad:
 
@@ -58,3 +60,5 @@ Ejemplo de maximalidad en identificabilidad:
 ## Regla de economía
 
 No cargar todos los módulos. Seleccionar el conjunto mínimo que cubra el objetivo, sus dependencias y los gates obligatorios.
+
+La presencia de una táctica en el registro no obliga a usarla: las tácticas son opciones de cierre por obligación, no checklist obligatorio.

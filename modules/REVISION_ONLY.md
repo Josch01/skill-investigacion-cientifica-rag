@@ -17,7 +17,7 @@ Corregir sólo el delta auditado. No reiniciar la investigación completa ni reg
 
 ## Obligaciones
 
-1. Mantener claim, scope, hipótesis y definiciones salvo que el auditor ordene `SCIENTIFIC_REOPEN` o `CONTRACT_REVISION_REQUIRED`.
+1. Mantener claim, scope, hipótesis, definiciones, cuantificadores y criterios de éxito/refutación. Si cualquiera debe cambiar, detener la revisión local y usar `SCIENTIFIC_REOPEN` con nueva revisión de contrato.
 2. Resolver cada issue con evidencia verificable.
 3. Registrar qué archivos cambiaron y por qué.
 4. Reejecutar sólo deterministic checks y certificados afectados.

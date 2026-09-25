@@ -27,9 +27,29 @@ Antes de certificar, producir conceptualmente:
 
 `DEPENDENCY_AUDIT: dependency -> required? -> status -> inherited_conditions -> resolution`
 
+## 2.1 Proof-Obligation Closure Audit
+
+Si la prueba contiene subclaims nuevos o puentes no certificados, aplicar `protocols/PROOF_TACTICS.md` y auditar cada obligación esencial:
+
+```text
+Obligation_ID -> tactic -> closure_standard -> artifact/certificate -> closure_class
+```
+
+Reglas:
+
+- `OPEN` bloquea `CERTIFIED`;
+- `EVIDENCE_ONLY` bloquea `CERTIFIED` para un claim exacto;
+- `CONDITIONAL` propaga sus condiciones al target salvo descarga explícita;
+- `RIGOROUSLY_CLOSED` sólo cuenta si el método realmente satisface el estándar de cierre declarado;
+- una obligación refutada puede refutar el target o invalidar la ruta, según su papel lógico.
+
+No elevar una obligación a cerrada por acumulación de experimentos ordinarios.
+
 ## 3. Taint propagation
 
 Dependencias con estado `[U]`, `partial`, `unverified`, `CONDITIONAL` no descargado o evidencia bibliográfica incompleta contaminan el target.
+
+También contaminan el target las obligaciones esenciales `OPEN|EVIDENCE_ONLY` y los certificados computacionales que sólo demuestran reproducibilidad pero no suficiencia matemática.
 
 No ocultar esta contaminación mediante redacción.
 
@@ -48,6 +68,12 @@ Si no existen subagentes reales:
 - reconstruir la prueba desde statement + hypotheses + evidence;
 - comparar sólo al final.
 
+Si hay obligaciones computacionales esenciales, el segundo review debe comprobar además:
+- que el subclaim realmente se reduce a la computación declarada;
+- cobertura/exhaustividad;
+- control de error/redondeo;
+- correspondencia entre salida y conclusión matemática.
+
 Estados del segundo review:
 
 `CONFIRMS | CONFIRMS_WITH_CONDITIONS | OBJECTS | UNRESOLVED`
@@ -59,6 +85,8 @@ Una discrepancia entre revisiones bloquea `CERTIFIED` hasta resolverla.
 Si una computación es esencial para el claim, exigir `templates/COMPUTATION_CERTIFICATE.md`.
 
 Debe incluir como mínimo:
+- `Proof_Obligation_ID_if_any`;
+- `Computation_semantics`;
 - script/archivo exacto;
 - hash o commit;
 - versión de datos si aplica;
@@ -70,14 +98,23 @@ Debe incluir como mínimo:
 - tolerancias;
 - comando de ejecución;
 - salida relevante;
+- puente matemático entre salida y claim;
+- cuantificadores/dominio cubiertos;
+- cobertura/exhaustividad cuando aplique;
+- control de redondeo/error cuando aplique;
+- `Closure_standard` si pretende cerrar una obligación;
 - verificación independiente o rerun;
 - limitaciones.
 
-Si falta un artefacto esencial:
+La reproducibilidad es necesaria pero no suficiente para una prueba asistida por computadora.
+
+Si falta un artefacto o puente esencial:
 - la computación puede quedar como `[N] VERIFIED`;
 - no puede ser fundamento único de un `CERTIFIED` exacto.
 
 Si la computación sólo es corroborativa y existe una prueba analítica completa, su falta no invalida la prueba; debe reclasificarse como soporte no esencial.
+
+Para `symbolic_exact | exhaustive_finite | validated_numeric | rigorous_computer_assisted_proof`, comprobar específicamente que el método satisface el estándar matemático de la obligación; el nombre de la técnica por sí solo no basta.
 
 ## 6. Novelty Coverage Gate
 
@@ -127,13 +164,14 @@ Un claim central sólo alcanza `CERTIFIED` si:
 1. statement exacto;
 2. hipótesis completas;
 3. dependency audit cerrado;
-4. condiciones heredadas descargadas o explícitas;
-5. Evidence Cards aplicables;
-6. prueba cerrada;
-7. red team completado;
-8. second review no objeta;
-9. computation gate satisfecho si la computación es esencial;
-10. alcance y excepciones declarados.
+4. proof-obligation closure audit cerrado cuando aplica;
+5. condiciones heredadas descargadas o explícitas;
+6. Evidence Cards aplicables;
+7. prueba cerrada;
+8. red team completado;
+9. second review no objeta;
+10. computation gate satisfecho si la computación es esencial;
+11. alcance y excepciones declarados.
 
 Si falla un gate usar el estatus más informativo: `VERIFIED`, `CONDITIONAL`, `PARTIAL`, `UNRESOLVED`, `REFUTED` o `STALE`.
 
@@ -149,9 +187,11 @@ recorrer descendientes en el grafo y marcar:
 
 hasta que se demuestre independencia o se reparen condiciones.
 
+La invalidación de un Computation Certificate esencial también reabre los claims que dependan de la obligación cerrada por ese certificado.
+
 ## 10. Regla final
 
-> Certificar no significa que una sola revisión quedó satisfecha; significa que el claim sobrevivió dependencias, prueba, ataque adversarial, revisión independiente y todos los gates materiales.
+> Certificar no significa que una sola revisión quedó satisfecha; significa que el claim sobrevivió dependencias, obligaciones de prueba, estándares de cierre, ataque adversarial, revisión independiente y todos los gates materiales.
 
 ## 11. Separation of scientific status and artifact status
 
@@ -176,7 +216,9 @@ Bloqueos explícitos:
 - `impossible` requiere obstrucción para una clase de métodos definida, no fracaso de una implementación;
 - `universal` requiere cuantificadores cerrados sobre toda la clase declarada.
 
-Si falta el puente analítico, degradar a la categoría informativa apropiada, por ejemplo `CONJECTURAL`, `NUMERICALLY_SUPPORTED`, `METHOD_SPECIFIC_OBSTRUCTION`, `PARTIAL` o `UNRESOLVED`.
+Una prueba computacional rigurosa puede participar en estos claims sólo si el certificado cubre la obligación adicional correspondiente; un muestreo no sustituye cuantificadores.
+
+Si falta el puente analítico o computacional riguroso, degradar a la categoría informativa apropiada, por ejemplo `CONJECTURAL`, `NUMERICALLY_SUPPORTED`, `METHOD_SPECIFIC_OBSTRUCTION`, `PARTIAL` o `UNRESOLVED`.
 
 Un claim puede superar Certification Gate pero no cerrar el Research Objective; esa decisión pertenece al Objective Closure Gate.
 

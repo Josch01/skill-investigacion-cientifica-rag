@@ -37,7 +37,7 @@ Then:
 1. load the local canonical skill entry:
    `.codex/skills/skill-investigacion-cientifica-rag/SKILL.md`
    or the installed Codex skill path configured for this machine;
-2. verify version >= 2.10.0;
+2. verify version >= 2.11.0;
 3. read only:
    - `protocols/INTERPRETER.md`
    - `agents/ROUTER.md`
@@ -49,9 +49,10 @@ Then:
    - `coordination/MODULE_SELECTION.md`
    - `coordination/TASK_PACKET.md`
    - `coordination/WORKER_MISSION.md`;
-7. create:
+7. run the Contract Preservation Check from `protocols/TASK_COMPILATION.md`;
+8. create:
    `coordination/signals/CODEX_PLAN_DONE.json`;
-8. use the deterministic state manager to transition to:
+9. use the deterministic state manager to transition to:
    `READY_FOR_WORKER`
    with:
    `next_actor = GEMINI`.
@@ -100,6 +101,7 @@ Audit:
 - contract compliance;
 - mathematical/logical correctness;
 - hypotheses and quantifiers;
+- proof obligations and closure standards;
 - notation/types;
 - source quality and applicability;
 - numerical-vs-exact distinction;
@@ -142,11 +144,12 @@ Then compile a new worker mission if delegation is still appropriate.
 
 ## 2. Skill authority
 
-Use the locally synchronized skill version >= 2.10.0.
+Use the locally synchronized skill version >= 2.11.0.
 
 Follow its:
 - epistemic labels `[L] [D] [N] [C] [H] [X] [U] [DEC]`;
 - module-selection rules;
+- proof-tactic routing;
 - task-compilation protocol;
 - scientific mailbox protocol;
 - certification gates;
