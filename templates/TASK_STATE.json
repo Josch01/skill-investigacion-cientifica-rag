@@ -9,5 +9,6 @@
   "open_questions": 0,
   "active_mission_id": "",
   "active_contract_hash": "",
+  "active_mission_hash": "",
   "updated_at": ""
 }
