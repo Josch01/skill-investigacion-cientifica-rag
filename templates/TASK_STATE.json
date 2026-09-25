@@ -1,0 +1,13 @@
+{
+  "task_id": "TASK-XXXX",
+  "revision": 1,
+  "state": "READY_FOR_CODEX_PLAN",
+  "next_actor": "CODEX",
+  "codex_plan": "NOT_STARTED",
+  "worker_work": "NOT_STARTED",
+  "codex_audit": "NOT_STARTED",
+  "open_questions": 0,
+  "active_mission_id": "",
+  "active_contract_hash": "",
+  "updated_at": ""
+}
