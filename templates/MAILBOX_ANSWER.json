@@ -1,0 +1,12 @@
+{
+  "id": "A-XXXX",
+  "reply_to": "Q-XXXX",
+  "task_id": "TASK-XXXX",
+  "revision": 1,
+  "from": "CODEX",
+  "to": "WORKER",
+  "decision": "",
+  "answer": "",
+  "changes_scientific_contract": false,
+  "created_at": ""
+}
