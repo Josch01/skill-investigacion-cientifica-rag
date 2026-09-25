@@ -4,7 +4,7 @@
 
 ## Objetivo
 
-Elegir el conjunto mínimo de perspectivas expertas que reduzca el riesgo de error sin duplicar contexto.
+Elegir el conjunto mínimo de perspectivas expertas y módulos que reduzca el riesgo de error sin duplicar contexto.
 
 ## Política base
 
@@ -13,7 +13,7 @@ Elegir el conjunto mínimo de perspectivas expertas que reduzca el riesgo de err
 - Interdisciplinaria: +1 puente.
 - Con evidencia computacional material: +1 numérico.
 - Máximo normal: 4 durante investigación. El second review de certificación puede reutilizar un revisor independiente o ejecutarse como pase separado; no requiere mantener un agente adicional durante toda la tarea.
-- No añadir agentes "por si acaso".
+- No añadir agentes ni módulos "por si acaso".
 
 ## Matriz de activación
 
@@ -38,6 +38,29 @@ Elegir el conjunto mínimo de perspectivas expertas que reduzca el riesgo de err
 ## Selección adversarial
 
 El revisor debe ser suficientemente cercano para detectar errores, pero no idéntico al lead.
+
+## Module Selection v2.10
+
+Después de clasificar la tarea, consultar `modules/MODULE_INDEX.md` y seleccionar el conjunto mínimo de módulos que cubra el objetivo y sus dependencias materiales.
+
+Reglas:
+- investigación sustantiva -> `CORE_RESEARCH`;
+- estado del arte -> `LITERATURE_REVIEW`;
+- novedad/prior art -> `NOVELTY_ASSESSMENT`;
+- teorema/prueba/refutación -> `THEOREM_RESEARCH`;
+- evidencia computacional -> `NUMERICAL_STUDY`;
+- identificabilidad -> `IDENTIFIABILITY_STUDY`;
+- sistemas dinámicos/caos -> `DYNAMICAL_SYSTEMS_STUDY`;
+- optimización -> `OPTIMIZATION_STUDY`;
+- ML/PINN -> `ML_PINN_STUDY`;
+- maximalidad/genericidad/frontera -> `OBJECTIVE_EXPANSION`;
+- código científico material -> `CODE_VERIFICATION`;
+- auditoría de paper -> `MANUSCRIPT_AUDIT`;
+- redacción/render -> `SCIENTIFIC_WRITING`;
+- corrección localizada -> `REVISION_ONLY`;
+- delegación -> `WORKER_COMPLETION`.
+
+No cargar todos los módulos. Resolver dependencias referenciando protocolos existentes; no duplicarlos en el prompt.
 
 ## Salida del router
 
@@ -66,14 +89,23 @@ MULTI_AGENT_HANDOFF: yes|no
 RISK_CLASS: R0|R1|R2|R3
 DELEGATED_ROLE:
 SCIENTIFIC_AUTHORITY_ROLE:
+MODULES_TO_LOAD:
+PROTOCOLS_TO_LOAD:
+MEMORY_TAGS:
+TEMPLATES_TO_USE:
+TASK_COMPILATION: yes|no
+COORDINATION_REQUIRED: yes|no
+WORKER_ROLE:
+AUDIT_REQUIRED: yes|no
 ```
 
 No mostrar esta mecánica al usuario salvo que sea útil.
 
+## Delegation routing v2.10
 
-## Delegation routing v2.9
+Si `MULTI_AGENT_HANDOFF=yes`, cargar `config/AGENT_AUTHORITY.md`, `protocols/MULTI_AGENT_HANDOFF.md` y `protocols/TASK_COORDINATION.md`.
 
-Si `MULTI_AGENT_HANDOFF=yes`, cargar `config/AGENT_AUTHORITY.md` y `protocols/MULTI_AGENT_HANDOFF.md`.
+Si hay worker externo, el Scientific Lead compila `templates/WORKER_MISSION.md` usando `protocols/TASK_COMPILATION.md`.
 
 Routing mínimo:
 - R0: deterministic checker; model optional.
@@ -81,4 +113,4 @@ Routing mínimo:
 - R2: worker + deterministic check + scientific auditor.
 - R3: Scientific Lead; workers sólo para subtareas acotadas; independent review para certification.
 
-El router selecciona roles científicos. El runtime externo decide qué provider implementa cada rol.
+El router selecciona roles científicos y módulos. El runtime externo decide qué provider implementa cada rol y es dueño del estado canónico.
