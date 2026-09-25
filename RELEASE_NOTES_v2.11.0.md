@@ -2,7 +2,7 @@
 
 ## Objetivo de la versión
 
-Esta versión formaliza una capacidad que antes estaba distribuida entre `PROOF.md`, `NUMERICS.md` y el Research Loop: **cada subclaim u obligación de una demostración puede elegir una táctica distinta, con un estándar explícito de cierre y fuerza epistemológica controlada**.
+Esta versión formaliza una capacidad antes distribuida entre `PROOF.md`, `NUMERICS.md` y el Research Loop: **cada subclaim u obligación de una demostración puede elegir una táctica distinta, con un estándar explícito de cierre y fuerza epistemológica controlada**.
 
 Principio central:
 
@@ -14,7 +14,7 @@ Una prueba puede combinar literatura, deducción analítica, cálculo simbólico
 
 ### 1. Nuevo protocolo `protocols/PROOF_TACTICS.md`
 
-Introduce el routing por obligación de prueba:
+Introduce routing por obligación de prueba:
 
 ```text
 proof obligation
@@ -22,10 +22,10 @@ proof obligation
     -> active tactic
     -> closure standard
     -> artifact/certificate
-    -> epistemic status
+    -> closure class
 ```
 
-Tácticas iniciales:
+Tácticas:
 
 - `CERTIFIED_INTERNAL_RESULT`
 - `EXTERNAL_THEOREM`
@@ -37,80 +37,110 @@ Tácticas iniciales:
 - `NUMERICAL_SCOUT`
 - `COUNTEREXAMPLE_SEARCH`
 
+El routing es idempotente: una obligación ya registrada conserva su `Obligation_ID`; cambiar de táctica no crea un subclaim duplicado.
+
 ### 2. Nuevo template `templates/PROOF_OBLIGATION.md`
 
-Permite registrar cada subclaim material con:
-
-- hipótesis y cuantificadores locales;
-- rol esencial/auxiliar;
-- táctica activa;
-- estándar de cierre;
-- evidencia/certificados;
-- clase de cierre;
-- fallback si falla la táctica.
-
-Clases:
+Registra subclaim, hipótesis/cuantificadores locales, rol esencial/auxiliar, táctica, estándar de cierre, evidencia/certificados, fallback y clase de cierre:
 
 `OPEN | EVIDENCE_ONLY | CONDITIONAL | RIGOROUSLY_CLOSED | REFUTED`.
 
 ### 3. `PROOF.md` permite cierre computacional positivo
 
-La computación deja de aparecer únicamente como refutación opcional. Puede actuar como:
+La computación puede actuar como scout, falsificador, simbólico exacto, enumeración exhaustiva, numerics validados o computer-assisted proof rigurosa.
 
-- scout;
-- falsificador;
-- cálculo simbólico exacto;
-- enumeración exhaustiva;
-- numerics validados;
-- computer-assisted proof rigurosa.
-
-Una obligación exacta no puede cerrarse por sweep, residuo pequeño o alta precisión decimal sin un puente riguroso.
+Una obligación exacta no puede cerrarse por sweep, residuo pequeño o alta precisión decimal sin un puente matemático riguroso.
 
 ### 4. `NUMERICS.md` separa semántica computacional y fuerza de prueba
 
-Nueva clasificación:
+Taxonomía canónica única:
 
 `exploratory_numeric | falsification_search | corroborative_numeric | symbolic_exact | exhaustive_finite | validated_numeric | rigorous_computer_assisted_proof`.
 
-La reproducibilidad del programa y la suficiencia matemática del certificado se tratan como condiciones distintas.
+La reproducibilidad del programa y la suficiencia matemática del certificado son condiciones distintas.
+
+La dirección canónica es acíclica:
+
+```text
+PROOF -> PROOF_TACTICS -> NUMERICS -> artifact/certificate -> obligation audit
+```
+
+`NUMERICS` no vuelve a enrutar la obligación.
 
 ### 5. `COMPUTATION_CERTIFICATE.md` reforzado
 
-Añade:
+Añade `Proof_Obligation_ID`, `Computation_semantics`, puente matemático, cuantificadores cubiertos, región muestreada vs dominio certificado, cobertura/exhaustividad, modelo aritmético, control de redondeo/error, estándar de cierre y condiciones formales de éxito/fallo.
 
-- `Proof_Obligation_ID_if_any`;
-- `Computation_semantics`;
-- `Mathematical_bridge`;
-- cuantificadores cubiertos;
-- región muestreada vs dominio certificado;
-- argumento de cobertura/exhaustividad;
-- modelo aritmético;
-- control de redondeo/error;
-- estándar de cierre;
-- condiciones formales de éxito/fallo.
+### 6. Research Loop y branching
 
-### 6. `RESEARCH_LOOP.md` incorpora cambio de táctica dentro de una ruta
+Una ruta puede contener múltiples tácticas por subclaim. El fallo de una táctica no implica fallo del claim ni refutación; puede activarse otra táctica para la misma obligación.
 
-Una ruta puede contener múltiples tácticas por subclaim. El fallo de una táctica no implica automáticamente fallo del claim ni refutación; puede activarse otra táctica para la obligación concreta.
+### 7. Router, Module Selection y Task Packet
 
-### 7. Router y contratos de delegación
+Propagan proof-tactic routing, rol computacional, closure methods permitidos y estándar de cómputo riguroso.
 
-`agents/ROUTER.md`, `templates/MODULE_SELECTION.md` y `templates/TASK_PACKET.md` ahora distinguen:
+### 8. Handoff end-to-end preservado
 
-- si se requiere proof-tactic routing;
-- el rol de numerics;
-- si se permite cierre computacional riguroso;
-- el estándar que debe cumplir un worker antes de que una computación pueda apoyar un claim exacto.
-
-### 8. Certificación
-
-`CERTIFICATION.md` y `PROOF_CERTIFICATE.md` añaden auditoría explícita:
+Tras auditoría de arquitectura se endureció la cadena:
 
 ```text
-Obligation_ID -> tactic -> closure_standard -> artifact/certificate -> closure_class
+TASK_PACKET
+   -> Contract Preservation Check
+   -> WORKER_MISSION
+   -> WORKER_RESULT
+   -> AUDIT_PACKET
 ```
 
-Una obligación esencial `OPEN` o `EVIDENCE_ONLY` bloquea `CERTIFIED` para un claim exacto.
+`WORKER_MISSION` conserva ahora objetos/tipos, hipótesis, scope, definiciones, cuantificadores, éxito/refutación, allowed/forbidden actions, file ownership, proof obligations, `Computation_semantics`, `Closure_standard`, outputs y acceptance criteria.
+
+`WORKER_RESULT` devuelve las obligaciones atendidas, táctica, estándar, evidencia/certificado, claims no demostrados y preguntas abiertas sin autorizar cambios de estatus científico.
+
+`AUDIT_PACKET` audita explícitamente cada obligación y su puente computacional.
+
+### 9. Veredictos y revisiones unificados
+
+Veredictos canónicos únicos:
+
+`ACCEPT | REVISION_REQUIRED | SCIENTIFIC_REOPEN | BLOCKED`.
+
+Se eliminó la etiqueta huérfana `CONTRACT_REVISION_REQUIRED`; todo cambio material de contrato usa `SCIENTIFIC_REOPEN`.
+
+### 10. Objective Closure compatible con computación rigurosa
+
+El gate ya no exige un puente exclusivamente analítico. Claims fuertes pueden cerrarse mediante **puente matemático riguroso** analítico, simbólico exacto, exhaustivo finito o computacional certificado, siempre que cubra los cuantificadores y dominio relevantes.
+
+Un sweep ordinario sigue sin poder demostrar genericidad, universalidad, maximalidad, minimalidad exacta o imposibilidad.
+
+### 11. Memoria/ledgers alineados con v2.11
+
+`RESEARCH_OBJECTIVE`, `EXPERIMENT_RECORD`, `NUMERICAL_LEDGER`, `PROOF_STATE`, `ROUTE_LEDGER` y `ARTIFACT_CONSISTENCY` registran ahora proof obligations, computation semantics, closure standards/classes y certificados materiales donde corresponde.
+
+### 12. Coordinación determinista reforzada
+
+Nuevos schemas:
+
+- `templates/CODEX_PLAN_DONE.json`
+- `templates/CODEX_AUDIT_DONE.json`
+
+`WORKER_DONE.json` incluye `mission_hash` y `task_execution_completed`; ya no permite al worker declarar `objective_completed`.
+
+Los prompts de Codex requieren la skill canónica `>= 2.11.0`.
+
+### 13. Validación estática y CI
+
+Nuevo `scripts/validate_skill.py` comprueba:
+
+- versión canónica;
+- archivos requeridos;
+- referencias internas rotas;
+- JSON de coordinación;
+- taxonomía `Computation_semantics`;
+- veredictos de auditoría;
+- campos contractuales de `WORKER_MISSION`;
+- dirección Proof Tactics → Numerics;
+- reglas de Objective Closure.
+
+`.github/workflows/validate-skill.yml` ejecuta esta validación en `push` y `pull_request`.
 
 ## Resultado conceptual
 
@@ -127,9 +157,10 @@ construir un grafo de prueba
     -> descomponer en obligaciones
     -> seleccionar táctica por obligación
     -> exigir estándar de cierre
+    -> preservar el contrato al delegar
+    -> producir/auditar certificados
     -> propagar fuerza epistemológica
-    -> auditar
     -> certificar
 ```
 
-Esto permite pruebas heterogéneas rigurosas sin confundir evidencia numérica exploratoria con demostración matemática.
+Esto permite pruebas heterogéneas rigurosas sin confundir evidencia numérica exploratoria con demostración matemática y sin perder semántica científica entre Lead, worker y auditor.
