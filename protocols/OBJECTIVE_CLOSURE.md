@@ -42,8 +42,8 @@ entonces encontrar una familia que funciona NO cierra el objetivo.
 Para sostener maximalidad exigir:
 1. definición exacta del universo de familias/operadores permitidos;
 2. propiedad que se quiere caracterizar;
-3. prueba de suficiencia para la clase candidata;
-4. prueba de necesidad para toda clase fuera de ella, o teorema estructural equivalente;
+3. prueba/certificado riguroso de suficiencia para la clase candidata;
+4. prueba/certificado riguroso de necesidad para toda clase fuera de ella, o teorema estructural equivalente;
 5. tratamiento de transformaciones/liftings/variables auxiliares permitidas;
 6. tratamiento de excepciones y equivalencias de representación.
 
@@ -57,7 +57,7 @@ Si sólo se demuestra falla de una estrategia, usar:
 `generic`, `open dense`, `almost every`, `measure zero exception`, `proper analytic variety` son claims matemáticos exactos.
 
 No pueden derivarse sólo de:
-- sweeps numéricos;
+- sweeps numéricos ordinarios;
 - muchos casos exitosos;
 - ausencia de contraejemplos;
 - singular values positivos en una grilla.
@@ -66,22 +66,26 @@ Para un claim `open dense` basado en analiticidad exigir:
 1. espacio de parámetros/orbitas bien definido;
 2. función/minor analítico bien definido en ese espacio;
 3. prueba de que no es idénticamente cero;
-4. al menos un testigo analítico exacto o argumento teórico equivalente;
+4. testigo exacto, `RIGOROUS_NUMERIC_NONZERO` o argumento/certificado matemático equivalente;
 5. conexión rigurosa entre no-anulación del minor y full rank;
 6. condiciones de conectividad/estratificación que realmente se necesiten.
+
+Si el paso 4 usa computación rigurosa, debe satisfacer `protocols/EXACT_WITNESS.md`, `protocols/NUMERICS.md` y el Computation Certificate correspondiente.
 
 Sin esto, clasificar como:
 `GENERICITY_CONJECTURE_SUPPORTED_BY_NUMERICS` o `NUMERICALLY_SUPPORTED_OPENNESS_CANDIDATE`.
 
 ## 5. Numerical-to-Exact Strength Rule
 
-Un sweep puede apoyar:
+Un sweep ordinario puede apoyar:
 `[N] robustness`, `[N] counterexample search`, `[N] candidate witness`, `[N] degeneracy locator`.
 
 No puede por sí solo promover:
 `universal`, `generic`, `open dense`, `minimal exact`, `maximal`, `iff`, `impossible`.
 
-Antes de usar uno de esos términos debe existir un puente analítico certificado.
+Antes de usar uno de esos términos debe existir un **puente matemático riguroso**: analítico, simbólico exacto, exhaustivo finito, validated numeric o computer-assisted proof certificado, según la obligación concreta.
+
+El puente debe cubrir los cuantificadores y dominio requeridos; `sampled_region != certified_domain` salvo prueba explícita de cobertura.
 
 ## 6. First-success fallacy
 
@@ -105,13 +109,15 @@ Resultado: claim posiblemente correcto, pero objective closure = `PARTIAL` hasta
 Orden orientativo de fuerza:
 `EXAMPLE < SUBFAMILY < CONDITIONAL FAMILY < GENERIC FAMILY < UNIVERSAL FAMILY < MAXIMAL/CHARACTERIZATION`.
 
-No subir niveles sin un puente demostrado.
+No subir niveles sin un puente matemático riguroso compatible con la obligación adicional.
 
 Para minimalidad:
 `observed minimum < lower bound < sharp minimum`.
 
 Para imposibilidad:
 `method failure < obstruction for a defined method class < impossibility theorem`.
+
+Una computación rigurosa puede participar en lower bounds, exhaustividad o imposibilidad sólo cuando el certificado cubre el universo/cuántificadores relevantes.
 
 ## 8. Closure statuses
 
@@ -153,9 +159,11 @@ Ejemplo:
 
 ## 12. Exact Witness Dependency
 
-Si el cierre depende de `generic/open dense` mediante no-anulación analítica, consultar `protocols/EXACT_WITNESS.md`.
+Si el cierre depende de `generic/open dense` mediante no-anulación analítica o equivalente riguroso, consultar `protocols/EXACT_WITNESS.md`.
 
 Un witness expresado mediante factores calculados sólo en float no satisface `Exact_nonzero_witness_available: yes`.
 
 Debe registrarse el nivel real:
-`EXACT_NONZERO | RIGOROUS_NUMERIC_NONZERO | HIGH_PRECISION_NUMERIC_NONZERO | ...`.
+`EXACT_NONZERO | RIGOROUS_NUMERIC_NONZERO | HIGH_PRECISION_NUMERIC_NONZERO | SCOUT_NONZERO | UNRESOLVED_NONZERO`.
+
+Sólo `EXACT_NONZERO` o `RIGOROUS_NUMERIC_NONZERO` con puente matemático suficiente pueden cerrar el paso exacto.
