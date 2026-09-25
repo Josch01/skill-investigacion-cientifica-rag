@@ -1,0 +1,10 @@
+{
+  "task_id": "TASK-XXXX",
+  "revision": 1,
+  "mission_id": "MISSION-XXXX",
+  "contract_hash": "",
+  "mission_hash": "",
+  "status": "COMPLETE",
+  "required_worker_outputs": [],
+  "created_at": ""
+}
