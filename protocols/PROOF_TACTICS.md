@@ -14,7 +14,21 @@ Aplicar después de construir el grafo de dependencias en `protocols/PROOF.md` y
 
 ## 2. Unidad de trabajo: Proof Obligation
 
-Para cada dependencia nueva o puente no certificado crear conceptualmente un registro según `templates/PROOF_OBLIGATION.md`.
+Para cada dependencia nueva o puente no certificado crear o recuperar un registro según `templates/PROOF_OBLIGATION.md`.
+
+### Invariante de identidad e idempotencia
+
+Una obligación lógica material debe tener un único `Obligation_ID` activo por `Parent_claim + Statement + Domain_and_quantifiers` dentro de la misma revisión.
+
+Si el protocolo se invoca otra vez sobre una obligación ya registrada:
+
+- NO crear un segundo PO para el mismo subclaim;
+- recuperar el `Obligation_ID` existente;
+- conservar historial de tácticas fallidas;
+- actualizar sólo `Active_tactic`, evidencia, failure reason, fallback o `Closure_class` cuando corresponda;
+- no degradar ni promover el cierre sin nueva evidencia auditada.
+
+Así `RESEARCH_LOOP -> PROOF -> PROOF_TACTICS` y una comprobación posterior del mismo subclaim son idempotentes, no recursivas.
 
 Cada obligación debe declarar:
 
@@ -35,68 +49,42 @@ No seleccionar una táctica por familiaridad. Elegirla por adecuación lógica, 
 
 ## 3. Registro de tácticas
 
-Tácticas permitidas, no exhaustivas:
-
 ### `CERTIFIED_INTERNAL_RESULT`
-Reutilizar un resultado interno `CERTIFIED` compatible.
-
-Cierre: verificar statement, scope, definiciones, hipótesis e inexistencia de invalidación.
+Reutilizar un resultado interno `CERTIFIED` compatible. Cierre: statement, scope, definiciones, hipótesis e inexistencia de invalidación verificados.
 
 ### `EXTERNAL_THEOREM`
-Usar literatura verificada.
-
-Cierre: Evidence Card + matriz de aplicabilidad completa + puente explícito al subclaim.
+Usar literatura verificada. Cierre: Evidence Card + matriz de aplicabilidad completa + puente explícito al subclaim.
 
 ### `DIRECT_ANALYTIC`
-Demostrar el subclaim mediante argumento matemático nuevo.
-
-Cierre: deducción completa + ataque adversarial correspondiente.
+Demostrar el subclaim mediante argumento matemático nuevo. Cierre: deducción completa + ataque adversarial.
 
 ### `SYMBOLIC_EXACT`
-Usar álgebra/cálculo simbólico exacto.
-
-Cierre: supuestos, ramas, denominadores, dominios y simplificaciones auditados; el resultado debe ser exacto, no sólo una evaluación decimal.
+Usar álgebra/cálculo simbólico exacto. Cierre: supuestos, ramas, denominadores, dominios y simplificaciones auditados; no basta evaluación decimal.
 
 ### `EXHAUSTIVE_FINITE_COMPUTATION`
-Resolver una obligación sobre un universo finito mediante enumeración exhaustiva exacta.
-
-Cierre sólo si se demuestra que el universo enumerado es completo, la enumeración no omite casos, el cálculo relevante es exacto o certificado y existe `COMPUTATION_CERTIFICATE` cuando sea material.
+Resolver una obligación sobre un universo finito mediante enumeración exhaustiva exacta. Cierre sólo si la exhaustividad y exactitud/certificación quedan demostradas.
 
 ### `VALIDATED_NUMERICS`
-Usar interval arithmetic, validated ODE/PDE integration, interval Newton/Krawczyk, validated continuation, bounds certificados u otro método numérico riguroso.
-
-Cierre sólo si el método cubre los cuantificadores requeridos, controla redondeo/error y produce una cota/certificado matemáticamente suficiente.
+Usar interval arithmetic, validated ODE/PDE integration, interval Newton/Krawczyk, validated continuation, bounds certificados u otro método con garantía equivalente. Cierre sólo si cubre cuantificadores, dominio y error/redondeo requeridos.
 
 ### `RIGOROUS_COMPUTER_ASSISTED_PROOF`
-Combinar un marco teórico con computación certificada como parte esencial de la prueba.
-
-Cierre: marco matemático explícito + reducción del claim a obligaciones computables + cobertura + aritmética/cotas rigurosas + reproducibilidad + Computation Certificate + auditoría independiente.
+Combinar marco teórico con computación certificada. Cierre: reducción explícita + cobertura + aritmética/cotas rigurosas + reproducibilidad + Computation Certificate + auditoría.
 
 ### `NUMERICAL_SCOUT`
-Usar simulación, sweep, optimización, Lyapunov/Floquet estimado, Poincaré, continuation no validada u otra computación exploratoria para descubrir estructura.
-
-Salida permitida: `[N]`, candidato, hipótesis, región problemática o `[C]`.
-
-`NUMERICAL_SCOUT` no cierra por sí solo una obligación exacta.
+Simulación/sweep/optimización/diagnóstico no validado para descubrir estructura. Salida: `[N]`, candidato, región problemática o `[C]`; no cierra por sí solo una obligación exacta.
 
 ### `COUNTEREXAMPLE_SEARCH`
-Buscar una refutación analítica o computacional.
-
-Un candidato numérico debe elevarse a contraejemplo exacto/certificado cuando la naturaleza del claim lo requiera antes de etiquetar `[X]` exacto.
+Buscar refutación analítica o computacional. Un candidato numérico se eleva a `[X]` exacto sólo tras verificación/certificación suficiente para la naturaleza del claim.
 
 ## 4. Clases de cierre
 
-Cada obligación debe usar una de estas clases:
-
 `OPEN | EVIDENCE_ONLY | CONDITIONAL | RIGOROUSLY_CLOSED | REFUTED`
 
-Reglas:
-
 - `[N]` ordinario -> normalmente `EVIDENCE_ONLY`;
-- una conjetura -> `OPEN`;
-- una prueba bajo `H_extra` -> `CONDITIONAL`;
-- un argumento exacto o una computación rigurosa que satisface el estándar -> `RIGOROUSLY_CLOSED`;
-- un contraejemplo o contradicción rigurosa -> `REFUTED`.
+- conjetura -> `OPEN`;
+- prueba bajo `H_extra` -> `CONDITIONAL`;
+- argumento exacto o computación rigurosa suficiente -> `RIGOROUSLY_CLOSED`;
+- contraejemplo/contradicción rigurosa -> `REFUTED`.
 
 El target no puede quedar `CERTIFIED` si alguna obligación esencial permanece `OPEN` o `EVIDENCE_ONLY`.
 
@@ -104,25 +92,17 @@ El target no puede quedar `CERTIFIED` si alguna obligación esencial permanece `
 
 Para cada obligación:
 
-1. intentar primero un resultado directo certificado/literatura plenamente aplicable;
-2. preferir una deducción corta o cálculo exacto antes que una ruta computacional costosa;
-3. usar numerics exploratorios como scout o falsificador cuando reduzcan incertidumbre;
-4. si el subclaim es apto para cierre computacional riguroso, activar `protocols/NUMERICS.md` y fijar explícitamente el estándar de certificación antes de correr código;
-5. si una táctica falla, registrar por qué y cambiar de táctica o abrir un subclaim, sin fingir que el claim quedó refutado.
+1. intentar resultado directo certificado/literatura plenamente aplicable;
+2. preferir deducción corta o cálculo exacto antes que computación costosa;
+3. usar numerics exploratorios como scout/falsificador cuando reduzcan incertidumbre;
+4. si el subclaim admite cierre computacional riguroso, fijar `Computation_semantics` y `Closure_standard` antes de ejecutar `protocols/NUMERICS.md`;
+5. si una táctica falla, registrar el fallo y cambiar de táctica/abrir subclaim sin declarar refutación injustificada.
 
-No existe obligación de usar simultáneamente literatura, analítica y computación. Existe obligación de no ocultar ningún hueco esencial.
+No existe obligación de usar simultáneamente literatura, analítica y computación. Existe obligación de no ocultar huecos esenciales.
 
 ## 6. Claims sobre familias y cuantificadores fuertes
 
-Un sweep de parámetros, aunque no encuentre contraejemplos, no cubre por sí solo un cuantificador universal.
-
-Para cerrar un claim del tipo
-
-```text
-forall p in P: Q(p)
-```
-
-una táctica computacional rigurosa debe justificar cobertura de todo `P`, por ejemplo mediante partición intervalar, cota uniforme, enumeración exhaustiva finita o reducción teórica equivalente.
+Un sweep no cubre por sí solo un cuantificador universal. Para cerrar `forall p in P: Q(p)` mediante cómputo riguroso, justificar cobertura de todo `P` por partición intervalar, cota uniforme, enumeración exhaustiva finita, reducción teórica u otro argumento equivalente.
 
 `sampled_region != quantified_domain` salvo prueba explícita de cobertura.
 
@@ -130,35 +110,28 @@ Para `generic`, `open dense`, `maximal`, `sharp`, `iff`, `impossible` o `univers
 
 ## 7. Integración con numerics
 
-Cuando una obligación use computación, declarar `Computation_semantics`:
+Cuando una obligación use computación, declarar:
 
-`exploratory_numeric | falsification_search | corroborative_numeric | symbolic_exact | exhaustive_finite | validated_numeric | rigorous_computer_assisted_proof`
+`exploratory_numeric | falsification_search | corroborative_numeric | symbolic_exact | exhaustive_finite | validated_numeric | rigorous_computer_assisted_proof`.
 
-Sólo `symbolic_exact`, `exhaustive_finite`, `validated_numeric` o `rigorous_computer_assisted_proof` pueden cerrar una obligación exacta, y sólo cuando satisfacen el estándar matemático específico del subclaim.
+Sólo `symbolic_exact`, `exhaustive_finite`, `validated_numeric` o `rigorous_computer_assisted_proof` pueden cerrar una obligación exacta, y sólo si satisfacen el estándar matemático específico del subclaim.
 
-La mera reproducibilidad del programa no demuestra que la salida tenga fuerza de prueba.
+La dirección canónica es:
+
+`PROOF_TACTICS -> NUMERICS -> artifact/certificate -> obligation audit`.
+
+`NUMERICS` no vuelve a enrutar la obligación.
 
 ## 8. Auditoría
 
-Antes de certificar un target revisar para cada obligación esencial:
+Antes de certificar revisar por obligación esencial:
 
-```text
-Obligation -> tactic -> closure_standard -> artifact -> epistemic_status -> closed?
-```
+`Obligation -> tactic -> closure_standard -> artifact -> epistemic_status -> closed?`
 
-El auditor debe intentar romper tanto la deducción como el puente que convierte una computación en evidencia de nivel prueba.
+El auditor debe intentar romper tanto la deducción como el puente que convierte computación en evidencia de nivel prueba.
 
 ## 9. Regla de síntesis
 
-La prueba final puede entenderse como un grafo heterogéneo:
-
-```text
-TARGET
-  <- external theorem
-  <- direct lemma
-  <- symbolic exact identity
-  <- validated numerical bound
-  <- certified internal result
-```
+La prueba puede ser un grafo heterogéneo de teoremas externos, lemas directos, identidades simbólicas, bounds numéricos validados y resultados internos certificados.
 
 La heterogeneidad de métodos es válida. La mezcla de niveles epistemológicos sin puente certificado no lo es.
