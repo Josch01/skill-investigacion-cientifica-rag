@@ -3,7 +3,7 @@ name: scientific-research-rag-council
 description: "Skill RAG-first para investigación científica y matemática rigurosa. Selecciona dinámicamente sólo los especialistas necesarios, recupera literatura y antecedentes certificados bajo demanda, construye/audita demostraciones, intenta refutarlas, valida evidencia numérica y mantiene memoria científica trazable. Regla absoluta: ninguna premisa externa sin evidencia verificable y ninguna conclusión más fuerte que sus hipótesis."
 metadata:
   author: "Jorge Arturo Solano Chávez + ChatGPT"
-  version: "2.10.0"
+  version: "2.11.0"
   language: "es"
 ---
 
@@ -19,7 +19,9 @@ La skill puede:
 - auditar manuscritos;
 - revisar literatura y estado del arte;
 - construir nuevas cadenas deductivas a partir de literatura existente y resultados internos ya certificados;
+- seleccionar tácticas distintas por obligación de prueba y componer demostraciones heterogéneas rigurosas;
 - diseñar y auditar experimentos numéricos;
+- utilizar computación rigurosa como parte de una demostración sólo bajo estándares explícitos de cierre;
 - revisar o producir código científico;
 - evaluar identificabilidad, simetrías, sistemas dinámicos, caos, optimización, redes neuronales y áreas relacionadas;
 - redactar LaTeX sólo cuando el usuario lo solicite.
@@ -55,6 +57,8 @@ Nombrar un teorema no basta. Para usarlo se requiere enunciado relevante, fuente
 Un experimento [N] apoya, refuta o explora una afirmación, pero no la convierte en [D].
 
 Una prueba asistida por computadora puede contribuir a [D] sólo cuando existe un marco matemático certificado, se verifican sus hipótesis y el cálculo es reproducible y controla redondeo/error.
+
+La reproducibilidad del programa no equivale por sí sola a que su salida cierre una obligación matemática. Cuando una computación sea esencial, debe declararse su semántica y el estándar de cierre de la obligación correspondiente.
 
 ## 1.5 Una conclusión heredada conserva sus condiciones
 
@@ -124,6 +128,8 @@ Política de eficiencia:
 
 Los agentes reciben un Case Packet común, no copias completas del proyecto.
 
+Para tareas de prueba/refutación con dependencias nuevas, el router debe permitir `protocols/PROOF_TACTICS.md` y distinguir el rol epistemológico de cualquier computación material.
+
 # 5. Investigación orientada a objetivos
 
 Cuando el usuario formule un objetivo científico del tipo "determina si...", "demuestra usando...", "establece o refuta...", "decide si el sistema cumple...", activar `protocols/RESEARCH_LOOP.md`.
@@ -134,8 +140,8 @@ El Research Loop debe:
 2. revisar primero la teoría existente y certificados internos;
 3. generar pocas rutas candidatas;
 4. priorizar la de mayor valor científico/costo;
-5. ejecutar RAG + aplicabilidad + prueba + red team;
-6. si falla, diagnosticar, extraer información reusable y cambiar de ruta;
+5. ejecutar RAG + aplicabilidad + grafo de prueba + selección de táctica por obligación + prueba + red team;
+6. si falla, diagnosticar, extraer información reusable y cambiar de táctica o de ruta según el punto de fallo;
 7. activar falsificación y contraejemplos cuando corresponda;
 8. detenerse sólo bajo:
    `PROVED | REFUTED | CONDITIONAL | PARTIAL | UNRESOLVED`.
@@ -192,15 +198,24 @@ Aplicar `protocols/PROOF.md`.
 
 1. formalizar el objetivo;
 2. construir grafo de dependencias;
-3. recuperar sólo resultados necesarios;
-4. verificar cada teorema externo;
-5. construir matriz de aplicabilidad;
-6. desarrollar la cadena deductiva;
-7. ejecutar ataque adversarial;
-8. buscar contraejemplos analíticos y, si aporta valor, numéricos;
-9. reparar con cambio mínimo si falla;
-10. clasificar estado final;
-11. certificar sólo si dependencias están cerradas.
+3. para cada subclaim nuevo o puente no certificado aplicar `protocols/PROOF_TACTICS.md`;
+4. registrar obligaciones materiales con `templates/PROOF_OBLIGATION.md` cuando aporte trazabilidad;
+5. recuperar sólo resultados necesarios;
+6. verificar cada teorema externo;
+7. construir matriz de aplicabilidad;
+8. desarrollar la cadena deductiva con el método de cierre explícito de cada obligación;
+9. ejecutar ataque adversarial;
+10. buscar contraejemplos analíticos y, si aporta valor, numéricos;
+11. permitir computación rigurosa como cierre positivo sólo bajo `protocols/NUMERICS.md` y el estándar de la obligación;
+12. reparar con cambio mínimo o cambiar de táctica si falla;
+13. clasificar estado final;
+14. certificar sólo si dependencias y obligaciones esenciales están cerradas.
+
+Tácticas admisibles incluyen, según el problema:
+
+`CERTIFIED_INTERNAL_RESULT | EXTERNAL_THEOREM | DIRECT_ANALYTIC | SYMBOLIC_EXACT | EXHAUSTIVE_FINITE_COMPUTATION | VALIDATED_NUMERICS | RIGOROUS_COMPUTER_ASSISTED_PROOF | NUMERICAL_SCOUT | COUNTEREXAMPLE_SEARCH`.
+
+Las tácticas son opcionales; las obligaciones lógicas esenciales no.
 
 Nunca saltar de local/infinitesimal a global sin un puente demostrado.
 
@@ -212,6 +227,8 @@ Si el usuario indica revista, editorial, conferencia o estándar objetivo, recup
 
 Revisar según corresponda: definiciones, hipótesis, dependencias, citas, validez lógica, alcance, identificabilidad, simetrías, estabilidad/caos, diseño numérico, implementación, reproducibilidad, interpretación, correspondencia claim-evidencia y novedad.
 
+Cuando exista una prueba heterogénea, auditar también `obligation -> tactic -> closure_standard -> artifact -> status`, y comprobar el puente que convierte una computación en conclusión matemática.
+
 Severidad:
 
 `FATAL | MAJOR | MODERATE | MINOR`
@@ -221,6 +238,12 @@ Severidad:
 Aplicar `protocols/NUMERICS.md`.
 
 Con código o claims computacionales activar como mínimo especialista de dominio + PhD numérico/computación científica.
+
+Toda computación material para un claim debe distinguir, cuando corresponda:
+
+`exploratory_numeric | falsification_search | corroborative_numeric | symbolic_exact | exhaustive_finite | validated_numeric | rigorous_computer_assisted_proof`.
+
+Sólo una computación cuyo tipo y certificado satisfagan el estándar matemático de una obligación puede contribuir a `RIGOROUSLY_CLOSED`.
 
 Nunca confundir:
 
@@ -233,6 +256,8 @@ Nunca confundir:
 `rank numérico completo != identificabilidad estructural demostrada`
 
 `métrica de test alta != validez causal/física`
+
+`sweep exitoso != cuantificador universal cerrado`
 
 # 12. Documentación de software y Context7
 
@@ -318,6 +343,7 @@ Antes de promover un claim central a `CERTIFIED`, aplicar `protocols/CERTIFICATI
 Obligatorio cuando corresponda:
 
 - propagación del estatus de dependencias;
+- auditoría de obligaciones esenciales y sus métodos de cierre;
 - descarga explícita de condiciones heredadas o prueba de independencia;
 - segunda revisión independiente;
 - certificado computacional si una computación es esencial;
@@ -325,6 +351,8 @@ Obligatorio cuando corresponda:
 - lenguaje calibrado al nivel real de evidencia.
 
 Un descendiente no puede tener un estatus epistemológico más fuerte que una dependencia esencial no resuelta, salvo que se demuestre que esa dependencia no es realmente necesaria o que sus condiciones han sido incorporadas y verificadas.
+
+Una obligación esencial `OPEN` o `EVIDENCE_ONLY` bloquea `CERTIFIED` para un claim exacto.
 
 # 18. Objective Closure Gate
 
@@ -395,12 +423,13 @@ Reglas duras:
 Risk classes:
 `R0 DETERMINISTIC | R1 SPEC_IMPLEMENTATION | R2 SCIENTIFIC_COMPUTATION | R3 SCIENTIFIC_REASONING`.
 
-## 21.1 Modular Scientific Task Composition & Coordination v2.10
+## 21.1 Modular Scientific Task Composition & Coordination v2.11
 
 Cuando el trabajo material se delegue a un worker externo:
 
 - consultar `modules/MODULE_INDEX.md` y seleccionar el conjunto mínimo de módulos;
 - compilar la misión con `protocols/TASK_COMPILATION.md` y `templates/WORKER_MISSION.md`;
+- si existen obligaciones de prueba computacionales esenciales, fijar en el contrato `Computation_semantics`, `Closure_standard` y outputs de certificación;
 - coordinar por `protocols/TASK_COORDINATION.md` con estado pequeño y señales machine-readable;
 - usar `protocols/SCIENTIFIC_MAILBOX.md` sólo para aclaraciones científicas materiales;
 - usar `templates/WORKER_DONE.json` como completion signal, nunca como aceptación científica;
@@ -420,6 +449,7 @@ Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 - referencias externas verificadas;
 - aplicabilidad comprobada;
 - cadena deductiva cerrada;
+- obligaciones esenciales cerradas con estándar compatible con la fuerza del claim;
 - auditoría adversarial;
 - alcance especificado;
 - excepciones conocidas;
@@ -436,4 +466,4 @@ Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 
 Si falta algo queda `VERIFIED`, `CONDITIONAL`, `DRAFT` o `[U]`.
 
-> **Interpretar primero. El Scientific Lead conserva la autoridad científica; delega ejecución mediante contratos mínimos, audita los resultados, certifica sólo tras los gates y compacta el conocimiento canónico.**
+> **Interpretar primero. El Scientific Lead conserva la autoridad científica; descompone el target en obligaciones, elige la táctica adecuada para cada una, delega ejecución mediante contratos mínimos, audita los resultados, certifica sólo tras los gates y compacta el conocimiento canónico.**
