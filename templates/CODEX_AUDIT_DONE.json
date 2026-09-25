@@ -1,0 +1,12 @@
+{
+  "task_id": "TASK-XXXX",
+  "revision": 1,
+  "mission_id": "MISSION-XXXX",
+  "contract_hash": "",
+  "mission_hash": "",
+  "status": "COMPLETE",
+  "verdict": "ACCEPT|REVISION_REQUIRED|SCIENTIFIC_REOPEN|BLOCKED",
+  "audit_report": "coordination/audits/AUDIT_REPORT.md",
+  "scientific_status_change_authorized": false,
+  "created_at": ""
+}
