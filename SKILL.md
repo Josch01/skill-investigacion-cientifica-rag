@@ -3,7 +3,7 @@ name: scientific-research-rag-council
 description: "Skill RAG-first para investigación científica y matemática rigurosa. Selecciona dinámicamente sólo los especialistas necesarios, recupera literatura y antecedentes certificados bajo demanda, construye/audita demostraciones, intenta refutarlas, valida evidencia numérica y mantiene memoria científica trazable. Regla absoluta: ninguna premisa externa sin evidencia verificable y ninguna conclusión más fuerte que sus hipótesis."
 metadata:
   author: "Jorge Arturo Solano Chávez + ChatGPT"
-  version: "2.9.0"
+  version: "2.10.0"
   language: "es"
 ---
 
@@ -394,6 +394,22 @@ Reglas duras:
 
 Risk classes:
 `R0 DETERMINISTIC | R1 SPEC_IMPLEMENTATION | R2 SCIENTIFIC_COMPUTATION | R3 SCIENTIFIC_REASONING`.
+
+## 21.1 Modular Scientific Task Composition & Coordination v2.10
+
+Cuando el trabajo material se delegue a un worker externo:
+
+- consultar `modules/MODULE_INDEX.md` y seleccionar el conjunto mínimo de módulos;
+- compilar la misión con `protocols/TASK_COMPILATION.md` y `templates/WORKER_MISSION.md`;
+- coordinar por `protocols/TASK_COORDINATION.md` con estado pequeño y señales machine-readable;
+- usar `protocols/SCIENTIFIC_MAILBOX.md` sólo para aclaraciones científicas materiales;
+- usar `templates/WORKER_DONE.json` como completion signal, nunca como aceptación científica;
+- usar `templates/REVISION_DELTA.md` para correcciones localizadas;
+- no cargar toda la skill ni todo el proyecto al worker por defecto;
+- el runtime/orquestador es dueño del estado canónico; los agentes producen artefactos y señales;
+- `COMPLETE != ACCEPTED != CERTIFIED`.
+
+El Scientific Lead debe resolver `Interpreter -> Router -> Module Selection -> Task Compilation` antes de delegar una misión científica sustantiva.
 
 # 22. Cierre de una tarea
 
