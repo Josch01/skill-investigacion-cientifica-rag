@@ -1,0 +1,14 @@
+{
+  "task_id": "TASK-XXXX",
+  "revision": 1,
+  "mission_id": "MISSION-XXXX",
+  "contract_hash": "",
+  "status": "COMPLETE",
+  "objective_completed": false,
+  "required_outputs_present": [],
+  "required_outputs_missing": [],
+  "deterministic_checks_present": [],
+  "unresolved_blockers": [],
+  "worker_result": "WORKER_RESULT.md",
+  "emitted_at": ""
+}
