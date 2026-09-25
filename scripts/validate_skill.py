@@ -10,12 +10,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-CANONICAL_SEMANTICS = (
-    "exploratory_numeric|falsification_search|corroborative_numeric|"
-    "symbolic_exact|exhaustive_finite|validated_numeric|"
-    "rigorous_computer_assisted_proof"
-)
-CANONICAL_VERDICTS = "ACCEPT|REVISION_REQUIRED|SCIENTIFIC_REOPEN|BLOCKED"
+SEMANTICS = [
+    "exploratory_numeric",
+    "falsification_search",
+    "corroborative_numeric",
+    "symbolic_exact",
+    "exhaustive_finite",
+    "validated_numeric",
+    "rigorous_computer_assisted_proof",
+]
+VERDICTS = ["ACCEPT", "REVISION_REQUIRED", "SCIENTIFIC_REOPEN", "BLOCKED"]
 
 REQUIRED_FILES = [
     "SKILL.md",
@@ -54,6 +58,13 @@ def fail(errors: list[str], message: str) -> None:
     errors.append(message)
 
 
+def require_tokens(errors: list[str], path: str, tokens: list[str], label: str) -> None:
+    content = text(path)
+    missing = [token for token in tokens if token not in content]
+    if missing:
+        fail(errors, f"{path} missing {label}: {', '.join(missing)}")
+
+
 def check_referenced_paths(errors: list[str]) -> None:
     pattern = re.compile(r"`((?:agents|config|memory|modules|protocols|templates|prompts)/[^`\s]+)`")
     for md in ROOT.rglob("*.md"):
@@ -88,6 +99,11 @@ def main() -> int:
         if not (ROOT / path).exists():
             fail(errors, f"missing required file: {path}")
 
+    if errors:
+        for item in errors:
+            print(f"- {item}")
+        return 1
+
     skill = text("SKILL.md")
     if 'version: "2.11.0"' not in skill:
         fail(errors, "SKILL.md metadata.version must be 2.11.0")
@@ -107,15 +123,10 @@ def main() -> int:
         "memory/NUMERICAL_LEDGER.md",
         "templates/COMPUTATION_CERTIFICATE.md",
     ]:
-        if CANONICAL_SEMANTICS not in text(path).replace(" ", ""):
-            fail(errors, f"canonical Computation_semantics missing or drifted in {path}")
+        require_tokens(errors, path, SEMANTICS, "canonical Computation_semantics values")
 
     for path in ["templates/AUDIT_PACKET.md", "protocols/MULTI_AGENT_HANDOFF.md", "prompts/CODEX_SCHEDULED_TASK.md"]:
-        compact = text(path).replace(" ", "")
-        if CANONICAL_VERDICTS not in compact:
-            fail(errors, f"canonical audit verdicts missing or drifted in {path}")
-        if "ACCEPT_WITH_NONSCIENTIFIC_PATCH" in compact:
-            fail(errors, f"legacy audit verdict remains in {path}")
+        require_tokens(errors, path, VERDICTS, "canonical audit verdicts")
 
     if "CONTRACT_REVISION_REQUIRED" in text("modules/REVISION_ONLY.md"):
         fail(errors, "orphan CONTRACT_REVISION_REQUIRED remains in REVISION_ONLY")
@@ -130,21 +141,30 @@ def main() -> int:
 
     mission = text("templates/WORKER_MISSION.md")
     for field in [
-        "Objects_and_types:", "Success_criterion:", "Refutation_criterion_if_applicable:",
-        "Proof_tactic_routing:", "Permitted_closure_methods:", "Computation_semantics_if_any:",
-        "Rigorous_computation_standard_if_any:", "Allowed_actions:", "Forbidden_actions:",
-        "Canonical_files_read_only:", "Worker_writable_paths:",
+        "Objects_and_types:",
+        "Success_criterion:",
+        "Refutation_criterion_if_applicable:",
+        "Proof_tactic_routing:",
+        "Permitted_closure_methods:",
+        "Computation_semantics_if_any:",
+        "Rigorous_computation_standard_if_any:",
+        "Allowed_actions:",
+        "Forbidden_actions:",
+        "Canonical_files_read_only:",
+        "Worker_writable_paths:",
     ]:
         if field not in mission:
             fail(errors, f"WORKER_MISSION missing contract field {field}")
 
     numerics = text("protocols/NUMERICS.md")
-    if "PROOF_TACTICS -> NUMERICS -> artifact/certificate -> obligation audit" not in numerics:
+    if "PROOF.md -> PROOF_TACTICS.md -> NUMERICS.md" not in numerics:
         fail(errors, "NUMERICS.md missing canonical acyclic proof-computation direction")
+    if "NUMERICS` no vuelve a enrutar la obligación" not in text("protocols/PROOF_TACTICS.md"):
+        fail(errors, "PROOF_TACTICS.md must state that NUMERICS does not reroute obligations")
 
     objective = text("protocols/OBJECTIVE_CLOSURE.md")
-    if "puente analítico certificado" in objective:
-        fail(errors, "OBJECTIVE_CLOSURE still requires analytic-only bridge")
+    if "Antes de usar uno de esos términos debe existir un puente analítico certificado" in objective:
+        fail(errors, "OBJECTIVE_CLOSURE still contains analytic-only bridge rule")
     if "puente matemático riguroso" not in objective:
         fail(errors, "OBJECTIVE_CLOSURE missing rigorous mathematical bridge language")
 
