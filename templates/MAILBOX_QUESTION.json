@@ -1,0 +1,14 @@
+{
+  "id": "Q-XXXX",
+  "task_id": "TASK-XXXX",
+  "revision": 1,
+  "from": "WORKER",
+  "to": "CODEX",
+  "type": "SCIENTIFIC_CLARIFICATION",
+  "status": "OPEN",
+  "question": "",
+  "blocks_work": false,
+  "affected_claims": [],
+  "affected_files": [],
+  "created_at": ""
+}
