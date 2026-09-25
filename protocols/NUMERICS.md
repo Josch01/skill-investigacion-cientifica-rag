@@ -16,7 +16,7 @@ Si una computación es esencial para un claim, crear `templates/COMPUTATION_CERT
 
 Una afirmación como "verificado con SymPy" o "confirmado numéricamente" no basta sin script/hash, versiones, parámetros, precisión/tolerancias, comando, salida y rerun o segundo método cuando sea material.
 
-Si la computación sólo es corroborativa de una prueba analítica completa, marcarla como `corroborative`, no como dependencia esencial.
+Si la computación sólo es corroborativa de una prueba analítica completa, marcarla como `corroborative_numeric`, no como dependencia esencial.
 
 Si pretende cerrar una obligación de prueba, el certificado debe contener además el **puente matemático** que conecta salida y claim: dominio cubierto, cuantificadores cubiertos, exhaustividad/cobertura, modelo aritmético, control de redondeo/error y criterio formal de éxito/refutación.
 
@@ -143,14 +143,14 @@ Resultados numéricos ordinarios pueden:
 - buscar contraejemplos;
 - medir robustez.
 
-No pueden, sin puente analítico o computacional riguroso certificado, establecer:
+No pueden, sin puente matemático riguroso analítico o computacional certificado, establecer:
 `open dense | generic | universal | maximal | iff | exact minimality | impossibility`.
 
-Para elevar `generic/open dense`, exigir un objeto analítico exacto no idénticamente nulo o un teorema/certificado riguroso equivalente.
+Para elevar `generic/open dense`, exigir un objeto exacto/analítico no idénticamente nulo, un witness riguroso o un teorema/certificado computacional riguroso equivalente que cubra la obligación matemática correspondiente.
 
 Para elevar `minimal`, exigir lower bound teórico/certificado y construcción que lo alcance.
 
-Para elevar `maximal/impossible`, exigir caracterización del universo de métodos/modelos considerado y prueba de necesidad.
+Para elevar `maximal/impossible`, exigir caracterización del universo de métodos/modelos considerado y prueba/certificado riguroso de necesidad.
 
 Los sweeps con 100% de éxito se reportan como `[N] no counterexample found in sampled region`, nunca como prueba de genericidad.
 
@@ -169,9 +169,17 @@ Opciones válidas para elevarlo:
 
 Sin eso, etiquetar como `[N] high-confidence candidate witness`.
 
-## 16. Integración con Proof Tactics
+## 16. Integración acíclica con Proof Tactics
 
-Si la computación pertenece a una demostración, aplicar también `protocols/PROOF_TACTICS.md`.
+Cuando una computación sea parte de una demostración, la dirección canónica es:
+
+```text
+PROOF.md -> PROOF_TACTICS.md -> NUMERICS.md -> computation/result artifact -> auditor
+```
+
+`PROOF_TACTICS.md` selecciona la táctica y crea/hereda la obligación. `NUMERICS.md` **no vuelve a enrutar tácticas**: recibe `Proof_Obligation_ID`, `Computation_semantics` y `Closure_standard`, ejecuta/audita la computación y devuelve evidencia/certificado a la obligación activa.
+
+Si `NUMERICS.md` se activa directamente para una tarea puramente computacional sin obligación matemática previa, no debe inventar una `Proof_Obligation`; sólo crea una si posteriormente el Scientific Lead convierte el resultado en dependencia de una prueba.
 
 Regla de cierre:
 
