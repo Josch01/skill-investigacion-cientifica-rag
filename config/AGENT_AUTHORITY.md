@@ -136,3 +136,27 @@ Ejemplo no normativo:
 ## 10. Regla final
 
 > Delegar ejecución no delega autoridad epistemológica.
+
+## 11. Consortium functional-role mapping v3.0
+
+Los roles del consorcio son funciones, no nuevas autoridades.
+
+Mapeo canónico:
+
+```text
+Research Architect         -> SCIENTIFIC_LEAD
+Theory Scout               -> bounded research worker
+Applicability Judge        -> SCIENTIFIC_LEAD or SCIENTIFIC_AUDITOR pass
+Proof Engineer             -> SCIENTIFIC_LEAD for R3 reasoning
+Tactic Selector            -> SCIENTIFIC_LEAD
+Computational Strategist   -> SCIENTIFIC_LEAD with numerical input
+Numerical/Symbolic Worker  -> NUMERICAL_WORKER / CODE_WORKER
+Falsifier                  -> SCIENTIFIC_AUDITOR
+Adjudicator                -> SCIENTIFIC_LEAD
+Independent Reviewer       -> SCIENTIFIC_AUDITOR with declared independence
+Certifier                  -> protocol/gate function, not a provider role
+```
+
+Un mismo provider puede ejecutar varias funciones, pero debe registrar el nivel real de separación de contexto.
+
+Ningún functional role puede aumentar autoridad respecto de las secciones 2–8.
