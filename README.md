@@ -381,7 +381,7 @@ Signals canónicos:
 
 `WORKER_DONE` confirma ejecución, nunca cierre científico del objetivo. Los hashes de contrato y misión permiten detectar resultados stale o asociados a otra revisión.
 
-## Static validation / CI v2.11
+## Static validation / CI v2.12
 
 `scripts/validate_skill.py` comprueba, entre otros:
 
