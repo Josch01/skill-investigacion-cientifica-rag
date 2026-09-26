@@ -11,6 +11,7 @@ Protocolos:
 - `protocols/RESEARCH_LOOP.md`
 - `protocols/RAG.md`
 - `protocols/TYPE_NOTATION_GATE.md`
+- `protocols/CONSORTIUM_RESEARCH.md` cuando `CONSORTIUM_MODE=yes`
 
 Memoria inicial:
 - `memory/MEMORY_CORE.md`
@@ -34,3 +35,8 @@ Templates típicos:
 ## No duplica
 
 Este módulo no redefine RAG, Proof, Numerics, Novelty ni Certification. Sólo los compone cuando otros módulos los requieren.
+
+## v3.0 Consortium compatibility
+
+El módulo conserva el Research Loop existente como semántica científica.
+El consorcio sólo añade scheduling/roles/blackboard para ejecutar el mismo objetivo por obligaciones.
