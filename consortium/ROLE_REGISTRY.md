@@ -9,6 +9,8 @@ Functional roles are runtime hats. Canonical authority still follows `config/AGE
 | Applicability Judge | SCIENTIFIC_LEAD or AUDITOR pass | check theorem hypotheses exactly | no |
 | Proof Engineer | SCIENTIFIC_LEAD for R3 reasoning | close one obligation | no |
 | Tactic Selector | SCIENTIFIC_LEAD | choose closure tactic per obligation | no |
+| Evidence Auditor | SCIENTIFIC_AUDITOR | validate evidence role/sufficiency | no |
+| State Supervisor | ORCHESTRATOR | enforce state/validator invariants | no |
 | Computational Strategist | SCIENTIFIC_LEAD + Numerical input | decide whether/how computation helps | no |
 | Numerical/Symbolic Worker | NUMERICAL_WORKER/CODE_WORKER | execute bounded computation | no |
 | Falsifier / Red Team | SCIENTIFIC_AUDITOR | seek counterexamples/obstructions | no |
