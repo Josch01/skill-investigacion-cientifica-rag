@@ -3,7 +3,7 @@ name: scientific-research-rag-council
 description: "Skill RAG-first para investigación científica y matemática rigurosa. Selecciona dinámicamente sólo los especialistas necesarios, recupera literatura y antecedentes certificados bajo demanda, construye/audita demostraciones, intenta refutarlas, valida evidencia numérica y mantiene memoria científica trazable. Regla absoluta: ninguna premisa externa sin evidencia verificable y ninguna conclusión más fuerte que sus hipótesis."
 metadata:
   author: "Jorge Arturo Solano Chávez + ChatGPT"
-  version: "2.12.0"
+  version: "3.0.0"
   language: "es"
 ---
 
@@ -497,3 +497,99 @@ artefactos semánticamente completos,
 objeciones materiales verificadas o resueltas,
 second-review coverage completo y
 `NO_ACTIVE_CONTRADICTIONS=true`.
+
+
+# 24. Scientific Research Consortium v3.0
+
+v3.0 añade una capa opcional de orquestación para investigación científica compleja sin reemplazar el núcleo v2.12.
+
+Aplicar:
+- `config/COMPATIBILITY.md`;
+- `config/EXECUTION_MODES.md`;
+- `consortium/CONSORTIUM.md`;
+- `consortium/BLACKBOARD.md`;
+- `consortium/ROLE_REGISTRY.md`;
+- `consortium/SCHEDULER.md`;
+- `consortium/ADJUDICATION.md`;
+- `protocols/CONSORTIUM_RESEARCH.md`;
+- `protocols/CONTEXT_FIREWALL.md`;
+- `protocols/DISPUTE_RESOLUTION.md`.
+
+Principio:
+
+```text
+objective
+ -> typed claim graph
+ -> theory scan
+ -> applicability
+ -> proof obligations
+ -> tactic scheduling
+ -> analytic / symbolic / computational route
+ -> falsification
+ -> adjudication
+ -> independent review
+ -> certification
+```
+
+El consorcio trabaja sobre obligaciones de prueba, no intenta resolver todo el objetivo en un único pase.
+
+## 24.1 Runtime portability
+
+Modos:
+`AUTO | LEGACY_V2_12 | MULTI_PROVIDER_COUNCIL | SINGLE_PROVIDER_MULTI_CONTEXT | SINGLE_PROVIDER_SEQUENTIAL | LIGHTWEIGHT`.
+
+Perfiles incluidos:
+- `runtime/GEMINI_HARDENED.md`;
+- `runtime/OPENAI_STANDALONE.md`;
+- `runtime/MULTI_PROVIDER.md`.
+
+El provider no cambia el estándar científico.
+
+## 24.2 Blackboard
+
+El blackboard es una proyección HOT del estado activo.
+
+No sustituye:
+- Proof Certificates;
+- PROOF_STATE;
+- ROUTE_LEDGER;
+- Evidence Cards;
+- Numerical/Literature ledgers.
+
+Un evento del blackboard no cambia status científico sin los gates existentes.
+
+## 24.3 Functional roles
+
+El consorcio puede desplegar:
+Research Architect, Theory Scout, Applicability Judge, Proof Engineer, Tactic Selector, Computational Strategist, Numerical/Symbolic Worker, Falsifier, Adjudicator e Independent Reviewer.
+
+Todos mapean a la autoridad canónica de `config/AGENT_AUTHORITY.md`.
+
+## 24.4 Non-majority adjudication
+
+Los desacuerdos no se resuelven por mayoría.
+
+Se crea un `Dispute_ID` y una obligación mínima de resolución.
+
+## 24.5 Compatibility
+
+v3.0 es aditivo.
+
+`LEGACY_V2_12` conserva el flujo anterior y los prompts legacy que exigen `>=2.12.0` siguen siendo compatibles.
+
+No renombrar, borrar ni reinterpretar artefactos v2.12 durante una migración.
+
+## 24.6 Provider hardening
+
+Si el runtime es Gemini standalone, preferir `runtime/GEMINI_HARDENED.md`.
+
+Si el runtime ofrece varios providers, preferir diversidad para falsificación/second review cuando reduzca error correlacionado, sin usar votación ni relajar gates.
+
+## 24.7 Deterministic validation
+
+Usar:
+- `scripts/validate_research_state.py` para blackboard;
+- `scripts/validate_audit_run.py` para auditorías extensas;
+- `scripts/validate_skill.py` para consistencia estática de la skill.
+
+Deterministic pass != scientific pass.
