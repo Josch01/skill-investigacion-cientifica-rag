@@ -108,6 +108,7 @@ V3_REQUIRED_FILES = [
     "templates/EXECUTION_REPORT.md",
     "scripts/validate_research_state.py",
     "scripts/validate_audit_run.py",
+    "modules/CONSORTIUM_RESEARCH.md",
 ]
 
 REQUIRED_FILES = LEGACY_REQUIRED_FILES + V3_REQUIRED_FILES
