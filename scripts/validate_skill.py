@@ -51,6 +51,10 @@ REQUIRED_FILES = [
     "protocols/SECOND_REVIEW_COVERAGE.md",
     "protocols/SEMANTIC_ARTIFACT_COMPLETENESS.md",
     "protocols/AUDIT_BATCHING.md",
+    "templates/MANUSCRIPT_AUDIT_COVERAGE_REPORT.md",
+    "templates/ADVERSARIAL_OBJECTION.md",
+    "templates/SECOND_REVIEW_RECORD.md",
+    "templates/ARTIFACT_COMPLETENESS_REPORT.md",
 ]
 
 PATH_PREFIXES = ("agents/", "config/", "memory/", "modules/", "protocols/", "templates/", "prompts/")
@@ -145,6 +149,8 @@ def main() -> int:
     ]
     require_tokens(errors, "modules/MANUSCRIPT_AUDIT.md", hard_gate_refs, "v2.12 audit hard-gate references")
     require_tokens(errors, "SKILL.md", hard_gate_refs, "v2.12 audit hard-gate references")
+    require_tokens(errors, "protocols/PROOF.md", ["protocols/ADVERSARIAL_OBJECTION_GATE.md", "protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md"], "v2.12 proof hard-gate references")
+    require_tokens(errors, "protocols/AUDIT.md", ["protocols/MANUSCRIPT_AUDIT_COVERAGE.md", "protocols/AUDIT_BATCHING.md"], "v2.12 audit coverage/batching references")
     require_tokens(
         errors,
         "protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md",
