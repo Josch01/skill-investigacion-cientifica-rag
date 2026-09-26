@@ -39,7 +39,7 @@ Elegir el conjunto mínimo de perspectivas expertas y módulos que reduzca el ri
 
 El revisor debe ser suficientemente cercano para detectar errores, pero no idéntico al lead.
 
-## Module Selection v2.12
+## Module Selection v3.0
 
 Después de clasificar la tarea, consultar `modules/MODULE_INDEX.md` y seleccionar el conjunto mínimo de módulos que cubra el objetivo y sus dependencias materiales.
 
@@ -130,11 +130,18 @@ TASK_COMPILATION: yes|no
 COORDINATION_REQUIRED: yes|no
 WORKER_ROLE:
 AUDIT_REQUIRED: yes|no
+EXECUTION_MODE: AUTO|LEGACY_V2_12|MULTI_PROVIDER_COUNCIL|SINGLE_PROVIDER_MULTI_CONTEXT|SINGLE_PROVIDER_SEQUENTIAL|LIGHTWEIGHT
+PROVIDER_PROFILE:
+INDEPENDENCE_LEVEL: CROSS_PROVIDER_SEPARATE_CONTEXT|SAME_PROVIDER_SEPARATE_CONTEXT|SAME_PROVIDER_SEQUENTIAL|NONE
+CONSORTIUM_MODE: yes|no
+BLACKBOARD_REQUIRED: yes|no
+CONTEXT_FIREWALL: yes|no
+DISPUTE_RESOLUTION: yes|no
 ```
 
 No mostrar esta mecánica al usuario salvo que sea útil.
 
-## Delegation routing v2.12
+## Delegation routing v3.0
 
 Si `MULTI_AGENT_HANDOFF=yes`, cargar `config/AGENT_AUTHORITY.md`, `protocols/MULTI_AGENT_HANDOFF.md` y `protocols/TASK_COORDINATION.md`.
 
@@ -149,3 +156,17 @@ Routing mínimo:
 Si una misión delegada contiene una obligación computacional esencial, el contrato debe fijar su `Computation_semantics`, `Closure_standard` y outputs de certificación; el worker no puede decidir unilateralmente que una simulación ordinaria se convirtió en prueba.
 
 El router selecciona roles científicos y módulos. El runtime externo decide qué provider implementa cada rol y es dueño del estado canónico.
+
+## Consortium routing v3.0
+
+Para nueva investigación sustantiva R3, considerar `CONSORTIUM_MODE=yes` cuando el objetivo requiera varias rutas, literatura + demostración, elección analytic/computational, falsificación material o resolución de subclaims.
+
+Si se activa:
+- cargar `config/EXECUTION_MODES.md`;
+- cargar `protocols/CONSORTIUM_RESEARCH.md`;
+- seleccionar el mínimo de roles funcionales;
+- usar blackboard sólo como HOT runtime projection;
+- aplicar `protocols/CONTEXT_FIREWALL.md` a falsificación/second review;
+- aplicar `protocols/DISPUTE_RESOLUTION.md` ante outputs incompatibles.
+
+Si existe una tarea v2.12 activa, usar `LEGACY_V2_12` salvo migración explícita.

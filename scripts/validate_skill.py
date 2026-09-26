@@ -19,9 +19,26 @@ SEMANTICS = [
     "validated_numeric",
     "rigorous_computer_assisted_proof",
 ]
+
 VERDICTS = ["ACCEPT", "REVISION_REQUIRED", "SCIENTIFIC_REOPEN", "BLOCKED"]
 
-REQUIRED_FILES = [
+EXECUTION_MODES = [
+    "AUTO",
+    "LEGACY_V2_12",
+    "MULTI_PROVIDER_COUNCIL",
+    "SINGLE_PROVIDER_MULTI_CONTEXT",
+    "SINGLE_PROVIDER_SEQUENTIAL",
+    "LIGHTWEIGHT",
+]
+
+INDEPENDENCE_LEVELS = [
+    "CROSS_PROVIDER_SEPARATE_CONTEXT",
+    "SAME_PROVIDER_SEPARATE_CONTEXT",
+    "SAME_PROVIDER_SEQUENTIAL",
+    "NONE",
+]
+
+LEGACY_REQUIRED_FILES = [
     "SKILL.md",
     "agents/ROUTER.md",
     "modules/MODULE_INDEX.md",
@@ -57,7 +74,69 @@ REQUIRED_FILES = [
     "templates/ARTIFACT_COMPLETENESS_REPORT.md",
 ]
 
-PATH_PREFIXES = ("agents/", "config/", "memory/", "modules/", "protocols/", "templates/", "prompts/")
+V3_REQUIRED_FILES = [
+    "config/COMPATIBILITY.md",
+    "config/EXECUTION_MODES.md",
+    "consortium/CONSORTIUM.md",
+    "consortium/BLACKBOARD.md",
+    "consortium/ROLE_REGISTRY.md",
+    "consortium/SCHEDULER.md",
+    "consortium/ADJUDICATION.md",
+    "protocols/CONSORTIUM_RESEARCH.md",
+    "protocols/CONTEXT_FIREWALL.md",
+    "protocols/DISPUTE_RESOLUTION.md",
+    "runtime/AUTO.md",
+    "runtime/GEMINI_HARDENED.md",
+    "runtime/OPENAI_STANDALONE.md",
+    "runtime/MULTI_PROVIDER.md",
+    "roles/RESEARCH_ARCHITECT.md",
+    "roles/THEORY_SCOUT.md",
+    "roles/APPLICABILITY_JUDGE.md",
+    "roles/PROOF_ENGINEER.md",
+    "roles/COMPUTATIONAL_STRATEGIST.md",
+    "roles/FALSIFIER.md",
+    "roles/ADJUDICATOR.md",
+    "roles/INDEPENDENT_REVIEWER.md",
+    "roles/TACTIC_SELECTOR.md",
+    "roles/EVIDENCE_AUDITOR.md",
+    "roles/STATE_SUPERVISOR.md",
+    "prompts/GEMINI_STANDALONE_HARDENED.md",
+    "prompts/OPENAI_STANDALONE_CONSORTIUM.md",
+    "prompts/MULTI_PROVIDER_CONSORTIUM.md",
+    "templates/BLACKBOARD_STATE.json",
+    "templates/CLAIM_NODE.md",
+    "templates/OBLIGATION_NODE.md",
+    "templates/ROUTE_NODE.md",
+    "templates/DISPUTE_RECORD.md",
+    "templates/EXECUTION_REPORT.md",
+    "scripts/validate_research_state.py",
+    "scripts/validate_audit_run.py",
+    "modules/CONSORTIUM_RESEARCH.md",
+    "benchmarks/README.md",
+    "benchmarks/CONSORTIUM_REGRESSION.md",
+    "prompts/CONSORTIUM_REGRESSION_RUN.md",
+]
+
+REQUIRED_FILES = LEGACY_REQUIRED_FILES + V3_REQUIRED_FILES
+
+PATH_PREFIXES = (
+    "agents/",
+    "config/",
+    "memory/",
+    "modules/",
+    "protocols/",
+    "templates/",
+    "prompts/",
+    "consortium/",
+    "runtime/",
+    "roles/",
+    "scripts/",
+    "benchmarks/",
+)
+
+REFERENCE_PATTERN = re.compile(
+    r"`((?:agents|config|memory|modules|protocols|templates|prompts|consortium|runtime|roles|scripts|benchmarks)/[^`\s]+)`"
+)
 
 
 def text(path: str) -> str:
@@ -76,30 +155,43 @@ def require_tokens(errors: list[str], path: str, tokens: list[str], label: str) 
 
 
 def check_referenced_paths(errors: list[str]) -> None:
-    pattern = re.compile(r"`((?:agents|config|memory|modules|protocols|templates|prompts)/[^`\s]+)`")
     for md in ROOT.rglob("*.md"):
         if ".git" in md.parts:
             continue
         content = md.read_text(encoding="utf-8")
-        for ref in pattern.findall(content):
+        for ref in REFERENCE_PATTERN.findall(content):
             ref = ref.rstrip(".,;:)")
             if ref.startswith(PATH_PREFIXES) and not (ROOT / ref).exists():
                 fail(errors, f"broken reference: {md.relative_to(ROOT)} -> {ref}")
 
 
 def check_json(errors: list[str]) -> None:
-    for path in [
+    paths = [
         "templates/TASK_STATE.json",
         "templates/CODEX_PLAN_DONE.json",
         "templates/WORKER_DONE.json",
         "templates/CODEX_AUDIT_DONE.json",
         "templates/MAILBOX_QUESTION.json",
         "templates/MAILBOX_ANSWER.json",
-    ]:
+        "templates/BLACKBOARD_STATE.json",
+    ]
+    for path in paths:
         try:
             json.loads(text(path))
         except Exception as exc:
             fail(errors, f"invalid JSON: {path}: {exc}")
+
+
+def check_python_syntax(errors: list[str]) -> None:
+    for path in [
+        "scripts/validate_skill.py",
+        "scripts/validate_research_state.py",
+        "scripts/validate_audit_run.py",
+    ]:
+        try:
+            compile(text(path), path, "exec")
+        except SyntaxError as exc:
+            fail(errors, f"python syntax error in {path}: {exc}")
 
 
 def main() -> int:
@@ -110,20 +202,31 @@ def main() -> int:
             fail(errors, f"missing required file: {path}")
 
     if errors:
+        print("SKILL VALIDATION: FAIL")
         for item in errors:
             print(f"- {item}")
         return 1
 
     skill = text("SKILL.md")
-    if 'version: "2.12.0"' not in skill:
-        fail(errors, "SKILL.md metadata.version must be 2.12.0")
+    if 'version: "3.0.0"' not in skill:
+        fail(errors, "SKILL.md metadata.version must be 3.0.0")
 
+    # Backward compatibility: old orchestration prompts remain valid and keep their v2.12 floor.
     for path in ["prompts/CODEX_BOOTSTRAP_LEAD_AUDITOR.md", "prompts/CODEX_SCHEDULED_TASK.md"]:
         content = text(path)
         if ">= 2.12.0" not in content:
-            fail(errors, f"{path} must require >= 2.12.0")
-        if ">= 2.11.0" in content:
-            fail(errors, f"legacy version floor remains in {path}")
+            fail(errors, f"{path} must preserve legacy compatibility floor >= 2.12.0")
+
+    # New consortium prompts require v3.
+    for path in [
+        "prompts/GEMINI_STANDALONE_HARDENED.md",
+        "prompts/OPENAI_STANDALONE_CONSORTIUM.md",
+        "prompts/MULTI_PROVIDER_CONSORTIUM.md",
+        "prompts/CONSORTIUM_REGRESSION_RUN.md",
+    ]:
+        content = text(path)
+        if ">= 3.0.0" not in content:
+            fail(errors, f"{path} must require >= 3.0.0")
 
     for path in [
         "agents/ROUTER.md",
@@ -135,10 +238,13 @@ def main() -> int:
     ]:
         require_tokens(errors, path, SEMANTICS, "canonical Computation_semantics values")
 
-    for path in ["templates/AUDIT_PACKET.md", "protocols/MULTI_AGENT_HANDOFF.md", "prompts/CODEX_SCHEDULED_TASK.md"]:
+    for path in [
+        "templates/AUDIT_PACKET.md",
+        "protocols/MULTI_AGENT_HANDOFF.md",
+        "prompts/CODEX_SCHEDULED_TASK.md",
+    ]:
         require_tokens(errors, path, VERDICTS, "canonical audit verdicts")
 
-    
     hard_gate_refs = [
         "protocols/MANUSCRIPT_AUDIT_COVERAGE.md",
         "protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md",
@@ -149,31 +255,65 @@ def main() -> int:
     ]
     require_tokens(errors, "modules/MANUSCRIPT_AUDIT.md", hard_gate_refs, "v2.12 audit hard-gate references")
     require_tokens(errors, "SKILL.md", hard_gate_refs, "v2.12 audit hard-gate references")
-    require_tokens(errors, "protocols/PROOF.md", ["protocols/ADVERSARIAL_OBJECTION_GATE.md", "protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md"], "v2.12 proof hard-gate references")
-    require_tokens(errors, "protocols/AUDIT.md", ["protocols/MANUSCRIPT_AUDIT_COVERAGE.md", "protocols/AUDIT_BATCHING.md"], "v2.12 audit coverage/batching references")
     require_tokens(
         errors,
-        "protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md",
-        ["CLAIM_STATUS != EVIDENCE_STATUS != ARTIFACT_STATUS", "essential", "corroborative"],
-        "claim/evidence/artifact separation invariants",
+        "protocols/PROOF.md",
+        ["protocols/ADVERSARIAL_OBJECTION_GATE.md", "protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md"],
+        "v2.12 proof hard-gate references",
     )
     require_tokens(
         errors,
-        "protocols/ADVERSARIAL_OBJECTION_GATE.md",
-        ["PROPOSED | VERIFIED | REFUTED | UNRESOLVED", "no permite `REFUTED`"],
-        "adversarial objection states",
+        "protocols/AUDIT.md",
+        ["protocols/MANUSCRIPT_AUDIT_COVERAGE.md", "protocols/AUDIT_BATCHING.md"],
+        "v2.12 audit coverage/batching references",
+    )
+
+    consortium_refs = [
+        "config/COMPATIBILITY.md",
+        "config/EXECUTION_MODES.md",
+        "consortium/CONSORTIUM.md",
+        "consortium/BLACKBOARD.md",
+        "consortium/ROLE_REGISTRY.md",
+        "consortium/SCHEDULER.md",
+        "consortium/ADJUDICATION.md",
+        "protocols/CONSORTIUM_RESEARCH.md",
+        "protocols/CONTEXT_FIREWALL.md",
+        "protocols/DISPUTE_RESOLUTION.md",
+    ]
+    require_tokens(errors, "SKILL.md", consortium_refs, "v3.0 consortium references")
+    require_tokens(errors, "agents/ROUTER.md", ["EXECUTION_MODE:", "CONSORTIUM_MODE:", "INDEPENDENCE_LEVEL:"], "v3.0 routing fields")
+    require_tokens(errors, "config/EXECUTION_MODES.md", EXECUTION_MODES, "execution modes")
+    require_tokens(errors, "config/EXECUTION_MODES.md", INDEPENDENCE_LEVELS, "independence levels")
+
+    require_tokens(
+        errors,
+        "config/COMPATIBILITY.md",
+        ["Existing paths are not renamed or deleted.", "LEGACY_V2_12", "v3.0 is an additive orchestration layer"],
+        "backward-compatibility invariants",
     )
     require_tokens(
         errors,
-        "protocols/SECOND_REVIEW_COVERAGE.md",
-        ["N_SECOND_REVIEW_REQUIRED", "N_SECOND_REVIEW_COMPLETE"],
-        "second-review coverage metrics",
+        "consortium/ADJUDICATION.md",
+        ["No majority vote", "Dispute_ID", "Resolution_obligation"],
+        "non-majority adjudication rules",
     )
     require_tokens(
         errors,
-        "protocols/AUDIT_BATCHING.md",
-        ["N_CENTRAL_CLAIMS > 6", "4–6"],
-        "audit batching rule",
+        "protocols/CONTEXT_FIREWALL.md",
+        ["Independent Reviewer", "SAME_PROVIDER_SEQUENTIAL", "prior verdict"],
+        "context-firewall rules",
+    )
+    require_tokens(
+        errors,
+        "runtime/GEMINI_HARDENED.md",
+        ["MAX_CLAIMS_PER_PROOF_BATCH = 4", "BREADTH_COLLAPSE_DETECTED", "SAME_PROVIDER_SEQUENTIAL", "STATE SUPERVISOR"],
+        "Gemini hardening rules",
+    )
+    require_tokens(
+        errors,
+        "benchmarks/CONSORTIUM_REGRESSION.md",
+        ["B01", "B06", "B11", "B12"],
+        "consortium regression benchmark cases",
     )
 
     if "CONTRACT_REVISION_REQUIRED" in text("modules/REVISION_ONLY.md"):
@@ -186,6 +326,14 @@ def main() -> int:
         fail(errors, "WORKER_DONE.json missing task_execution_completed")
     if "objective_completed" in worker_done:
         fail(errors, "WORKER_DONE.json must not let worker assert objective_completed")
+
+    blackboard = json.loads(text("templates/BLACKBOARD_STATE.json"))
+    if blackboard.get("framework_version") != "3.0.0":
+        fail(errors, "BLACKBOARD_STATE.json framework_version must be 3.0.0")
+    if blackboard.get("execution_mode") not in EXECUTION_MODES:
+        fail(errors, "BLACKBOARD_STATE.json execution_mode invalid")
+    if blackboard.get("independence_level") not in INDEPENDENCE_LEVELS:
+        fail(errors, "BLACKBOARD_STATE.json independence_level invalid")
 
     mission = text("templates/WORKER_MISSION.md")
     for field in [
@@ -217,6 +365,7 @@ def main() -> int:
         fail(errors, "OBJECTIVE_CLOSURE missing rigorous mathematical bridge language")
 
     check_json(errors)
+    check_python_syntax(errors)
     check_referenced_paths(errors)
 
     if errors:

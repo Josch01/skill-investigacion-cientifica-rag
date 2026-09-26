@@ -19,3 +19,5 @@ jobs:
           python-version: "3.12"
       - name: Validate skill architecture
         run: python scripts/validate_skill.py
+      - name: Validate empty consortium blackboard template
+        run: python scripts/validate_research_state.py templates/BLACKBOARD_STATE.json

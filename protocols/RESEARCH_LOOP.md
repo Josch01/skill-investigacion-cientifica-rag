@@ -463,3 +463,24 @@ Antes de STOP final:
 6. sólo entonces emitir el Objective Closure Status.
 
 `CLOSED_EXACTLY` requiere scope completion, no sólo que los claims actualmente elegidos sean correctos.
+
+# 19. Consortium execution v3.0
+
+Cuando `CONSORTIUM_MODE=yes`, este Research Loop sigue siendo la semántica canónica del objetivo, pero su ejecución puede orquestarse mediante `protocols/CONSORTIUM_RESEARCH.md`.
+
+Correspondencia:
+
+```text
+Theory Scan            -> Theory Scout + Applicability Judge
+Route Generation       -> Research Architect + Scheduler
+Proof obligations      -> Proof Engineer / selected tactic
+Numerics               -> Computational Strategist + Numerical Worker
+Falsification track    -> Falsifier
+Conflicts              -> Adjudicator + Dispute Resolution
+Second review          -> Independent Reviewer
+STOP conditions        -> unchanged
+```
+
+El consorcio no crea nuevas condiciones de verdad ni nuevas categorías de cierre.
+
+El blackboard es una proyección runtime; los ledgers/certificados existentes conservan autoridad canónica.

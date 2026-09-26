@@ -107,3 +107,13 @@ INTENT | DEPTH | QUESTION_SCOPE | MEMORY_TAGS | CERTIFICATES | GRAPH_NODES | NEE
 ## 16. Principio final
 
 Responder desde conocimiento certificado cuando ya existe; recuperar sólo el subgrafo necesario; investigar de nuevo únicamente cuando la pregunta realmente excede lo ya establecido.
+
+## 17. Runtime selection v3.0
+
+Si `NEEDS_RESEARCH_LOOP=true`, el Interpreter no elige la respuesta científica final; entrega el objetivo al Router.
+
+El Router puede seleccionar consortium execution y un runtime profile.
+
+La selección de runtime es operativa, no epistemológica.
+
+Un proyecto con coordinación v2.12 activa debe conservar `LEGACY_V2_12` salvo migración explícita.
