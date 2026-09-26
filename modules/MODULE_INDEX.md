@@ -28,6 +28,7 @@ Principio:
 | Módulo | Activación típica | Piezas principales |
 |---|---|---|
 | `CORE_RESEARCH` | investigación científica sustantiva | Research Loop, RAG, notación, cierre |
+| `CONSORTIUM_RESEARCH` | objetivo R3 con múltiples obligaciones/rutas/agentes | Blackboard, Scheduler, Context Firewall, Adjudication, runtime profiles |
 | `LITERATURE_REVIEW` | teoría existente, estado del arte, fuentes | RAG, Search/Literature ledgers |
 | `NOVELTY_ASSESSMENT` | novedad, contribución, prior art | RAG, Novelty, Novelty Coverage |
 | `THEOREM_RESEARCH` | demostrar/refutar/teorema/lema | Proof, Proof Tactics, Certification, Red Team |
@@ -62,3 +63,11 @@ Ejemplo de maximalidad en identificabilidad:
 No cargar todos los módulos. Seleccionar el conjunto mínimo que cubra el objetivo, sus dependencias y los gates obligatorios.
 
 La presencia de una táctica en el registro no obliga a usarla: las tácticas son opciones de cierre por obligación, no checklist obligatorio.
+
+## Consortium selection v3.0
+
+Seleccionar `CONSORTIUM_RESEARCH` cuando el objetivo científico requiera varias rutas materiales, composition de resultados conocidos, elección adaptativa analytic/computational, falsificación paralela o resolución de disputas.
+
+No seleccionarlo sólo por complejidad narrativa.
+
+`CONSORTIUM_RESEARCH` orquesta los módulos existentes; no sustituye `THEOREM_RESEARCH`, `NUMERICAL_STUDY`, `LITERATURE_REVIEW` ni los gates v2.12.
