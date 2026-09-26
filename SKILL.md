@@ -3,7 +3,7 @@ name: scientific-research-rag-council
 description: "Skill RAG-first para investigación científica y matemática rigurosa. Selecciona dinámicamente sólo los especialistas necesarios, recupera literatura y antecedentes certificados bajo demanda, construye/audita demostraciones, intenta refutarlas, valida evidencia numérica y mantiene memoria científica trazable. Regla absoluta: ninguna premisa externa sin evidencia verificable y ninguna conclusión más fuerte que sus hipótesis."
 metadata:
   author: "Jorge Arturo Solano Chávez + ChatGPT"
-  version: "2.11.0"
+  version: "2.12.0"
   language: "es"
 ---
 
@@ -423,7 +423,7 @@ Reglas duras:
 Risk classes:
 `R0 DETERMINISTIC | R1 SPEC_IMPLEMENTATION | R2 SCIENTIFIC_COMPUTATION | R3 SCIENTIFIC_REASONING`.
 
-## 21.1 Modular Scientific Task Composition & Coordination v2.11
+## 21.1 Modular Scientific Task Composition & Coordination v2.12
 
 Cuando el trabajo material se delegue a un worker externo:
 
@@ -467,3 +467,33 @@ Una afirmación sólo puede marcarse `CERTIFIED` si tiene:
 Si falta algo queda `VERIFIED`, `CONDITIONAL`, `DRAFT` o `[U]`.
 
 > **Interpretar primero. El Scientific Lead conserva la autoridad científica; descompone el target en obligaciones, elige la táctica adecuada para cada una, delega ejecución mediante contratos mínimos, audita los resultados, certifica sólo tras los gates y compacta el conocimiento canónico.**
+
+
+# 23. Audit Hard Gates v2.12
+
+Para auditorías completas de manuscritos aplicar además:
+
+- `protocols/MANUSCRIPT_AUDIT_COVERAGE.md`;
+- `protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md`;
+- `protocols/ADVERSARIAL_OBJECTION_GATE.md`;
+- `protocols/SECOND_REVIEW_COVERAGE.md`;
+- `protocols/SEMANTIC_ARTIFACT_COMPLETENESS.md`;
+- `protocols/AUDIT_BATCHING.md`.
+
+Reglas duras:
+
+1. `ARTIFACT_EXISTS != ARTIFACT_SEMANTICALLY_COMPLETE`.
+2. `CLAIM_STATUS != EVIDENCE_STATUS != ARTIFACT_STATUS`.
+3. Una objeción adversarial `PROPOSED|UNRESOLVED` no equivale a refutación.
+4. Assumptions y definitions no se auditan como teoremas.
+5. Una auditoría completa debe demostrar cobertura del inventario canónico.
+6. Si hay más de 6 claims matemáticos centrales, auditar por bloques de 4–6 salvo justificación explícita.
+7. Un second review nominal sin reconstrucción por claim no satisface el gate.
+8. La pérdida de una evidencia corroborativa no degrada automáticamente el claim si sobrevive una ruta rigurosa independiente.
+
+El cierre de una auditoría completa requiere:
+`AUDIT_COVERAGE_STATUS=PASS`,
+artefactos semánticamente completos,
+objeciones materiales verificadas o resueltas,
+second-review coverage completo y
+`NO_ACTIVE_CONTRADICTIONS=true`.
