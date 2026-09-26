@@ -36,7 +36,7 @@ Principio:
 | `DYNAMICAL_SYSTEMS_STUDY` | estabilidad, bifurcaciones, caos | Proof/Proof Tactics/Numerics según claim |
 | `OBJECTIVE_EXPANSION` | broadest/maximal/strongest/generic/universal | Objective Closure, Exact Witness |
 | `CODE_VERIFICATION` | producir/revisar código científico | Numerics, reproducibilidad, deterministic gate |
-| `MANUSCRIPT_AUDIT` | auditar manuscrito científico | Audit, RAG, notation/type gates |
+| `MANUSCRIPT_AUDIT` | auditar manuscrito científico | Audit, coverage, batching, objection verification, second-review coverage, semantic artifact completeness |
 | `SCIENTIFIC_WRITING` | renderizar resultados verificados | Manuscript Edit, Type/Notation, LaTeX si aplica |
 | `REVISION_ONLY` | corregir objeciones de auditoría | delta mínimo, misma autoridad y contrato |
 | `WORKER_COMPLETION` | toda tarea delegada | handoff, result, signals, completion gate |
