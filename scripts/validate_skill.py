@@ -97,6 +97,9 @@ V3_REQUIRED_FILES = [
     "roles/FALSIFIER.md",
     "roles/ADJUDICATOR.md",
     "roles/INDEPENDENT_REVIEWER.md",
+    "roles/TACTIC_SELECTOR.md",
+    "roles/EVIDENCE_AUDITOR.md",
+    "roles/STATE_SUPERVISOR.md",
     "prompts/GEMINI_STANDALONE_HARDENED.md",
     "prompts/OPENAI_STANDALONE_CONSORTIUM.md",
     "prompts/MULTI_PROVIDER_CONSORTIUM.md",
@@ -109,6 +112,9 @@ V3_REQUIRED_FILES = [
     "scripts/validate_research_state.py",
     "scripts/validate_audit_run.py",
     "modules/CONSORTIUM_RESEARCH.md",
+    "benchmarks/README.md",
+    "benchmarks/CONSORTIUM_REGRESSION.md",
+    "prompts/CONSORTIUM_REGRESSION_RUN.md",
 ]
 
 REQUIRED_FILES = LEGACY_REQUIRED_FILES + V3_REQUIRED_FILES
@@ -125,10 +131,11 @@ PATH_PREFIXES = (
     "runtime/",
     "roles/",
     "scripts/",
+    "benchmarks/",
 )
 
 REFERENCE_PATTERN = re.compile(
-    r"`((?:agents|config|memory|modules|protocols|templates|prompts|consortium|runtime|roles|scripts)/[^`\s]+)`"
+    r"`((?:agents|config|memory|modules|protocols|templates|prompts|consortium|runtime|roles|scripts|benchmarks)/[^`\s]+)`"
 )
 
 
@@ -215,6 +222,7 @@ def main() -> int:
         "prompts/GEMINI_STANDALONE_HARDENED.md",
         "prompts/OPENAI_STANDALONE_CONSORTIUM.md",
         "prompts/MULTI_PROVIDER_CONSORTIUM.md",
+        "prompts/CONSORTIUM_REGRESSION_RUN.md",
     ]:
         content = text(path)
         if ">= 3.0.0" not in content:
@@ -298,8 +306,14 @@ def main() -> int:
     require_tokens(
         errors,
         "runtime/GEMINI_HARDENED.md",
-        ["MAX_CLAIMS_PER_PROOF_BATCH = 4", "BREADTH_COLLAPSE_DETECTED", "SAME_PROVIDER_SEQUENTIAL"],
+        ["MAX_CLAIMS_PER_PROOF_BATCH = 4", "BREADTH_COLLAPSE_DETECTED", "SAME_PROVIDER_SEQUENTIAL", "STATE SUPERVISOR"],
         "Gemini hardening rules",
+    )
+    require_tokens(
+        errors,
+        "benchmarks/CONSORTIUM_REGRESSION.md",
+        ["B01", "B06", "B11", "B12"],
+        "consortium regression benchmark cases",
     )
 
     if "CONTRACT_REVISION_REQUIRED" in text("modules/REVISION_ONLY.md"):
