@@ -39,7 +39,7 @@ Elegir el conjunto mínimo de perspectivas expertas y módulos que reduzca el ri
 
 El revisor debe ser suficientemente cercano para detectar errores, pero no idéntico al lead.
 
-## Module Selection v2.11
+## Module Selection v2.12
 
 Después de clasificar la tarea, consultar `modules/MODULE_INDEX.md` y seleccionar el conjunto mínimo de módulos que cubra el objetivo y sus dependencias materiales.
 
@@ -55,7 +55,7 @@ Reglas:
 - ML/PINN -> `ML_PINN_STUDY`;
 - maximalidad/genericidad/frontera -> `OBJECTIVE_EXPANSION`;
 - código científico material -> `CODE_VERIFICATION`;
-- auditoría de paper -> `MANUSCRIPT_AUDIT`;
+- auditoría de paper -> `MANUSCRIPT_AUDIT`; si es completa/integral, activar coverage + batching + semantic completeness + objection/second-review gates;
 - redacción/render -> `SCIENTIFIC_WRITING`;
 - corrección localizada -> `REVISION_ONLY`;
 - delegación -> `WORKER_COMPLETION`.
@@ -111,6 +111,12 @@ OBJECTIVE_CLOSURE_GATE: yes|no
 CLAIM_STRENGTH_GATE: yes|no
 EXACT_WITNESS_GATE: yes|no
 ARTIFACT_CONSISTENCY_GATE: yes|no
+MANUSCRIPT_AUDIT_COVERAGE_GATE: yes|no
+AUDIT_BATCHING_GATE: yes|no
+ADVERSARIAL_OBJECTION_GATE: yes|no
+SECOND_REVIEW_COVERAGE_GATE: yes|no
+SEMANTIC_ARTIFACT_COMPLETENESS_GATE: yes|no
+CLAIM_EVIDENCE_ARTIFACT_SEPARATION_GATE: yes|no
 MEMORY_GC_GATE: yes|no
 MULTI_AGENT_HANDOFF: yes|no
 RISK_CLASS: R0|R1|R2|R3
@@ -128,7 +134,7 @@ AUDIT_REQUIRED: yes|no
 
 No mostrar esta mecánica al usuario salvo que sea útil.
 
-## Delegation routing v2.11
+## Delegation routing v2.12
 
 Si `MULTI_AGENT_HANDOFF=yes`, cargar `config/AGENT_AUTHORITY.md`, `protocols/MULTI_AGENT_HANDOFF.md` y `protocols/TASK_COORDINATION.md`.
 
