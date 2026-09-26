@@ -29,7 +29,10 @@ Skill de investigación científica/matemática RAG-first con:
 - Multi-Agent Scientific Handoff para delegar escritura, código y numerics sin transferir autoridad epistemológica;
 - Proof-Obligation Tactic Routing para seleccionar una táctica distinta por subclaim;
 - Contract Preservation Check entre `TASK_PACKET` y `WORKER_MISSION`;
-- validación estática automática de rutas, enums, señales y versionado.
+- validación estática automática de rutas, enums, señales y versionado;
+- Scientific Research Consortium v3.0 para orquestación adaptativa por obligaciones;
+- perfiles de runtime compatibles para Gemini, OpenAI y multi-provider;
+- blackboard científico HOT, context firewall y resolución de disputas sin votación.
 
 ## Idea central
 
@@ -57,6 +60,9 @@ Pregunta
 ```text
 SKILL.md
 agents/
+consortium/
+roles/
+runtime/
 protocols/
 config/
 memory/
@@ -422,3 +428,66 @@ Protocolos nuevos:
 - `protocols/AUDIT_BATCHING.md`
 
 Para más de 6 claims matemáticos centrales, la auditoría se divide por defecto en bloques de 4–6 claims y sólo se integra globalmente después de reconciliar dependencias.
+
+
+## Scientific Research Consortium v3.0
+
+v3.0 no reemplaza el núcleo v2.12: añade una capa de orquestación compatible para objetivos científicos abiertos.
+
+```text
+OBJECTIVE
+  -> Research Architect
+  -> Theory Scan
+  -> Applicability Judge
+  -> Proof-Obligation Scheduler
+  -> Analytic / External / Symbolic / Computational route
+  -> Falsifier
+  -> Adjudicator if conflict
+  -> Independent Review
+  -> Certification
+```
+
+El sistema trabaja por `Proof_Obligation_ID`, no por "resolver todo el paper" en un solo pase.
+
+### Runtime modes
+
+```text
+AUTO
+LEGACY_V2_12
+MULTI_PROVIDER_COUNCIL
+SINGLE_PROVIDER_MULTI_CONTEXT
+SINGLE_PROVIDER_SEQUENTIAL
+LIGHTWEIGHT
+```
+
+### Compatibility
+
+- los paths v2.12 se conservan;
+- los certificados/ledgers previos siguen siendo válidos bajo sus condiciones;
+- un proyecto activo v2.12 puede seguir usando el flujo anterior;
+- el blackboard v3 es una proyección runtime y no una segunda autoridad científica.
+
+### Gemini hardened
+
+`runtime/GEMINI_HARDENED.md` reduce batch size, fuerza context firewall, escritura de artefactos entre roles, validación determinista y detección de breadth collapse/boilerplate.
+
+Entrada recomendada:
+`prompts/GEMINI_STANDALONE_HARDENED.md`.
+
+### OpenAI standalone
+
+Entrada recomendada:
+`prompts/OPENAI_STANDALONE_CONSORTIUM.md`.
+
+### Multi-provider
+
+Entrada recomendada:
+`prompts/MULTI_PROVIDER_CONSORTIUM.md`.
+
+### Deterministic validation
+
+- `scripts/validate_skill.py`
+- `scripts/validate_research_state.py`
+- `scripts/validate_audit_run.py`
+
+El éxito determinista nunca equivale a certificación científica.
