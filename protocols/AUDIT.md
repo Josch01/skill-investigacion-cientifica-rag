@@ -57,3 +57,37 @@ No afirmar novedad absoluta por ausencia de coincidencia exacta.
 ## 8. Salida
 
 Entregar resumen del alcance, hallazgos por severidad, claims sostenibles/no sostenibles, condiciones para reparar, pruebas/experimentos faltantes, referencias verificadas y estado de contribución con lenguaje prudente.
+
+
+## 9. Auditoría completa de manuscritos
+
+Si el usuario solicita auditoría completa/integral/claim-by-claim:
+
+1. aplicar `protocols/MANUSCRIPT_AUDIT_COVERAGE.md`;
+2. construir inventario canónico antes de revisar pruebas;
+3. clasificar cada objeto por tipo (assumption, definition, theorem-like, numerical/literature claim);
+4. si hay más de 6 claims matemáticos centrales, aplicar `protocols/AUDIT_BATCHING.md`;
+5. separar estado del claim, de la evidencia y del artefacto con `protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md`;
+6. someter toda objeción material del Red Team a `protocols/ADVERSARIAL_OBJECTION_GATE.md`;
+7. comprobar second-review coverage con `protocols/SECOND_REVIEW_COVERAGE.md`;
+8. comprobar completitud semántica de artefactos con `protocols/SEMANTIC_ARTIFACT_COMPLETENESS.md`.
+
+Una auditoría no se considera completa sólo porque existan archivos con los nombres esperados.
+
+### 9.1 Definitions y assumptions
+
+- una `definition` no recibe proof status; auditar tipado, no circularidad y consistencia;
+- una `assumption` no se refuta por no estar demostrada; registrar su alcance y descendientes;
+- sólo claims demostrables reciben proof obligations.
+
+### 9.2 Objeciones
+
+Una objeción adversarial es otro claim científico y debe verificarse.
+`might fail`, `could be singular` o `perhaps` no bastan para degradar un teorema.
+
+### 9.3 Coverage status
+
+Emitir:
+`AUDIT_COVERAGE_STATUS = PASS | PARTIAL | FAIL`.
+
+`PASS` exige correspondencia uno-a-uno entre el inventario dentro del scope y los registros auditados materialmente.
