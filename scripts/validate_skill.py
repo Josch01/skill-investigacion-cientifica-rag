@@ -160,7 +160,7 @@ def main() -> int:
     require_tokens(
         errors,
         "protocols/ADVERSARIAL_OBJECTION_GATE.md",
-        ["PROPOSED | VERIFIED | REFUTED | UNRESOLVED", "no autoriza `REFUTED`"],
+        ["PROPOSED | VERIFIED | REFUTED | UNRESOLVED", "no permite `REFUTED`"],
         "adversarial objection states",
     )
     require_tokens(
