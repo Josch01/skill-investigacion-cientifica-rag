@@ -491,3 +491,25 @@ Entrada recomendada:
 - `scripts/validate_audit_run.py`
 
 El éxito determinista nunca equivale a certificación científica.
+
+
+## Consortium regression benchmark
+
+`benchmarks/CONSORTIUM_REGRESSION.md` contiene casos canónicos para comparar runtimes/proveedores sin cambiar las reglas científicas.
+
+Incluye trampas de:
+- exact witness;
+- local/global;
+- failed route vs refutation;
+- Red-Team objection inválida;
+- definition-as-theorem;
+- evidence failure con proof independiente;
+- genericidad por muestreo;
+- sharpness sin attainment;
+- aplicabilidad incompleta;
+- selección analytic/computational;
+- disagreement sin votación;
+- boilerplate breadth collapse.
+
+Entrada:
+`prompts/CONSORTIUM_REGRESSION_RUN.md`.
