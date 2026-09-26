@@ -45,6 +45,16 @@ REQUIRED_FILES = [
     "templates/CODEX_AUDIT_DONE.json",
     "prompts/CODEX_BOOTSTRAP_LEAD_AUDITOR.md",
     "prompts/CODEX_SCHEDULED_TASK.md",
+    "protocols/MANUSCRIPT_AUDIT_COVERAGE.md",
+    "protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md",
+    "protocols/ADVERSARIAL_OBJECTION_GATE.md",
+    "protocols/SECOND_REVIEW_COVERAGE.md",
+    "protocols/SEMANTIC_ARTIFACT_COMPLETENESS.md",
+    "protocols/AUDIT_BATCHING.md",
+    "templates/MANUSCRIPT_AUDIT_COVERAGE_REPORT.md",
+    "templates/ADVERSARIAL_OBJECTION.md",
+    "templates/SECOND_REVIEW_RECORD.md",
+    "templates/ARTIFACT_COMPLETENESS_REPORT.md",
 ]
 
 PATH_PREFIXES = ("agents/", "config/", "memory/", "modules/", "protocols/", "templates/", "prompts/")
@@ -105,14 +115,14 @@ def main() -> int:
         return 1
 
     skill = text("SKILL.md")
-    if 'version: "2.11.0"' not in skill:
-        fail(errors, "SKILL.md metadata.version must be 2.11.0")
+    if 'version: "2.12.0"' not in skill:
+        fail(errors, "SKILL.md metadata.version must be 2.12.0")
 
     for path in ["prompts/CODEX_BOOTSTRAP_LEAD_AUDITOR.md", "prompts/CODEX_SCHEDULED_TASK.md"]:
         content = text(path)
-        if ">= 2.11.0" not in content:
-            fail(errors, f"{path} must require >= 2.11.0")
-        if ">= 2.10.0" in content:
+        if ">= 2.12.0" not in content:
+            fail(errors, f"{path} must require >= 2.12.0")
+        if ">= 2.11.0" in content:
             fail(errors, f"legacy version floor remains in {path}")
 
     for path in [
@@ -127,6 +137,44 @@ def main() -> int:
 
     for path in ["templates/AUDIT_PACKET.md", "protocols/MULTI_AGENT_HANDOFF.md", "prompts/CODEX_SCHEDULED_TASK.md"]:
         require_tokens(errors, path, VERDICTS, "canonical audit verdicts")
+
+    
+    hard_gate_refs = [
+        "protocols/MANUSCRIPT_AUDIT_COVERAGE.md",
+        "protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md",
+        "protocols/ADVERSARIAL_OBJECTION_GATE.md",
+        "protocols/SECOND_REVIEW_COVERAGE.md",
+        "protocols/SEMANTIC_ARTIFACT_COMPLETENESS.md",
+        "protocols/AUDIT_BATCHING.md",
+    ]
+    require_tokens(errors, "modules/MANUSCRIPT_AUDIT.md", hard_gate_refs, "v2.12 audit hard-gate references")
+    require_tokens(errors, "SKILL.md", hard_gate_refs, "v2.12 audit hard-gate references")
+    require_tokens(errors, "protocols/PROOF.md", ["protocols/ADVERSARIAL_OBJECTION_GATE.md", "protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md"], "v2.12 proof hard-gate references")
+    require_tokens(errors, "protocols/AUDIT.md", ["protocols/MANUSCRIPT_AUDIT_COVERAGE.md", "protocols/AUDIT_BATCHING.md"], "v2.12 audit coverage/batching references")
+    require_tokens(
+        errors,
+        "protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md",
+        ["CLAIM_STATUS != EVIDENCE_STATUS != ARTIFACT_STATUS", "essential", "corroborative"],
+        "claim/evidence/artifact separation invariants",
+    )
+    require_tokens(
+        errors,
+        "protocols/ADVERSARIAL_OBJECTION_GATE.md",
+        ["PROPOSED | VERIFIED | REFUTED | UNRESOLVED", "no permite `REFUTED`"],
+        "adversarial objection states",
+    )
+    require_tokens(
+        errors,
+        "protocols/SECOND_REVIEW_COVERAGE.md",
+        ["N_SECOND_REVIEW_REQUIRED", "N_SECOND_REVIEW_COMPLETE"],
+        "second-review coverage metrics",
+    )
+    require_tokens(
+        errors,
+        "protocols/AUDIT_BATCHING.md",
+        ["N_CENTRAL_CLAIMS > 6", "4–6"],
+        "audit batching rule",
+    )
 
     if "CONTRACT_REVISION_REQUIRED" in text("modules/REVISION_ONLY.md"):
         fail(errors, "orphan CONTRACT_REVISION_REQUIRED remains in REVISION_ONLY")

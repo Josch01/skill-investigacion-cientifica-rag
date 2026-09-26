@@ -65,3 +65,37 @@ Si no se cumple, el proyecto puede tener resultados locales certificados, pero e
 ## 8. Regla final
 
 > La consistencia del estado científico es una propiedad global del conjunto de artefactos, no de un solo archivo.
+
+## 9. Semantic completeness
+
+Aplicar `protocols/SEMANTIC_ARTIFACT_COMPLETENESS.md`.
+
+`file exists != protocol completed`.
+
+Para cada artefacto obligatorio registrar:
+`required_fields -> specific_fields_present -> missing_fields -> COMPLETE|PARTIAL|EMPTY`.
+
+Un artefacto central `EMPTY` o `PARTIAL` sin justificación bloquea el cierre.
+
+## 10. Claim / evidence / artifact consistency
+
+Aplicar `protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md`.
+
+No permitir:
+- evidence item INVALID -> claim REFUTED sin análisis de esencialidad;
+- computation artifact incorrecto -> analytic theorem refutado;
+- artifact NEEDS_PATCH -> claim degradado cuando el certificado canónico sigue correcto.
+
+## 11. Manuscript audit coverage
+
+En auditorías completas aplicar `protocols/MANUSCRIPT_AUDIT_COVERAGE.md`.
+
+El closure report debe incluir:
+`N_FORMAL_OBJECTS`,
+`N_CENTRAL_CLAIMS`,
+`AUDITED_FORMAL_OBJECTS`,
+`N_SECOND_REVIEW_REQUIRED`,
+`N_SECOND_REVIEW_COMPLETE`,
+`AUDIT_COVERAGE_STATUS`.
+
+Si los conteos no cierran, `NO_ACTIVE_CONTRADICTIONS=true` no basta: el audit sigue incompleto.

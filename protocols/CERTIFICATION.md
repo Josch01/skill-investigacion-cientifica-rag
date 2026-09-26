@@ -245,3 +245,39 @@ no es válido como `CERTIFIED`.
 Si el second review falta: `NEEDS_REVALIDATION`.
 
 Si los artefactos activos discrepan sobre status/version/scope, bloquear el cierre hasta reconciliar.
+
+## 15. Claim/Evidence/Artifact Separation Gate
+
+Antes de degradar o refutar un claim por fallo de una pieza de evidencia aplicar
+`protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md`.
+
+Regla:
+
+`invalid corroborative evidence != refuted claim`.
+
+Si una evidencia falla:
+- determinar si era `essential | auxiliary | corroborative`;
+- recalcular el claim desde sus rutas sobrevivientes;
+- sólo propagar taint si la evidencia era esencial para una obligación no cerrada por otra ruta.
+
+## 16. Adversarial Objection Gate
+
+Toda objeción que pueda cambiar el status de un claim debe pasar
+`protocols/ADVERSARIAL_OBJECTION_GATE.md`.
+
+Una objeción `PROPOSED` o `UNRESOLVED` puede bloquear certificación si es material,
+pero no autoriza `REFUTED`.
+Una objeción `REFUTED` debe retirarse del conjunto activo de blockers.
+
+## 17. Second Review Coverage
+
+Aplicar `protocols/SECOND_REVIEW_COVERAGE.md`.
+
+La existencia de un archivo `SECOND_REVIEW.md` no satisface el gate.
+Debe existir reconstrucción específica por claim central que pretende status fuerte.
+
+## 18. Semantic Artifact Completeness
+
+Aplicar `protocols/SEMANTIC_ARTIFACT_COMPLETENESS.md`.
+
+Un ledger vacío, boilerplate o genérico no puede satisfacer un requisito de certificación.

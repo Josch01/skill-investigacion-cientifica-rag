@@ -9,7 +9,7 @@ Skill de investigación científica/matemática RAG-first con:
 - demostración + red team;
 - Proof Certificates reutilizables;
 - memoria científica indexada;
-- auditoría de manuscritos;
+- auditoría de manuscritos con coverage/batching y hard gates semánticos;
 - protocolos estrictos de numeración, optimización, ML y caos;
 - Context7 opcional para documentación actual de software;
 - cumplimiento dinámico de políticas de revista;
@@ -92,9 +92,12 @@ Si el cliente lo soporta, puede instalarse con el procedimiento oficial de Conte
 
 Cargar:
 
-- `protocols/AUDIT.md`;
+- `modules/MANUSCRIPT_AUDIT.md`;
 - protocolos del dominio;
-- sólo las secciones del manuscrito necesarias.
+- el inventario completo si el usuario pide auditoría integral;
+- sólo las secciones necesarias dentro de cada batch.
+
+Para auditorías completas, v2.12 añade gates de cobertura, separación claim/evidence/artifact, verificación de objeciones, second-review coverage, completitud semántica de artefactos y batching automático.
 
 ### Programación/numeración
 
@@ -378,7 +381,7 @@ Signals canónicos:
 
 `WORKER_DONE` confirma ejecución, nunca cierre científico del objetivo. Los hashes de contrato y misión permiten detectar resultados stale o asociados a otra revisión.
 
-## Static validation / CI v2.11
+## Static validation / CI v2.12
 
 `scripts/validate_skill.py` comprueba, entre otros:
 
@@ -393,3 +396,29 @@ Signals canónicos:
 - reglas de Objective Closure.
 
 `.github/workflows/validate-skill.yml` ejecuta el validador en push y pull request.
+
+
+## Manuscript Audit Hard Gates v2.12
+
+La v2.12 endurece auditorías largas contra `procedural theater`: producir los archivos correctos ya no basta.
+
+Nuevos invariantes:
+
+```text
+ARTIFACT_EXISTS != ARTIFACT_SEMANTICALLY_COMPLETE
+CLAIM_STATUS != EVIDENCE_STATUS != ARTIFACT_STATUS
+PROPOSED_OBJECTION != VERIFIED_OBJECTION
+SECOND_REVIEW_FILE_EXISTS != SECOND_REVIEW_COVERAGE
+AUDIT_INVENTORY_EXISTS != AUDIT_COVERAGE
+```
+
+Protocolos nuevos:
+
+- `protocols/MANUSCRIPT_AUDIT_COVERAGE.md`
+- `protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md`
+- `protocols/ADVERSARIAL_OBJECTION_GATE.md`
+- `protocols/SECOND_REVIEW_COVERAGE.md`
+- `protocols/SEMANTIC_ARTIFACT_COMPLETENESS.md`
+- `protocols/AUDIT_BATCHING.md`
+
+Para más de 6 claims matemáticos centrales, la auditoría se divide por defecto en bloques de 4–6 claims y sólo se integra globalmente después de reconciliar dependencias.

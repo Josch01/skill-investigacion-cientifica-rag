@@ -37,7 +37,7 @@ Then:
 1. load the local canonical skill entry:
    `.codex/skills/skill-investigacion-cientifica-rag/SKILL.md`
    or the installed Codex skill path configured for this machine;
-2. verify version >= 2.11.0;
+2. verify version >= 2.12.0;
 3. read only:
    - `protocols/INTERPRETER.md`
    - `agents/ROUTER.md`
@@ -144,7 +144,7 @@ Then compile a new worker mission if delegation is still appropriate.
 
 ## 2. Skill authority
 
-Use the locally synchronized skill version >= 2.11.0.
+Use the locally synchronized skill version >= 2.12.0.
 
 Follow its:
 - epistemic labels `[L] [D] [N] [C] [H] [X] [U] [DEC]`;

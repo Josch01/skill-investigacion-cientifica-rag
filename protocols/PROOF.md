@@ -67,6 +67,8 @@ Una computación rigurosa puede cerrar un paso positivo sólo si satisface `prot
 
 ## Fase F — Ataque adversarial
 
+Aplicar `protocols/ADVERSARIAL_OBJECTION_GATE.md` a toda objeción material antes de usarla para degradar o refutar el target.
+
 Buscar activamente contraejemplos, pérdida de hipótesis, casos frontera, singularidades, componentes desconectadas, isotropías, ambigüedades discretas, pérdida de rango, conjuntos excepcionales, dependencias circulares, local usado como global, genérico como universal, asintótico como exacto, cambio de dominio/cuerpo, interacción con condiciones iniciales/frontera, falta de uniformidad, denominadores anulables y restricciones perdidas.
 
 Atacar también el puente que convierte una computación en una conclusión matemática: cobertura, exhaustividad, error, redondeo, cuantificadores y correspondencia código-claim.
@@ -118,7 +120,7 @@ Todo claim matemático central debe pasar una segunda revisión que reconstruya 
 
 Si existe una obligación computacional esencial, la revisión debe comprobar tanto el marco matemático como la suficiencia del certificado computacional.
 
-Una objeción no resuelta impide `CERTIFIED`.
+Una objeción no resuelta impide `CERTIFIED`. La cobertura de este pase debe satisfacer `protocols/SECOND_REVIEW_COVERAGE.md` cuando el claim esté dentro de una auditoría/certificación que requiera revisión independiente.
 
 ## Fase K — Certificación
 
@@ -166,3 +168,11 @@ Antes de aceptar `generic`, `open dense`, `maximal`, `minimal`, `only if`, `univ
 Si se pretende cubrir una familia por computación rigurosa, el certificado debe demostrar cobertura del dominio cuantificado, no sólo muestreo.
 
 Una prueba de que una estrategia concreta falla sólo certifica esa obstrucción concreta.
+
+## Fase M — Separación de claim, evidencia y artefacto
+
+Cuando una prueba use resultados analíticos, literatura y/o computación heterogénea, aplicar
+`protocols/CLAIM_EVIDENCE_ARTIFACT_SEPARATION.md`.
+
+La invalidación de una evidencia corroborativa no refuta automáticamente el target.
+Antes de propagar un fallo de evidencia, identificar si era esencial para una obligación concreta y si existe una ruta rigurosa independiente.
