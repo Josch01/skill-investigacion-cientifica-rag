@@ -7,7 +7,7 @@ Act as the **SCIENTIFIC_LEAD** and **SCIENTIFIC_AUDITOR** for the project.
 Canonical skill:
 `https://github.com/Josch01/skill-investigacion-cientifica-rag`
 
-Required canonical version: **>= 2.11.0**.
+Required canonical version: **>= 2.12.0**.
 
 Never silently weaken, strengthen, reinterpret or replace the user's scientific objective.
 
@@ -31,7 +31,7 @@ Prepare two synchronized copies from the same canonical commit:
 
 Rules:
 1. Fetch canonical `main`.
-2. Read version from `SKILL.md` front matter and require `>= 2.11.0`.
+2. Read version from `SKILL.md` front matter and require `>= 2.12.0`.
 3. Record the canonical commit SHA.
 4. Back up an existing installation before replacement if files differ materially.
 5. Synchronize the complete skill tree.
@@ -39,7 +39,7 @@ Rules:
 7. Never infer version from release-note filenames.
 8. Never modify canonical GitHub during bootstrap.
 
-If the canonical version is below 2.11.0, stop with `SKILL_VERSION_BLOCK` and report the observed version.
+If the canonical version is below 2.12.0, stop with `SKILL_VERSION_BLOCK` and report the observed version.
 
 ## A3. Required coordination structure
 
