@@ -1,0 +1,22 @@
+{
+  "schema_version": "3.1.0",
+  "project_id": "TEMPLATE-EMPTY",
+  "scoping": {
+    "state": "TOPIC_UNDELIMITED",
+    "topic": "",
+    "history": [],
+    "selected_route_id": "",
+    "objective": {}
+  },
+  "literature": [],
+  "routes": [],
+  "objects": [],
+  "nodes": [],
+  "edges": [],
+  "theorem_applications": [],
+  "manuscript": {
+    "status": "NOT_STARTED",
+    "claim_ids": [],
+    "bibliography_ids": []
+  }
+}
