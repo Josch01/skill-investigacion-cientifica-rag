@@ -1,0 +1,436 @@
+{
+  "schema_version": "3.1.0",
+  "project_id": "CASE-JERK-SINH-2022",
+  "scoping": {
+    "state": "ROUTES_PENDING",
+    "topic": "Jerk con no linealidad sinh(x) del artículo AIMS Mathematics 2022",
+    "selected_property": "Exploración demostrativa: caos/UPOs, simetría, globalidad, bifurcaciones",
+    "seed_source_id": "REF-001",
+    "source_identity_note": "Coincidencia muy fuerte pero usuario aún no confirma autor/paper concreto",
+    "scope_note": "Proyecto ejemplo de evaluación de la skill, no investigación real aprobada",
+    "selected_route_id": "",
+    "objective": {},
+    "history": [
+      {
+        "from": "TOPIC_UNDELIMITED",
+        "to": "SOURCE_VERIFICATION_PENDING",
+        "reason": "Se solicita prueba piloto con Jerk y sinh, referencia 2022 inicialmente ambigua",
+        "recorded_at": "2026-10-16"
+      },
+      {
+        "from": "SOURCE_VERIFICATION_PENDING",
+        "to": "PROPERTY_SELECTED",
+        "reason": "Fuente probable identificada: REF-001; caos y periodicidad se escogen como orientación de prueba, no decisión científica del usuario",
+        "recorded_at": "2026-10-16"
+      },
+      {
+        "from": "PROPERTY_SELECTED",
+        "to": "SCOPE_PROVISIONAL",
+        "reason": "Modelo (2.2) recuperado; comparación ε=0 y ε>0; familias y parámetros sólo provisionales",
+        "recorded_at": "2026-10-16"
+      },
+      {
+        "from": "SCOPE_PROVISIONAL",
+        "to": "LITERATURE_REVIEW_PENDING",
+        "reason": "Revisión inicial de fuentes editoriales y lectura del texto completo de REF-001",
+        "recorded_at": "2026-10-16"
+      },
+      {
+        "from": "LITERATURE_REVIEW_PENDING",
+        "to": "ROUTES_PENDING",
+        "reason": "Se formularon cuatro rutas candidatas; novedad aún sin validar, objetivo no aprobado",
+        "recorded_at": "2026-10-16"
+      }
+    ]
+  },
+  "literature": [
+    {
+      "id": "REF-001",
+      "status": "PUBLISHED_VERIFIED",
+      "title": "The chaotic mechanisms in some jerk systems",
+      "authors": [
+        "Xiaoyan Hu",
+        "Bo Sang",
+        "Ning Wang"
+      ],
+      "year": 2022,
+      "venue": "AIMS Mathematics 7(9), 15714–15740",
+      "doi": "10.3934/math.2022861",
+      "publisher_record": "Registro editorial publicado: https://doi.org/10.3934/math.2022861",
+      "verified_by": "AIMS Press editorial; texto íntegro ecuaciones (2.1)–(2.9) y Teoremas 5.1–5.3",
+      "full_text_verified": true,
+      "publisher_url": "https://www.aimspress.com/article/doi/10.3934/math.2022861?viewType=HTML",
+      "full_text_url": "https://www.aimspress.com/aimspress-data/math/2022/9/PDF/math-07-09-861.pdf",
+      "referenced_locations": [
+        "pp. 15718–15719 (2.1–2.4)",
+        "pp. 15731–15733 (5.1–5.3)",
+        "p. 15732 (Theorem 5.1)"
+      ],
+      "known_results": [
+        "Z2-equivariance for epsilon = 0",
+        "local pitchfork/Hopf bifurcations via Sotomayor and Hassard",
+        "numerical forward/backward period doubling and Lyapunov/Poincare evidence",
+        "Theorem 5.1: origin asymptotically stable under b>0,c>0,d!=0, d<a<d+c*b^2"
+      ]
+    },
+    {
+      "id": "REF-002",
+      "status": "PUBLISHED_VERIFIED",
+      "title": "A Comparative Numerical Study of the Symmetry Chaotic Jerk System with a Hyperbolic Sine Function via Two Different Methods",
+      "authors": [
+        "Abdulrahman B. M. Alzahrani",
+        "Mohamed A. Abdoon",
+        "Mohamed Elbadri"
+      ],
+      "year": 2023,
+      "venue": "Symmetry 15(11), 1991",
+      "doi": "10.3390/sym15111991",
+      "publisher_record": "Registro editorial publicado: https://doi.org/10.3390/sym15111991",
+      "verified_by": "MDPI editorial; resumen y metadatos",
+      "full_text_verified": false
+    },
+    {
+      "id": "REF-003",
+      "status": "PUBLISHED_VERIFIED",
+      "title": "Computer-assisted proof of skeletons of periodic orbits",
+      "authors": [],
+      "year": 2012,
+      "venue": "Computer Physics Communications 183(1), 80–85",
+      "doi": "10.1016/j.cpc.2011.09.001",
+      "publisher_record": "Registro editorial publicado: https://doi.org/10.1016/j.cpc.2011.09.001",
+      "verified_by": "Elsevier editorial; resumen y detalles metodológicos visibles",
+      "full_text_verified": false
+    },
+    {
+      "id": "REF-004",
+      "status": "PUBLISHED_VERIFIED",
+      "title": "Persistence of Periodic Orbits under State-dependent Delayed Perturbations: Computer-assisted Proofs",
+      "authors": [
+        "Joan Gimeno",
+        "Jean-Philippe Lessard",
+        "J. D. Mireles James",
+        "Jiaqi Yang"
+      ],
+      "year": 2023,
+      "venue": "SIAM Journal on Applied Dynamical Systems 22(3), 1743–1779",
+      "doi": "10.1137/22M1499418",
+      "publisher_record": "Registro editorial publicado: https://doi.org/10.1137/22M1499418",
+      "verified_by": "SIAM editorial; teorema no inspeccionado aún",
+      "full_text_verified": false
+    },
+    {
+      "id": "REF-005",
+      "status": "PUBLISHED_VERIFIED",
+      "title": "Dynamical analysis of a novel autonomous 4-D hyperjerk circuit with hyperbolic sine nonlinearity",
+      "authors": [
+        "G. D. Leutcho",
+        "J. Kengne",
+        "L. K. Kengne"
+      ],
+      "year": 2018,
+      "venue": "Chaos, Solitons & Fractals 107, 67–87",
+      "doi": "10.1016/j.chaos.2017.12.008",
+      "publisher_record": "Registro editorial publicado: https://doi.org/10.1016/j.chaos.2017.12.008",
+      "verified_by": "Elsevier editorial; también citado como referencia 41 en REF-001",
+      "full_text_verified": false
+    },
+    {
+      "id": "REF-006",
+      "status": "PUBLISHED_VERIFIED",
+      "title": "Super extreme event and coexisting attractors in a novel chaotic snap system with hyperbolic sine function",
+      "authors": [
+        "Yongyong Xiong",
+        "Xiao Zhang",
+        "Jean Chamberlain Chedjou",
+        "Yesen Wu",
+        "Donghua Jiang",
+        "Jacques Kengne",
+        "Jawad Ahmad"
+      ],
+      "year": 2025,
+      "venue": "Chaos, Solitons & Fractals 193, 116061",
+      "doi": "10.1016/j.chaos.2025.116061",
+      "publisher_record": "Registro editorial publicado: https://doi.org/10.1016/j.chaos.2025.116061",
+      "verified_by": "Elsevier editorial; resumen disponible, sistema 4D distinto",
+      "full_text_verified": false
+    }
+  ],
+  "routes": [
+    {
+      "id": "ROUTE-UPO",
+      "approval": "PROPOSED",
+      "scientific_question": "¿Pueden localizarse y certificarse UPOs y multiplicadores de Floquet en regiones concretas del modelo (2.2)?",
+      "gap_evidence": "REF-001 reporta órbitas periódicas/bifurcaciones principalmente por simulación y teoría local; REF-003/004 muestran estrategias de numerics validados en otros sistemas; no se ha verificado que no existan estudios ya publicados aplicados exactamente a este modelo.",
+      "prior_art_refs": [
+        "REF-001",
+        "REF-003",
+        "REF-004",
+        "REF-002"
+      ],
+      "risks": "Secciones no transversales, multiplicadores cercanos a 1, explosión, error de intervalo, búsqueda incompleta.",
+      "falsification_criterion": "Probar que no existe la UPO candidata dentro de la caja o refutar sus cuantificadores/parámetros por contraejemplo validado.",
+      "possible_method": "Shooting + Poincaré + interval Newton/Krawczyk + integración validada y Floquet.",
+      "novelty_status": "NOVELTY_UNRESOLVED"
+    },
+    {
+      "id": "ROUTE-SYM",
+      "approval": "PROPOSED",
+      "scientific_question": "¿Cuáles continuaciones y relaciones entre órbitas periódicas de pares simétricos persisten al romper ε=0?",
+      "gap_evidence": "REF-001 prueba simetría Z2 y describe las ramas A–D; REF-002 analiza una ecuación simétrica relacionada pero falta lectura íntegra para comparar transformaciones y continuaciones.",
+      "prior_art_refs": [
+        "REF-001",
+        "REF-002",
+        "REF-005"
+      ],
+      "risks": "La simetría del campo no garantiza pares distintos ni continuación para todas las órbitas.",
+      "falsification_criterion": "Encontrar nohiperbolicidad/órbita autoconjugada o pérdida de continuación en hipótesis del resultado.",
+      "possible_method": "Equivarianza + multiplicadores/teorema de función implícita + validación en ε.",
+      "novelty_status": "NOVELTY_UNRESOLVED"
+    },
+    {
+      "id": "ROUTE-GLOBAL",
+      "approval": "PROPOSED",
+      "scientific_question": "¿Bajo qué regiones de parámetros y datos iniciales se puede demostrar existencia global, acotación o escape para la no linealidad sinh?",
+      "gap_evidence": "REF-001 deduce erróneamente, sin puente exhibido, confinamiento de todas las órbitas desde contracción de volumen; pendiente revisar literatura de explosión y globalidad del modelo exacto.",
+      "prior_art_refs": [
+        "REF-001",
+        "REF-005"
+      ],
+      "risks": "Puede ser necesario tratar trayectorias que abandonan cualquier conjunto compacto o incluso tiempo finito.",
+      "falsification_criterion": "Construir región invariante/cota global o exhibir una trayectoria que contradiga la afirmación delimitada.",
+      "possible_method": "Geometría del campo, barreras diferenciales, invariancia positiva y contraejemplos rigurosos.",
+      "novelty_status": "NOVELTY_UNRESOLVED"
+    },
+    {
+      "id": "ROUTE-BIF",
+      "approval": "PROPOSED",
+      "scientific_question": "¿Pueden certificarse regiones paramétricas delimitadas de pérdida de estabilidad o bifurcación de ciclos más allá de la teoría local del artículo?",
+      "gap_evidence": "REF-001 ya demuestra bifurcaciones Hopf/pitchfork locales; no se repetirá ese aporte; REF-003/004 proveen métodos genéricos de verificación en otros modelos.",
+      "prior_art_refs": [
+        "REF-001",
+        "REF-003",
+        "REF-004"
+      ],
+      "risks": "Complejidad de continuación, resonancias, no transversalidad y no cobertura de regiones amplias.",
+      "falsification_criterion": "Fracasos de las condiciones de continuación o pérdida de cobertura rigurosa.",
+      "possible_method": "Continuación paramétrica validada, ecuaciones variacionales e intervalos.",
+      "novelty_status": "NOVELTY_UNRESOLVED"
+    }
+  ],
+  "objects": [
+    {
+      "id": "OBJ-X",
+      "symbol": "x",
+      "type": "state_scalar",
+      "meaning": "Variable de posición",
+      "scope": "model-2.2"
+    },
+    {
+      "id": "OBJ-Y",
+      "symbol": "y",
+      "type": "state_scalar",
+      "meaning": "dx/dt",
+      "scope": "model-2.2"
+    },
+    {
+      "id": "OBJ-Z",
+      "symbol": "z",
+      "type": "state_scalar",
+      "meaning": "dy/dt",
+      "scope": "model-2.2"
+    },
+    {
+      "id": "OBJ-A",
+      "symbol": "a",
+      "type": "parameter_real",
+      "meaning": "Coeficiente lineal x",
+      "scope": "model-2.2"
+    },
+    {
+      "id": "OBJ-B",
+      "symbol": "b",
+      "type": "parameter_real_positive",
+      "meaning": "Raíz positiva del coeficiente de y",
+      "scope": "model-2.2"
+    },
+    {
+      "id": "OBJ-C",
+      "symbol": "c",
+      "type": "parameter_real_positive",
+      "meaning": "Coeficiente de amortiguamiento z",
+      "scope": "model-2.2"
+    },
+    {
+      "id": "OBJ-D",
+      "symbol": "d",
+      "type": "parameter_nonzero_real",
+      "meaning": "Coeficiente sinh(x)",
+      "scope": "model-2.2"
+    },
+    {
+      "id": "OBJ-EPS",
+      "symbol": "\\varepsilon",
+      "type": "parameter_nonnegative_small",
+      "meaning": "Forzamiento constante/sesgo",
+      "scope": "model-2.2"
+    },
+    {
+      "id": "OBJ-T",
+      "symbol": "t",
+      "type": "independent_variable",
+      "meaning": "Tiempo",
+      "scope": "model-2.2"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "CLAIM-Z2",
+      "type": "CLAIM",
+      "status": "VERIFIED",
+      "statement": "Con epsilon=0, F(-u)=-F(u)",
+      "provenance": "REF-001 eq. (2.3) + inspección algebraica",
+      "scope": "epsilon=0"
+    },
+    {
+      "id": "CLAIM-DIV",
+      "type": "CLAIM",
+      "status": "VERIFIED",
+      "statement": "La divergencia del campo es -c en todos los puntos",
+      "provenance": "REF-001 eq. (2.2) + derivación directa",
+      "scope": "field R3"
+    },
+    {
+      "id": "CLAIM-BOUNDED",
+      "type": "CLAIM",
+      "status": "DRAFT",
+      "statement": "Toda órbita queda en un compacto por divergencia -c",
+      "provenance": "REF-001 p.15719 enunciado; puente lógico no demostrado",
+      "scope": "global all initial states"
+    },
+    {
+      "id": "OBL-GLOBAL",
+      "type": "OBLIGATION",
+      "status": "OPEN",
+      "provenance": "Auditoría piloto: demostrar globalidad/absorción o refutar para sistema exacto"
+    },
+    {
+      "id": "OBJECTION-DIV",
+      "type": "OBJECTION",
+      "status": "VERIFIED",
+      "provenance": "Contraejemplo general x'=x², y'=-(2x+c)y tiene divergencia -c y blowup; no refuta boundedness del modelo específico"
+    },
+    {
+      "id": "CLAIM-HURWITZ",
+      "type": "CLAIM",
+      "status": "VERIFIED",
+      "statement": "Para epsilon=0, b,c>0 y d != 0, el origen es linealmente asintóticamente estable si d<a<d+c*b^2",
+      "provenance": "REF-001 theorem 5.1 + criterio Routh-Hurwitz; ver reporte"
+    }
+  ],
+  "edges": [
+    {
+      "source": "CLAIM-BOUNDED",
+      "target": "OBL-GLOBAL",
+      "relation": "requires",
+      "essential": true
+    },
+    {
+      "source": "CLAIM-BOUNDED",
+      "target": "CLAIM-DIV",
+      "relation": "uses_as_insufficient_evidence",
+      "essential": false
+    },
+    {
+      "source": "CLAIM-HURWITZ",
+      "target": "CLAIM-DIV",
+      "relation": "independent_of",
+      "essential": false
+    }
+  ],
+  "theorem_applications": [
+    {
+      "id": "APP-HURWITZ-VALID",
+      "source_ref_id": "REF-001",
+      "theorem_statement": "Thm 5.1: If b>0,c>0,d!=0,ε=0,d<a<d+c b² then the origin is asymptotically stable",
+      "source_location": "p.15732, Theorem 5.1, conditions (2.4), system (2.3)",
+      "status": "APPLICABLE",
+      "target": "Case A: ε=0, b=1, c=1/5, d=1, a=11/10",
+      "conditions": [
+        {
+          "name": "ε=0",
+          "status": "VERIFIED",
+          "evidence": "Exact parameters; Case A"
+        },
+        {
+          "name": "b>0",
+          "status": "VERIFIED",
+          "evidence": "b=1>0"
+        },
+        {
+          "name": "c>0",
+          "status": "VERIFIED",
+          "evidence": "c=1/5>0"
+        },
+        {
+          "name": "d!=0",
+          "status": "VERIFIED",
+          "evidence": "d=1!=0"
+        },
+        {
+          "name": "d<a<d+cb²",
+          "status": "VERIFIED",
+          "evidence": "1<11/10<6/5 exact rational"
+        }
+      ],
+      "conclusion_bridge_verified": true,
+      "bridge_evidence": "Same original system (2.3) and exact target conclusion",
+      "assessment": "Teorema aplicable; no resultado original"
+    },
+    {
+      "id": "APP-HURWITZ-INVALID",
+      "source_ref_id": "REF-001",
+      "theorem_statement": "Thm 5.1 stability requires d<a<d+c b²",
+      "source_location": "p.15732, Theorem 5.1",
+      "status": "NOT_APPLICABLE",
+      "target": "Case A: ε=0, b=1, c=1/5, d=1, a=167/100",
+      "conditions": [
+        {
+          "name": "ε=0",
+          "status": "VERIFIED",
+          "evidence": "Case A"
+        },
+        {
+          "name": "d<a<d+cb²",
+          "status": "REFUTED",
+          "evidence": "167/100 > 6/5; not in (1,6/5)"
+        }
+      ],
+      "conclusion_bridge_verified": false,
+      "assessment": "Inaplicabilidad del teorema; la inestabilidad en a=1.67 requiere un argumento diferente, por ejemplo Routh."
+    }
+  ],
+  "manuscript": {
+    "status": "NOT_STARTED",
+    "claim_ids": [],
+    "bibliography_ids": [],
+    "semantic_diff_pass": false,
+    "notation_pass": false,
+    "latex_compile_pass": false,
+    "bibliography_verified": false
+  },
+  "audit": {
+    "date": "2026-10-16",
+    "published_corpus_count": 6,
+    "primary_full_text_inspected_count": 1,
+    "novelty_status": "NOVELTY_UNRESOLVED",
+    "user_objective_approved": false,
+    "independent_review": "NONE",
+    "explicit_gaps": [
+      "Forward citation chaining incompleto",
+      "No inspección íntegra de REF-002..006",
+      "Una búsqueda piloto no prueba novedad",
+      "No pruebas numéricas ejecutadas de UPOs",
+      "Se requiere aprobación de ruta"
+    ]
+  }
+}
