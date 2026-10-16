@@ -10,7 +10,10 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-from validate_research_lifecycle import STATES, TRANSITIONS, validate
+if __package__:
+    from .validate_research_lifecycle import STATES, TRANSITIONS, validate
+else:
+    from validate_research_lifecycle import STATES, TRANSITIONS, validate
 
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "templates" / "RESEARCH_GRAPH.json"
