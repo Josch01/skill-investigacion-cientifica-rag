@@ -526,3 +526,5 @@ New protocols: RESEARCH_INTAKE, PUBLISHED_LITERATURE_DISCOVERY, RESEARCH_ROUTE_S
 Structural validation is NOT research novelty certification, document retrieval, theorem verification or peer review. The skill orchestrates external search and calculation tools when present; it does not bundle a semantic-vector database or automatic full-text ingestion service. Bibliographic identifiers and full-text theorem locations must be independently verified.
 
 See RELEASE_NOTES_v3.1.0.md. Existing v3.0 graph records remain supported without silent migration.
+
+Project-local CLI quickstart is in examples/RESEARCH_LIFECYCLE.md. The CLI creates a project graph, performs guarded state transitions and reports structural state; it is not a researcher or a RAG database.

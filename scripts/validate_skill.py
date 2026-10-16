@@ -133,6 +133,10 @@ V31_REQUIRED_FILES = [
     "templates/RESEARCH_DOSSIER.md",
     "scripts/validate_research_lifecycle.py",
     "tests/test_research_lifecycle.py",
+    "tests/test_research_project.py",
+    "tests/test_research_state.py",
+    "scripts/research_project.py",
+    "examples/RESEARCH_LIFECYCLE.md",
 ]
 REQUIRED_FILES = LEGACY_REQUIRED_FILES + V3_REQUIRED_FILES + V31_REQUIRED_FILES
 
@@ -208,6 +212,9 @@ def check_python_syntax(errors: list[str]) -> None:
         "scripts/validate_audit_run.py",
         "scripts/validate_research_lifecycle.py",
         "tests/test_research_lifecycle.py",
+        "tests/test_research_project.py",
+        "tests/test_research_state.py",
+        "scripts/research_project.py",
     ]:
         try:
             compile(text(path), path, "exec")
