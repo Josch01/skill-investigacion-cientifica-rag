@@ -45,3 +45,8 @@ Do not rewrite historical ledgers. Build a consortium view by linking existing I
 ## 6. Rule
 
 > v3.0 may orchestrate v2.12 artifacts; it may not silently reinterpret them.
+
+
+## v3.1 additive compatibility
+
+Canonical skill version 3.1.0 adds optional, project-scoped intake, literature, route selection, application-loop and manuscript planning stages. Existing v3.0 and v2.12 protocols/IDs/mission contracts are preserved. v3.0 blackboard JSON is still readable by the compatibility validator; v3.1 templates use the newer version tag. No automatic migration or rewriting of active scientific project states. Old >= 3.0.0 standalone prompts remain valid. Existing RAG and manuscript rules are supplemented, not weakened.

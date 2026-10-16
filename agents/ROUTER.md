@@ -170,3 +170,12 @@ Si se activa:
 - aplicar `protocols/DISPUTE_RESOLUTION.md` ante outputs incompatibles.
 
 Si existe una tarea v2.12 activa, usar `LEGACY_V2_12` salvo migración explícita.
+
+
+## v3.1 Lifecycle routing
+
+Before RESEARCH_OBJECTIVE routing, detect TOPIC_UNDELIMITED, a vague system/article prompt, or unverified seed publication. Select modules/RESEARCH_LIFECYCLE.md and protocols/RESEARCH_INTAKE.md. Ask one targeted scoping question or offer a property choice. Do not invent a target theorem.
+
+Once property/scope is provisional, load PUBLISHED_LITERATURE_DISCOVERY + existing LITERATURE_REVIEW/NOVELTY; then RESEARCH_ROUTE_SELECTION. Only approved Research Objectives route to the usual Research Loop and Consortium proof workers, with THEOREM_APPLICABILITY_LOOP active where an external theorem is invoked.
+
+For paper composition load THESIS_TO_PAPER and existing SCIENTIFIC_WRITING only when grounded result records exist; never produce fictional completed proofs or metadata to fill sections. Avoid repeated scoping of approved objectives. Keep intake and working graph inside the project, not skill templates.

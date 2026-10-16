@@ -137,3 +137,7 @@ Antes de `MANUSCRIPT_READY`:
 - no renderizar `CLOSED_EXACTLY` si Objective Closure conserva scope explícitamente no explorado.
 
 El Semantic Diff debe comparar no sólo texto vs certificado, sino también certificado vs estado global activo.
+
+## v3.1 pre-publication lifecycle gate
+
+For a newly created manuscript, load the approved objective, project-local RESEARCH_DOSSIER, graph of claims/obligations, verified ARTICLE_RECORDs and THEOREM_APPLICATION records before section drafting. Build a section -> claim -> proof/artifact/source manifest. Render only what is supported, leave unknown claims explicitly UNRESOLVED/CONJECTURE, and run syntax and semantic checks independently. A render cannot resolve an open obligation.

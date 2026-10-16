@@ -71,3 +71,16 @@ Seleccionar `CONSORTIUM_RESEARCH` cuando el objetivo científico requiera varias
 No seleccionarlo sólo por complejidad narrativa.
 
 `CONSORTIUM_RESEARCH` orquesta los módulos existentes; no sustituye `THEOREM_RESEARCH`, `NUMERICAL_STUDY`, `LITERATURE_REVIEW` ni los gates v2.12.
+
+
+## v3.1 lifecycle composition
+
+New module: RESEARCH_LIFECYCLE (modules/RESEARCH_LIFECYCLE.md). Select when input is a topic/system/author or seed paper but lacks precise property, quantifiers or success/refutation criteria.
+
+Staged composition rather than full-context load:
+1. RESEARCH_INTAKE to delimit topic and discover missing bibliographic source;
+2. PUBLISHED_LITERATURE_DISCOVERY and NOVELTY_ASSESSMENT, then RESEARCH_ROUTE_SELECTION;
+3. approved objective -> CORE_RESEARCH + THEOREM_RESEARCH/NUMERICAL_STUDY and THEOREM_APPLICABILITY_LOOP when required;
+4. THESIS_TO_PAPER + SCIENTIFIC_WRITING for output only after verified claims/limitations are present.
+
+The new module does not replace CORE_RESEARCH, CONSORTIUM_RESEARCH, RAG, PROOF, CERTIFICATION or manuscript editing.

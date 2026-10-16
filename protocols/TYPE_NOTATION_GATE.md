@@ -78,3 +78,7 @@ Todo bloqueo debe indicar el objeto, las dos interpretaciones y la reparación m
 ## 10. Regla final
 
 > Ninguna prosa elegante compensa un objeto mal tipado.
+
+## v3.1 project namespace rule
+
+Object identity is stable ID + mathematical type + declaration scope, not only TeX glyph. A global glyph cannot denote two distinct unaliased objects. Local dummy variables may reuse glyphs in nonoverlapping scopes; notation collisions must be flagged in the project object registry. Section-to-claim render must preserve these identities and explicit aliases; validate structurally with scripts/validate_research_lifecycle.py and semantically with this protocol.
