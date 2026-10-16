@@ -3,7 +3,7 @@ name: scientific-research-rag-council
 description: "Skill RAG-first para investigación científica y matemática rigurosa. Selecciona dinámicamente sólo los especialistas necesarios, recupera literatura y antecedentes certificados bajo demanda, construye/audita demostraciones, intenta refutarlas, valida evidencia numérica y mantiene memoria científica trazable. Regla absoluta: ninguna premisa externa sin evidencia verificable y ninguna conclusión más fuerte que sus hipótesis."
 metadata:
   author: "Jorge Arturo Solano Chávez + ChatGPT"
-  version: "3.0.0"
+  version: "3.1.0"
   language: "es"
 ---
 
@@ -593,3 +593,33 @@ Usar:
 - `scripts/validate_skill.py` para consistencia estática de la skill.
 
 Deterministic pass != scientific pass.
+
+
+# 25. Scientific Research Lifecycle v3.1 — topic to verified manuscript
+
+For a broad topic, system or seed publication **without a mathematically delimited question**, run protocols/RESEARCH_INTAKE.md BEFORE opening a formal proof. Scoping is iterative: source identity and property, provisional scope, published literature, up to four *evidence-backed* candidate routes, explicit objective decision, Research Loop, applicable theorem/obligation proof, adversarial review, dossier and manuscript.
+
+Load as needed:
+- protocols/RESEARCH_INTAKE.md
+- protocols/PUBLISHED_LITERATURE_DISCOVERY.md
+- protocols/RESEARCH_ROUTE_SELECTION.md
+- protocols/THEOREM_APPLICABILITY_LOOP.md
+- protocols/RESEARCH_GRAPH.md
+- protocols/THESIS_TO_PAPER.md
+- modules/RESEARCH_LIFECYCLE.md
+
+State is project-local (templates/RESEARCH_GRAPH.json); no live project facts are stored in the canonical skill distribution. The existing v2.12-v3.0 Proof/Certification/RAG/Numerics/Notation/LaTeX/Consortium rules remain normative.
+
+Non-negotiable v3.1:
+1. TOPIC != OBJECTIVE. No automatic assertion of novelty after a title or year.
+2. Published-corpus counts include only independently verified published records. Relevant preprints belong in a separate priority watchlist.
+3. One to four routes when warranted; no fabricated empty-gap or reference quota.
+4. A theorem's source, every hypothesis and the bridge from its conclusion to the desired target must be checked individually. NOT_APPLICABLE theorem != REFUTED target.
+5. REFUTED essential prerequisite is NOT a satisfied proof obligation. No positive CERTIFIED claim from it without an independent replacement or logically justified scope repair.
+6. Graph checklists reflect evidence; user ticks or files existing do not certify science.
+7. Global notation ID/type/scope are preserved, local variable shadowing is explicit.
+8. Manuscript is rendered FROM source claims and dossier with semantic and compile gates. LaTeX compilation != mathematical proof.
+9. v3.1 deterministic validators check structural invariants only; they do not fetch papers, prove mathematics or certify novelty.
+10. Existing approved objectives bypass redundant scoping. Legacy work stays valid without automatic state migration.
+
+The scientific lifecycle is revisable, not a mandatory one-way waterfall: new counterexamples, literature or failed theorem applicability reopen the specific route/obligation with provenance.

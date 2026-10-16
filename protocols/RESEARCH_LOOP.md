@@ -484,3 +484,8 @@ STOP conditions        -> unchanged
 El consorcio no crea nuevas condiciones de verdad ni nuevas categorías de cierre.
 
 El blackboard es una proyección runtime; los ledgers/certificados existentes conservan autoridad canónica.
+
+
+## v3.1 precondition and return paths
+
+Do not enter formal theorem-solving from an undelimited topic. Use RESEARCH_INTAKE and published-literature/route discovery, except when a fully specified research objective already exists. When a new published result or actual counterexample invalidates the selected route, return to RESEARCH_ROUTE_SELECTION with traceable revision. A theorem found but NOT_APPLICABLE is a failure of that tactic, not a refutation of the target; see THEOREM_APPLICABILITY_LOOP.

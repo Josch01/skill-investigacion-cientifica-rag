@@ -513,3 +513,16 @@ Incluye trampas de:
 
 Entrada:
 `prompts/CONSORTIUM_REGRESSION_RUN.md`.
+
+
+## v3.1 — Scientific Research Lifecycle
+
+A new research-intake stage transforms a broad topic into a scoped, falsifiable, literature-grounded objective **before** deep proof work. The v3.0 Consortium and all v2.12 certification rules remain in force.
+
+Workflow: topic -> scoped property -> verified published-literature map (+ separate preprint watchlist) -> up to 4 candidate routes -> approved objective -> theorem applicability and proof obligations -> certification -> thesis-depth dossier -> journal-specific LaTeX rendering and semantic audit.
+
+New protocols: RESEARCH_INTAKE, PUBLISHED_LITERATURE_DISCOVERY, RESEARCH_ROUTE_SELECTION, THEOREM_APPLICABILITY_LOOP, RESEARCH_GRAPH, THESIS_TO_PAPER. New module: RESEARCH_LIFECYCLE. Project-local data schema: templates/RESEARCH_GRAPH.json. Use python scripts/validate_research_lifecycle.py PATH_TO_PROJECT_GRAPH.json; run python -m unittest discover -s tests -v for regression gates.
+
+Structural validation is NOT research novelty certification, document retrieval, theorem verification or peer review. The skill orchestrates external search and calculation tools when present; it does not bundle a semantic-vector database or automatic full-text ingestion service. Bibliographic identifiers and full-text theorem locations must be independently verified.
+
+See RELEASE_NOTES_v3.1.0.md. Existing v3.0 graph records remain supported without silent migration.

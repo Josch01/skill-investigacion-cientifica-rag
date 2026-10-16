@@ -28,7 +28,7 @@ EXECUTION_MODES = {
     "LIGHTWEIGHT",
 }
 
-CLOSED_OBLIGATION = {"RIGOROUSLY_CLOSED", "REFUTED"}
+CLOSED_OBLIGATION = {"RIGOROUSLY_CLOSED"}
 
 
 def fail(errors: list[str], message: str) -> None:
@@ -49,8 +49,8 @@ def main() -> int:
 
     errors: list[str] = []
 
-    if data.get("framework_version") != "3.0.0":
-        fail(errors, "framework_version must be 3.0.0")
+    if data.get("framework_version") not in {"3.0.0", "3.1.0"}:
+        fail(errors, "framework_version must be 3.0.0 or 3.1.0")
 
     if data.get("execution_mode") not in EXECUTION_MODES:
         fail(errors, f"invalid execution_mode: {data.get('execution_mode')}")
@@ -105,6 +105,8 @@ def main() -> int:
     # Certification invariant:
     # a CERTIFIED claim cannot require an essential open obligation.
     for node in nodes:
+        if not isinstance(node, dict):
+            continue
         if node.get("type") != "CLAIM" or node.get("status") != "CERTIFIED":
             continue
         cid = node.get("id")
@@ -118,6 +120,8 @@ def main() -> int:
             target = node_map.get(edge.get("target"), {})
             if target.get("type") == "OBLIGATION" and target.get("status") not in CLOSED_OBLIGATION:
                 fail(errors, f"{cid}: CERTIFIED but essential obligation {target.get('id')} is {target.get('status')}")
+            if target.get("type") == "CLAIM" and target.get("status") != "CERTIFIED":
+                fail(errors, f"{cid}: CERTIFIED but essential claim dependency {target.get('id')} is {target.get('status')}")
 
     for dispute in data.get("disputes", []):
         if not isinstance(dispute, dict):

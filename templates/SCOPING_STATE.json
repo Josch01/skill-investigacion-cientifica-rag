@@ -1,0 +1,16 @@
+{
+  "schema_version": "3.1.0",
+  "project_id": "TEMPLATE-EMPTY",
+  "state": "TOPIC_UNDELIMITED",
+  "topic": "",
+  "seed_source": {
+    "identity_status": "UNVERIFIED",
+    "candidate_ids": []
+  },
+  "selected_property": "",
+  "model_scope": "",
+  "delimitations": [],
+  "selected_route_id": "",
+  "objective": {},
+  "history": []
+}

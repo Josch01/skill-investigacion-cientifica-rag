@@ -117,7 +117,24 @@ V3_REQUIRED_FILES = [
     "prompts/CONSORTIUM_REGRESSION_RUN.md",
 ]
 
-REQUIRED_FILES = LEGACY_REQUIRED_FILES + V3_REQUIRED_FILES
+V31_REQUIRED_FILES = [
+    "protocols/RESEARCH_INTAKE.md",
+    "protocols/PUBLISHED_LITERATURE_DISCOVERY.md",
+    "protocols/RESEARCH_ROUTE_SELECTION.md",
+    "protocols/THEOREM_APPLICABILITY_LOOP.md",
+    "protocols/RESEARCH_GRAPH.md",
+    "protocols/THESIS_TO_PAPER.md",
+    "modules/RESEARCH_LIFECYCLE.md",
+    "templates/RESEARCH_GRAPH.json",
+    "templates/SCOPING_STATE.json",
+    "templates/ARTICLE_RECORD.md",
+    "templates/ROUTE_CANDIDATE.md",
+    "templates/THEOREM_APPLICATION.md",
+    "templates/RESEARCH_DOSSIER.md",
+    "scripts/validate_research_lifecycle.py",
+    "tests/test_research_lifecycle.py",
+]
+REQUIRED_FILES = LEGACY_REQUIRED_FILES + V3_REQUIRED_FILES + V31_REQUIRED_FILES
 
 PATH_PREFIXES = (
     "agents/",
@@ -174,6 +191,8 @@ def check_json(errors: list[str]) -> None:
         "templates/MAILBOX_QUESTION.json",
         "templates/MAILBOX_ANSWER.json",
         "templates/BLACKBOARD_STATE.json",
+        "templates/RESEARCH_GRAPH.json",
+        "templates/SCOPING_STATE.json",
     ]
     for path in paths:
         try:
@@ -187,6 +206,8 @@ def check_python_syntax(errors: list[str]) -> None:
         "scripts/validate_skill.py",
         "scripts/validate_research_state.py",
         "scripts/validate_audit_run.py",
+        "scripts/validate_research_lifecycle.py",
+        "tests/test_research_lifecycle.py",
     ]:
         try:
             compile(text(path), path, "exec")
@@ -208,8 +229,8 @@ def main() -> int:
         return 1
 
     skill = text("SKILL.md")
-    if 'version: "3.0.0"' not in skill:
-        fail(errors, "SKILL.md metadata.version must be 3.0.0")
+    if 'version: "3.1.0"' not in skill:
+        fail(errors, "SKILL.md metadata.version must be 3.1.0")
 
     # Backward compatibility: old orchestration prompts remain valid and keep their v2.12 floor.
     for path in ["prompts/CODEX_BOOTSTRAP_LEAD_AUDITOR.md", "prompts/CODEX_SCHEDULED_TASK.md"]:
@@ -328,8 +349,8 @@ def main() -> int:
         fail(errors, "WORKER_DONE.json must not let worker assert objective_completed")
 
     blackboard = json.loads(text("templates/BLACKBOARD_STATE.json"))
-    if blackboard.get("framework_version") != "3.0.0":
-        fail(errors, "BLACKBOARD_STATE.json framework_version must be 3.0.0")
+    if blackboard.get("framework_version") != "3.1.0":
+        fail(errors, "BLACKBOARD_STATE.json framework_version must be 3.1.0")
     if blackboard.get("execution_mode") not in EXECUTION_MODES:
         fail(errors, "BLACKBOARD_STATE.json execution_mode invalid")
     if blackboard.get("independence_level") not in INDEPENDENCE_LEVELS:

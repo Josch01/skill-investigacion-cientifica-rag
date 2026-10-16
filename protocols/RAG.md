@@ -99,3 +99,8 @@ No afirmar "nadie ha hecho esto" sin evidencia extraordinaria.
 Una fuente ya verificada puede reutilizarse si la Evidence Card existe, el mismo resultado exacto se necesita y no cambió el contexto de aplicabilidad.
 
 Si el nuevo uso depende de otra parte del artículo, crear una nueva Evidence Card.
+
+
+## v3.1 seed-paper and published-literature corpus
+
+For an undelimited topic use protocols/PUBLISHED_LITERATURE_DISCOVERY.md before route nomination. Separate PUBLISHED_VERIFIED records from PREPRINT_VERIFIED/UNVERIFIED; count only published works in the published literature report. Retrieve source originals and inspect precise theorem hypotheses, distinguishing full from partial text verification. Bibliographic graphs can include backward and forward citations; only proof-dependency edges must be acyclic.

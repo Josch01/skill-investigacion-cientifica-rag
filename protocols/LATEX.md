@@ -43,3 +43,7 @@ Para claims centrales:
 La compilación LaTeX es un gate sintáctico/editorial, no una prueba científica.
 
 Un claim `CERTIFIED` puede estar mal renderizado. En ese caso conservar el certificado y marcar el artefacto `SEMANTIC_MISMATCH` hasta reparar el texto.
+
+## v3.1 thesis-depth to article rendering
+
+Apply protocols/THESIS_TO_PAPER.md when generating a paper from project research. Create a dossier and section-to-claim mapping first; write proofs from verified proof graphs and exact theorem-application records, not narrative completion. Check symbol namespaces, theorem hypotheses, quantifiers, source BibTeX and reference resolution, and latex compilation if available. All core scientific statements require semantic-diff review before MANUSCRIPT_READY. Do not add unverified citations or aim for a fixed reference count.

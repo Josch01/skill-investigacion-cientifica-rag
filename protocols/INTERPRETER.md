@@ -117,3 +117,8 @@ El Router puede seleccionar consortium execution y un runtime profile.
 La selección de runtime es operativa, no epistemológica.
 
 Un proyecto con coordinación v2.12 activa debe conservar `LEGACY_V2_12` salvo migración explícita.
+
+
+## v3.1 topic interpretation
+
+If the user says only "analyze system X" or provides a vaguely identified publication, mark RESEARCH_INTAKE_REQUIRED and distinguish topic exploration from formal research objective. If a precise approved objective already exists, do not restart Intake. When literature/refutation changes the scope, reopen the *affected route/objective version*, preserving former IDs. Scientific claims continue to use the v3.0 epistemic states.
