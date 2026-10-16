@@ -93,12 +93,16 @@
       "id": "REF-003",
       "status": "PUBLISHED_VERIFIED",
       "title": "Computer-assisted proof of skeletons of periodic orbits",
-      "authors": [],
+      "authors": [
+        "Roberto Barrio",
+        "Marcos Rodríguez",
+        "Fernando Blesa"
+      ],
       "year": 2012,
       "venue": "Computer Physics Communications 183(1), 80–85",
       "doi": "10.1016/j.cpc.2011.09.001",
       "publisher_record": "Registro editorial publicado: https://doi.org/10.1016/j.cpc.2011.09.001",
-      "verified_by": "Elsevier editorial; resumen y detalles metodológicos visibles",
+      "verified_by": "Elsevier DOI metadata plus University of Zaragoza author publication record",
       "full_text_verified": false
     },
     {
